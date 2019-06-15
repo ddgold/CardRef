@@ -14,6 +14,9 @@
 		CA48CBF822B33EDF009C0E59 /* ImageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48CBF722B33EDF009C0E59 /* ImageType.swift */; };
 		CA48CBFA22B36086009C0E59 /* RelatedType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48CBF922B36086009C0E59 /* RelatedType.swift */; };
 		CA48CBFC22B48F48009C0E59 /* Datatank.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48CBFB22B48F48009C0E59 /* Datatank.swift */; };
+		CA48CC0322B4A0FE009C0E59 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48CC0222B4A0FE009C0E59 /* TabBarController.swift */; };
+		CA48CC0A22B4A724009C0E59 /* BookmarksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48CC0922B4A724009C0E59 /* BookmarksViewController.swift */; };
+		CA48CC0C22B4B3C0009C0E59 /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48CC0B22B4B3C0009C0E59 /* CardViewController.swift */; };
 		CAC8B41D22B0AF5F0085FDF2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC8B41C22B0AF5F0085FDF2 /* AppDelegate.swift */; };
 		CAC8B42422B0AF610085FDF2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CAC8B42322B0AF610085FDF2 /* Assets.xcassets */; };
 		CAC8B42722B0AF610085FDF2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CAC8B42522B0AF610085FDF2 /* LaunchScreen.storyboard */; };
@@ -40,6 +43,9 @@
 		CA48CBF722B33EDF009C0E59 /* ImageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageType.swift; sourceTree = "<group>"; };
 		CA48CBF922B36086009C0E59 /* RelatedType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelatedType.swift; sourceTree = "<group>"; };
 		CA48CBFB22B48F48009C0E59 /* Datatank.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Datatank.swift; sourceTree = "<group>"; };
+		CA48CC0222B4A0FE009C0E59 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
+		CA48CC0922B4A724009C0E59 /* BookmarksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksViewController.swift; sourceTree = "<group>"; };
+		CA48CC0B22B4B3C0009C0E59 /* CardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
 		CAC8B41922B0AF5F0085FDF2 /* CardRef.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardRef.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAC8B41C22B0AF5F0085FDF2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CAC8B42322B0AF610085FDF2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -70,6 +76,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CA48CC0422B4A104009C0E59 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				CA48CC0922B4A724009C0E59 /* BookmarksViewController.swift */,
+				CA48CC0B22B4B3C0009C0E59 /* CardViewController.swift */,
+				CA48CC0222B4A0FE009C0E59 /* TabBarController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		CAC8B41022B0AF5F0085FDF2 = {
 			isa = PBXGroup;
 			children = (
@@ -92,6 +108,7 @@
 			isa = PBXGroup;
 			children = (
 				CAC8B41C22B0AF5F0085FDF2 /* AppDelegate.swift */,
+				CA48CC0422B4A104009C0E59 /* Controllers */,
 				CAC8B44122B0B1140085FDF2 /* Enums */,
 				CAC8B43E22B0AFF60085FDF2 /* Model */,
 				CAC8B42322B0AF610085FDF2 /* Assets.xcassets */,
@@ -236,9 +253,12 @@
 				CAC8B44022B0B1090085FDF2 /* Legality.swift in Sources */,
 				CA48CBF422B33816009C0E59 /* SetType.swift in Sources */,
 				CAC8B43D22B0AF7A0085FDF2 /* Card.swift in Sources */,
+				CA48CC0322B4A0FE009C0E59 /* TabBarController.swift in Sources */,
 				CA48CBF622B33C82009C0E59 /* Layout.swift in Sources */,
 				CA48CBFA22B36086009C0E59 /* RelatedType.swift in Sources */,
+				CA48CC0A22B4A724009C0E59 /* BookmarksViewController.swift in Sources */,
 				CA48CBF022B0BE62009C0E59 /* Color.swift in Sources */,
+				CA48CC0C22B4B3C0009C0E59 /* CardViewController.swift in Sources */,
 				CAC8B41D22B0AF5F0085FDF2 /* AppDelegate.swift in Sources */,
 				CA48CBF822B33EDF009C0E59 /* ImageType.swift in Sources */,
 				CA48CBFC22B48F48009C0E59 /* Datatank.swift in Sources */,
