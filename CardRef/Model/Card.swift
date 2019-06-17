@@ -14,40 +14,29 @@ import Foundation
 struct Card: Codable {
     //MARK: Core
     /// This card’s Arena ID, if any. A large percentage of cards are not available on Arena and do not have this ID.
-    let arenaId: Int?
-    
+    let arenaID: Int?
     /// A unique ID for this card in Scryfall’s database.
     let id: String
-    
     /// A language code for this printing.
     let lang: String
-    
     /// This card’s Magic Online ID (also known as the Catalog ID), if any. A large percentage of cards are not available on Magic Online and do not have this ID.
-    let mtgoId: Int?
-    
+    let mtgoID: Int?
     /// This card’s foil Magic Online ID (also known as the Catalog ID), if any. A large percentage of cards are not available on Magic Online and do not have this ID.
-    let mtgoFoilId: Int?
-    
+    let mtgoFoilID: Int?
     /// This card’s multiverse IDs on Gatherer, if any, as an array of integers. Note that Scryfall includes many promo cards, tokens, and other esoteric objects that do not have these identifiers.
-    let multiverseIds: [Int]?
-    
+    let multiverseIDs: [Int]?
     /// This card’s ID on TCGplayer’s API, also known as the productId.
-    let tcgplayerId: Int?
-    
+    let tcgplayerID: Int?
     /// A unique ID for this card’s oracle identity. This value is consistent across reprinted card editions, and unique among different cards with the same name (tokens, Unstable variants, etc).
-    let oracleId: String
-    
+    let oracleID: String
     /// URL    A link to where you can begin paginating all re/prints for this card on Scryfall’s API.
-    let printsSearchUri: URL
-    
+    let printsSearchURL: URL
     /// A link to this card’s rulings list on Scryfall’s API.
-    let rulingsUri: URL
-    
+    let rulingsURL: URL
     /// URL    A link to this card’s permapage on Scryfall’s website.
-    let scryfallUri: URL
-    
+    let scryfallURL: URL
     /// A link to this card object on Scryfall’s API.
-    let uri: URL
+    let url: URL
     
     //MARK: Gameplay
     /// If this card is closely related to other cards, this property will be an array with Related Card Objects.
@@ -57,7 +46,7 @@ struct Card: Codable {
     /// The card’s converted mana cost. Note that some funny cards have fractional mana costs.
     let cmc: Decimal
     /// This card’s colors, if the overall card has colors defined by the rules. Otherwise the colors will be on the card_faces objects, see below.
-    let colors: [Color]
+    let colors: [Color]?
     /// This card’s color identity.
     let colorIdentity: [Color]
     /// The colors in this card’s color indicator, if any. A null value for this field indicates the card does not have one.
@@ -103,7 +92,7 @@ struct Card: Codable {
     /// This card’s border color: black, borderless, gold, silver, or white.
     let borderColor: String
     /// The Scryfall ID for the card back design present on this card.
-    let cardBackId: String
+    let cardBackID: String
     /// This card’s collector number. Note that collector numbers can contain non-numeric characters, such as letters or ★.
     let collectorNumber: String
     /// True if this is a digital card on Magic Online.
@@ -121,9 +110,9 @@ struct Card: Codable {
     /// True if this card’s imagery is high resolution.
     let highresImage: Bool
     /// A unique identifier for the card artwork that remains consistent across reprints. Newly spoiled cards may not have this field yet.
-    let illustrationId: String?
+    let illustrationID: String?
     /// An object listing available imagery for this card. See the Card Imagery article for more information.
-    let imageUris: [String: URL]?
+    let imageURLs: [String: URL]?
     /// An object containing daily price information for this card, including usd, usd_foil, eur, and tix prices, as strings.
     let prices: [String: String?]
     /// The localized name printed on this card, if any.
@@ -137,25 +126,25 @@ struct Card: Codable {
     /// An array of strings describing what categories of promo cards this card falls into.
     let promoTypes: [String]
     /// An object providing URIs to this card’s listing on major marketplaces.
-    let purchaseUris: [String: URL]
+    let purchaseURLs: [String: URL]
     /// This card’s rarity. One of common, uncommon, rare, or mythic.
     let rarity: String
     /// An object providing URIs to this card’s listing on other Magic: The Gathering online resources.
-    let relatedUris: [String: URL]
+    let relatedURLs: [String: URL]
     /// The date this card was first released.
     let releasedAt: String
     /// True if this card is a reprint.
     let reprint: Bool
     /// A link to this card’s set on Scryfall’s website.
-    let scryfallSetUri: URL
+    let scryfallSetURL: URL
     /// This card’s full set name.
     let setName: String
     /// A link to where you can begin paginating this card’s set on the Scryfall API.
-    let setSearchUri: URL
+    let setSearchURL: URL
     /// The type of set this printing is in.
     let setType: String
     /// A link to this card’s set object on Scryfall’s API.
-    let setUri: URL
+    let setURL: URL
     /// This card’s set code.
     let set: String
     /// True if this card is a Story Spotlight.
@@ -174,19 +163,19 @@ struct Card: Codable {
     ///
     private enum Keys: String, CodingKey {
         // Core
-        case arenaId = "arena_id"
+        case arenaID = "arena_id"
         case id
         case lang
-        case mtgoId = "mtgo_id"
-        case mtgoFoilId = "mtgo_foil_id"
-        case multiverseIds = "multiverse_ids"
-        case tcgplayerId = "tcgplayer_id"
+        case mtgoID = "mtgo_id"
+        case mtgoFoilID = "mtgo_foil_id"
+        case multiverseIDs = "multiverse_ids"
+        case tcgplayerID = "tcgplayer_id"
         case object
-        case oracleId = "oracle_id"
-        case printsSearchUri = "prints_search_uri"
-        case rulingsUri = "rulings_uri"
-        case scryfallUri = "scryfall_uri"
-        case uri
+        case oracleID = "oracle_id"
+        case printsSearchURL = "prints_search_uri"
+        case rulingsURL = "rulings_uri"
+        case scryfallURL = "scryfall_uri"
+        case url = "uri"
         
         // Gameplay
         case allParts = "all_parts"
@@ -216,7 +205,7 @@ struct Card: Codable {
         case artist
         case booster
         case borderColor = "border_color"
-        case cardBackId = "card_back_id"
+        case cardBackID = "card_back_id"
         case collectorNumber = "collector_number"
         case digital
         case flavorText = "flavor_text"
@@ -225,24 +214,24 @@ struct Card: Codable {
         case fullArt = "full_art"
         case games
         case highresImage = "highres_image"
-        case illustrationId = "illustration_id"
-        case imageUris = "image_uris"
+        case illustrationID = "illustration_id"
+        case imageURLs = "image_uris"
         case prices
         case printedName = "printed_name"
         case printedText = "printed_text"
         case printedTypeLine = "printed_type_line"
         case promo
         case promoTypes = "promo_types"
-        case purchaseUris = "purchase_uris"
+        case purchaseURLs = "purchase_uris"
         case rarity
-        case relatedUris = "related_uris"
+        case relatedURLs = "related_uris"
         case releasedAt = "released_at"
         case reprint
-        case scryfallSetUri = "scryfall_set_uri"
+        case scryfallSetURL = "scryfall_set_uri"
         case setName = "set_name"
-        case setSearchUri = "set_search_uri"
+        case setSearchURL = "set_search_uri"
         case setType = "set_type"
-        case setUri = "set_uri"
+        case setURL = "set_uri"
         case set
         case storySpotlight = "story_spotlight"
         case textless
@@ -262,24 +251,24 @@ struct Card: Codable {
         assert(object == "card")
         
         // Core
-        self.arenaId = try container.decodeIfPresent(Int.self, forKey: .arenaId)
+        self.arenaID = try container.decodeIfPresent(Int.self, forKey: .arenaID)
         self.id = try container.decode(String.self, forKey: .id)
         self.lang = try container.decode(String.self, forKey: .lang)
-        self.mtgoId = try container.decodeIfPresent(Int.self, forKey: .mtgoId)
-        self.mtgoFoilId = try container.decodeIfPresent(Int.self, forKey: .mtgoFoilId)
-        self.multiverseIds = try container.decodeIfPresent([Int].self, forKey: .multiverseIds)
-        self.tcgplayerId = try container.decodeIfPresent(Int.self, forKey: .tcgplayerId)
-        self.oracleId = try container.decode(String.self, forKey: .oracleId)
-        self.printsSearchUri = try container.decode(URL.self, forKey: .printsSearchUri)
-        self.rulingsUri = try container.decode(URL.self, forKey: .rulingsUri)
-        self.scryfallUri = try container.decode(URL.self, forKey: .scryfallUri)
-        self.uri = try container.decode(URL.self, forKey: .uri)
+        self.mtgoID = try container.decodeIfPresent(Int.self, forKey: .mtgoID)
+        self.mtgoFoilID = try container.decodeIfPresent(Int.self, forKey: .mtgoFoilID)
+        self.multiverseIDs = try container.decodeIfPresent([Int].self, forKey: .multiverseIDs)
+        self.tcgplayerID = try container.decodeIfPresent(Int.self, forKey: .tcgplayerID)
+        self.oracleID = try container.decode(String.self, forKey: .oracleID)
+        self.printsSearchURL = try container.decode(URL.self, forKey: .printsSearchURL)
+        self.rulingsURL = try container.decode(URL.self, forKey: .rulingsURL)
+        self.scryfallURL = try container.decode(URL.self, forKey: .scryfallURL)
+        self.url = try container.decode(URL.self, forKey: .url)
         
         // Gameplay
         self.allParts = try container.decodeIfPresent([Related].self, forKey: .allParts)
         self.cardFaces = try container.decodeIfPresent([Face].self, forKey: .cardFaces)
         self.cmc = try container.decode(Decimal.self, forKey: .cmc)
-        self.colors = try container.decode([Color].self, forKey: .colors)
+        self.colors = try container.decodeIfPresent([Color].self, forKey: .colors)
         self.colorIdentity = try container.decode([Color].self, forKey: .colorIdentity)
         self.colorIndicator = try container.decodeIfPresent([Color].self, forKey: .colorIndicator)
         self.edhrecRank = try container.decodeIfPresent(Int.self, forKey: .edhrecRank)
@@ -303,7 +292,7 @@ struct Card: Codable {
         self.artist = try container.decodeIfPresent(String.self, forKey: .artist)
         self.booster = try container.decode(Bool.self, forKey: .booster)
         self.borderColor = try container.decode(String.self, forKey: .borderColor)
-        self.cardBackId = try container.decode(String.self, forKey: .cardBackId)
+        self.cardBackID = try container.decode(String.self, forKey: .cardBackID)
         self.collectorNumber = try container.decode(String.self, forKey: .collectorNumber)
         self.digital = try container.decode(Bool.self, forKey: .digital)
         self.flavorText = try container.decodeIfPresent(String.self, forKey: .flavorText)
@@ -312,24 +301,24 @@ struct Card: Codable {
         self.fullArt = try container.decode(Bool.self, forKey: .fullArt)
         self.games = try container.decode([String].self, forKey: .games)
         self.highresImage = try container.decode(Bool.self, forKey: .highresImage)
-        self.illustrationId = try container.decodeIfPresent(String.self, forKey: .illustrationId)
-        self.imageUris = try container.decodeIfPresent([String: URL].self, forKey: .imageUris)
+        self.illustrationID = try container.decodeIfPresent(String.self, forKey: .illustrationID)
+        self.imageURLs = try container.decodeIfPresent([String: URL].self, forKey: .imageURLs)
         self.prices = try container.decode([String: String?].self, forKey: .prices)
         self.printedName = try container.decodeIfPresent(String.self, forKey: .printedName)
         self.printedText = try container.decodeIfPresent(String.self, forKey: .printedText)
         self.printedTypeLine = try container.decodeIfPresent(String.self, forKey: .printedTypeLine)
         self.promo = try container.decode(Bool.self, forKey: .promo)
         self.promoTypes = try container.decode([String].self, forKey: .promoTypes)
-        self.purchaseUris = try container.decode([String: URL].self, forKey: .purchaseUris)
+        self.purchaseURLs = try container.decode([String: URL].self, forKey: .purchaseURLs)
         self.rarity = try container.decode(String.self, forKey: .rarity)
-        self.relatedUris = try container.decode([String: URL].self, forKey: .relatedUris)
+        self.relatedURLs = try container.decode([String: URL].self, forKey: .relatedURLs)
         self.releasedAt = try container.decode(String.self, forKey: .releasedAt)
         self.reprint = try container.decode(Bool.self, forKey: .reprint)
-        self.scryfallSetUri = try container.decode(URL.self, forKey: .scryfallSetUri)
+        self.scryfallSetURL = try container.decode(URL.self, forKey: .scryfallSetURL)
         self.setName = try container.decode(String.self, forKey: .setName)
-        self.setSearchUri = try container.decode(URL.self, forKey: .setSearchUri)
+        self.setSearchURL = try container.decode(URL.self, forKey: .setSearchURL)
         self.setType = try container.decode(String.self, forKey: .setType)
-        self.setUri = try container.decode(URL.self, forKey: .setUri)
+        self.setURL = try container.decode(URL.self, forKey: .setURL)
         self.set = try container.decode(String.self, forKey: .set)
         self.storySpotlight = try container.decode(Bool.self, forKey: .storySpotlight)
         self.textless = try container.decode(Bool.self, forKey: .textless)
@@ -355,9 +344,9 @@ struct Card: Codable {
         /// The flavor text printed on this face, if any.
         let flavorText: String?
         /// A unique identifier for the card face artwork that remains consistent across reprints. Newly spoiled cards may not have this field yet.
-        let illustrationId: String?
+        let illustrationID: String?
         /// An object providing URIs to imagery for this face, if this is a double-sided card. If this card is not double-sided, then the image_uris property will be part of the parent object instead.
-        let imageUris: [ImageType: URL]?
+        let imageURLs: [String: URL]?
         /// This face’s loyalty, if any.
         let loyalty: String?
         /// The mana cost for this face. This value will be any empty string "" if the cost is absent. Remember that per the game rules, a missing mana cost and a mana cost of {0} are different values.
@@ -389,8 +378,8 @@ struct Card: Codable {
             case colorIndicator = "color_indicator"
             case colors
             case flavorText = "flavor_text"
-            case illustrationId = "illustration_id"
-            case imageUris = "image_uris"
+            case illustrationID = "illustration_id"
+            case imageURLs = "image_uris"
             case loyalty
             case manaCost = "mana_cost"
             case name
@@ -419,8 +408,8 @@ struct Card: Codable {
             self.colorIndicator = try container.decodeIfPresent([Color].self, forKey: .colorIndicator)
             self.colors = try container.decodeIfPresent([Color].self, forKey: .colors)
             self.flavorText = try container.decodeIfPresent(String.self, forKey: .flavorText)
-            self.illustrationId = try container.decodeIfPresent(String.self, forKey: .illustrationId)
-            self.imageUris = try container.decodeIfPresent([ImageType: URL].self, forKey: .imageUris)
+            self.illustrationID = try container.decodeIfPresent(String.self, forKey: .illustrationID)
+            self.imageURLs = try container.decodeIfPresent([String: URL].self, forKey: .imageURLs)
             self.loyalty = try container.decodeIfPresent(String.self, forKey: .loyalty)
             self.manaCost = try container.decodeIfPresent(String.self, forKey: .manaCost)
             self.name = try container.decode(String.self, forKey: .name)

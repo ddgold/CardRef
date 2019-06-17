@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CA48CBF022B0BE62009C0E59 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48CBEF22B0BE62009C0E59 /* Color.swift */; };
-		CA48CBF222B0C00D009C0E59 /* CardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48CBF122B0C00D009C0E59 /* CardTests.swift */; };
+		CA48CBF222B0C00D009C0E59 /* DatatankTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48CBF122B0C00D009C0E59 /* DatatankTests.swift */; };
 		CA48CBF422B33816009C0E59 /* SetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48CBF322B33816009C0E59 /* SetType.swift */; };
 		CA48CBF622B33C82009C0E59 /* Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48CBF522B33C82009C0E59 /* Layout.swift */; };
 		CA48CBF822B33EDF009C0E59 /* ImageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48CBF722B33EDF009C0E59 /* ImageType.swift */; };
@@ -17,6 +17,8 @@
 		CA48CC0322B4A0FE009C0E59 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48CC0222B4A0FE009C0E59 /* TabBarController.swift */; };
 		CA48CC0A22B4A724009C0E59 /* BookmarksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48CC0922B4A724009C0E59 /* BookmarksViewController.swift */; };
 		CA48CC0C22B4B3C0009C0E59 /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48CC0B22B4B3C0009C0E59 /* CardViewController.swift */; };
+		CA48CC0E22B57DC3009C0E59 /* List.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48CC0D22B57DC3009C0E59 /* List.swift */; };
+		CA48CC1222B6A017009C0E59 /* RequestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48CC1122B6A017009C0E59 /* RequestError.swift */; };
 		CAC8B41D22B0AF5F0085FDF2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC8B41C22B0AF5F0085FDF2 /* AppDelegate.swift */; };
 		CAC8B42422B0AF610085FDF2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CAC8B42322B0AF610085FDF2 /* Assets.xcassets */; };
 		CAC8B42722B0AF610085FDF2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CAC8B42522B0AF610085FDF2 /* LaunchScreen.storyboard */; };
@@ -37,7 +39,7 @@
 
 /* Begin PBXFileReference section */
 		CA48CBEF22B0BE62009C0E59 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
-		CA48CBF122B0C00D009C0E59 /* CardTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTests.swift; sourceTree = "<group>"; };
+		CA48CBF122B0C00D009C0E59 /* DatatankTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatatankTests.swift; sourceTree = "<group>"; };
 		CA48CBF322B33816009C0E59 /* SetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetType.swift; sourceTree = "<group>"; };
 		CA48CBF522B33C82009C0E59 /* Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layout.swift; sourceTree = "<group>"; };
 		CA48CBF722B33EDF009C0E59 /* ImageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageType.swift; sourceTree = "<group>"; };
@@ -46,6 +48,8 @@
 		CA48CC0222B4A0FE009C0E59 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		CA48CC0922B4A724009C0E59 /* BookmarksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarksViewController.swift; sourceTree = "<group>"; };
 		CA48CC0B22B4B3C0009C0E59 /* CardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
+		CA48CC0D22B57DC3009C0E59 /* List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = List.swift; sourceTree = "<group>"; };
+		CA48CC1122B6A017009C0E59 /* RequestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestError.swift; sourceTree = "<group>"; };
 		CAC8B41922B0AF5F0085FDF2 /* CardRef.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardRef.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAC8B41C22B0AF5F0085FDF2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CAC8B42322B0AF610085FDF2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -121,7 +125,7 @@
 		CAC8B43022B0AF610085FDF2 /* CardRefTests */ = {
 			isa = PBXGroup;
 			children = (
-				CA48CBF122B0C00D009C0E59 /* CardTests.swift */,
+				CA48CBF122B0C00D009C0E59 /* DatatankTests.swift */,
 				CAC8B43122B0AF610085FDF2 /* EnumTests.swift */,
 				CAC8B43322B0AF610085FDF2 /* Info.plist */,
 			);
@@ -133,6 +137,8 @@
 			children = (
 				CAC8B43C22B0AF7A0085FDF2 /* Card.swift */,
 				CA48CBFB22B48F48009C0E59 /* Datatank.swift */,
+				CA48CC0D22B57DC3009C0E59 /* List.swift */,
+				CA48CC1122B6A017009C0E59 /* RequestError.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -254,11 +260,13 @@
 				CA48CBF422B33816009C0E59 /* SetType.swift in Sources */,
 				CAC8B43D22B0AF7A0085FDF2 /* Card.swift in Sources */,
 				CA48CC0322B4A0FE009C0E59 /* TabBarController.swift in Sources */,
+				CA48CC0E22B57DC3009C0E59 /* List.swift in Sources */,
 				CA48CBF622B33C82009C0E59 /* Layout.swift in Sources */,
 				CA48CBFA22B36086009C0E59 /* RelatedType.swift in Sources */,
 				CA48CC0A22B4A724009C0E59 /* BookmarksViewController.swift in Sources */,
 				CA48CBF022B0BE62009C0E59 /* Color.swift in Sources */,
 				CA48CC0C22B4B3C0009C0E59 /* CardViewController.swift in Sources */,
+				CA48CC1222B6A017009C0E59 /* RequestError.swift in Sources */,
 				CAC8B41D22B0AF5F0085FDF2 /* AppDelegate.swift in Sources */,
 				CA48CBF822B33EDF009C0E59 /* ImageType.swift in Sources */,
 				CA48CBFC22B48F48009C0E59 /* Datatank.swift in Sources */,
@@ -270,7 +278,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CAC8B43222B0AF610085FDF2 /* EnumTests.swift in Sources */,
-				CA48CBF222B0C00D009C0E59 /* CardTests.swift in Sources */,
+				CA48CBF222B0C00D009C0E59 /* DatatankTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

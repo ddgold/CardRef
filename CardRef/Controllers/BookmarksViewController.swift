@@ -89,20 +89,16 @@ class BookmarksViewController: UITableViewController {
     
     //MARK: - Private Functions
     private func loadBookmarks() {
-        do {
-            let decoder = JSONDecoder()
-            
-            // Raging Goblin
-            cards.append(try decoder.decode(Card.self, from: try Data(contentsOf: URL(string: "https://api.scryfall.com/cards/3ee34158-867f-4685-8f2b-af9469b628c3")!)))
-            // Bushi Tenderfoot // Kenzo the Hardhearted
-            cards.append(try decoder.decode(Card.self, from: try Data(contentsOf: URL(string: "https://api.scryfall.com/cards/864ad989-19a6-4930-8efc-bbc077a18c32")!)))
-                
-        
-        }
-        catch {
-            assertionFailure(error.localizedDescription)
-        }
-            
+        /*
+        Datatank.card("3ee34158-867f-4685-8f2b-af9469b628c3", resultHandler: { (ragingGoblin) in
+            self.cards.append(ragingGoblin)
+            self.tableView.reloadData()
+        })
+        Datatank.card("864ad989-19a6-4930-8efc-bbc077a18c32", resultHandler: { (bushiTenderfoot) in
+            self.cards.append(bushiTenderfoot)
+            self.tableView.reloadData()
+        })
+        */
     }
 
     /*
