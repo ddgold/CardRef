@@ -12,7 +12,7 @@ import XCTest
 class DatatankTests: XCTestCase {
     
     //MARK: - Cards
-    func testRagingGoblin() throws {
+    func testRagingGoblin() {
         let expectation = self.expectation(description: "Download Raging Goblin card")
         
         let id = "3ee34158-867f-4685-8f2b-af9469b628c3"
@@ -30,7 +30,7 @@ class DatatankTests: XCTestCase {
         waitForExpectations(timeout: 5, handler: nil)
     }
     
-    func testBushiTenderfoot() throws {
+    func testBushiTenderfoot() {
         let expectation = self.expectation(description: "Download Bushi Tenderfoot card")
         
         let id = "864ad989-19a6-4930-8efc-bbc077a18c32"
@@ -48,7 +48,7 @@ class DatatankTests: XCTestCase {
         waitForExpectations(timeout: 5, handler: nil)
     }
     
-    func testInvalidCard() throws {
+    func testInvalidCard() {
         let expectation = self.expectation(description: "Download an invalid card")
         
         let id = "failure"
@@ -65,10 +65,10 @@ class DatatankTests: XCTestCase {
     }
     
     //MARK: - Search
-    func testSearchGoblin() throws {
+    func testSearchGoblin() {
         let expectation = self.expectation(description: "Search database for 'goblin'")
         
-        let search = "goblin"
+        let search = Search(query: "goblin")
         Datatank.search(search, resultHandler: { (result) in
             XCTAssert(result.data.count == 175)
             XCTAssert(result.hasMore == true)
@@ -96,10 +96,10 @@ class DatatankTests: XCTestCase {
         waitForExpectations(timeout: 10, handler: nil)
     }
     
-    func testSearchFoot() throws {
+    func testSearchFoot() {
         let expectation = self.expectation(description: "Search database for 'foot'")
         
-        let search = "foot"
+        let search = Search(query: "foot")
         Datatank.search(search, resultHandler: { (result) in
             XCTAssert(result.data.count == 25)
             XCTAssert(result.hasMore == false)

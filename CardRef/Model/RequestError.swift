@@ -9,9 +9,7 @@
 import Foundation
 
 
-///
 /// Request error object.
-///
 struct RequestError: Codable
 {
     /// A computer-friendly string representing the appropriate HTTP status code.
@@ -25,9 +23,7 @@ struct RequestError: Codable
     /// If your input also generated non-failure warnings, they will be provided as human-readable strings in this array.
     let warnings: [String]?
     
-    ///
     /// Enum of deserializer keys.
-    ///
     private enum Keys: String, CodingKey {
         case code
         case status
@@ -37,7 +33,6 @@ struct RequestError: Codable
         case warnings
     }
     
-    ///
     /// Decodes a request error object.
     ///
     /// - Parameter decoder: The decoder object.

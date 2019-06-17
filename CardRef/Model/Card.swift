@@ -8,9 +8,7 @@
 
 import Foundation
 
-///
 /// Card object.
-///
 struct Card: Codable {
     //MARK: Core
     /// This card’s Arena ID, if any. A large percentage of cards are not available on Arena and do not have this ID.
@@ -158,9 +156,7 @@ struct Card: Codable {
     /// This card’s watermark, if any.
     let watermark: String?
     
-    ///
     /// Enum of deserializer keys.
-    ///
     private enum Keys: String, CodingKey {
         // Core
         case arenaID = "arena_id"
@@ -240,7 +236,6 @@ struct Card: Codable {
         case watermark
     }
     
-    ///
     /// Decodes a card object.
     ///
     /// - Parameter decoder: The decoder object.
@@ -330,9 +325,7 @@ struct Card: Codable {
     
     
     //MARK: - Card Face
-    ///
     /// Card face object.
-    ///
     struct Face: Codable
     {
         /// The name of the illustrator of this card face. Newly spoiled cards may not have this field yet.
@@ -370,9 +363,7 @@ struct Card: Codable {
         /// The watermark on this particulary card face, if any.
         let watermark: String?
         
-        ///
         /// Enum of deserializer keys.
-        ///
         private enum Keys: String, CodingKey {
             case artist
             case colorIndicator = "color_indicator"
@@ -394,7 +385,6 @@ struct Card: Codable {
             case watermark
         }
         
-        ///
         /// Decodes a card face object.
         ///
         /// - Parameter decoder: The decoder object.
@@ -427,9 +417,7 @@ struct Card: Codable {
     
     
     //MARK: - Related Card
-    ///
     /// Related card object.
-    ///
     struct Related: Codable
     {
         /// An unique ID for this card in Scryfall’s database.
@@ -443,9 +431,7 @@ struct Card: Codable {
         /// A URI where you can retrieve a full object describing this card on Scryfall’s API.
         let uri: URL
         
-        ///
         /// Enum of deserializer keys.
-        ///
         private enum Keys: String, CodingKey {
             case id
             case object
@@ -455,7 +441,6 @@ struct Card: Codable {
             case uri
         }
         
-        ///
         /// Decodes a related card object.
         ///
         /// - Parameter decoder: The decoder object.

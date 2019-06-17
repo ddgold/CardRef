@@ -8,9 +8,7 @@
 
 import Foundation
 
-///
 /// A singleton datatank object that processes all loading of, and caching of, data from webservices.
-///
 struct Datatank {
     //MARK: - Properties
     /// The JSON decoder.
@@ -30,14 +28,12 @@ struct Datatank {
     
     
     //MARK: - Public Functions
-    ///
     /// Load an individual card via webservice or cache.
     ///
     /// - Parameters:
     ///     - id: The ID of the card to load.
     ///     - resultHandler: The completion handler for when the request returns a result.
     ///     - errorHandler: The completion handler for when the request returns an error.
-    ///
     static func card(_ id: String, resultHandler: @escaping (Card) -> Void, errorHandler: @escaping (RequestError) -> Void) {
         let url = URL(string: "https://api.scryfall.com/cards/\(id)")!
         // Check cache
@@ -54,18 +50,15 @@ struct Datatank {
         }, errorHandler: errorHandler)
     }
     
-    ///
     /// Load a new search via webservice or cache.
     ///
     /// - Parameters:
-    ///     - query: The search query string.
+    ///     - search: The search object.
     ///     - resultHandler: The completion handler for when the request returns a result.
     ///     - errorHandler: The completion handler for when the request returns an error.
-    ///
-    static func search(_ search: String, resultHandler: @escaping (List<Card>) -> Void, errorHandler: @escaping (RequestError) -> Void) {
+    static func search(_ search: Search, resultHandler: @escaping (List<Card>) -> Void, errorHandler: @escaping (RequestError) -> Void) {
         // Check cache
-        let escaped = search.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        let url = URL(string: "https://api.scryfall.com/cards/search?q=\(escaped)")!
+        let url = search.url
         if let result = results[url]
         {
             resultHandler(result)
@@ -82,14 +75,12 @@ struct Datatank {
         }, errorHandler: errorHandler)
     }
     
-    ///
     /// Load the next page of a search via webservice or cache.
     ///
     /// - Parameters:
     ///     - previous: The previous result object.
     ///     - resultHandler: The completion handler for when the request returns a result.
     ///     - errorHandler: The completion handler for when the request returns an error.
-    ///
     static func nextPage(_ previous: List<Card>, resultHandler: @escaping (List<Card>) -> Void, errorHandler: @escaping (RequestError) -> Void) {
         // Check cache
         let url = previous.nextPage!
@@ -119,14 +110,12 @@ struct Datatank {
     
     
     //MARK: - Private Functions
-    ///
     /// Request the JSON from a URL.
     ///
     /// - Parameters:
     ///     - url: The URL.
     ///     - resultHandler: The completion handler for when the request returns a result.
     ///     - errorHandler: The completion handler for when the request returns an error.
-    ///
     private static func request<ObjectType: Codable>(_ url: URL, resultHandler: @escaping (ObjectType) -> Void, errorHandler: @escaping (RequestError) -> Void) {
         URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) -> Void in
             if let error = error {

@@ -8,9 +8,7 @@
 
 import Foundation
 
-///
 /// List object.
-///
 struct List<DataType: Codable>: Codable {
     /// An array of the requested objects, in a specific order.
     let data: [DataType]
@@ -23,9 +21,7 @@ struct List<DataType: Codable>: Codable {
     /// An array of human-readable warnings issued when generating this list, as strings. Warnings are non-fatal issues that the API discovered with your input. In general, they indicate that the List will not contain the all of the information you requested. You should fix the warnings and re-submit your request.
     let warnings: [String]?
     
-    ///
     /// Enum of deserializer keys.
-    ///
     private enum Keys: String, CodingKey {
         case data
         case hasMore = "has_more"
@@ -35,7 +31,6 @@ struct List<DataType: Codable>: Codable {
         case warnings
     }
     
-    ///
     /// Decodes a list object.
     ///
     /// - Parameter decoder: The decoder object.
