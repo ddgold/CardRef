@@ -10,6 +10,7 @@ import Foundation
 
 /// List object.
 struct List<DataType: Codable>: Codable {
+    //MARK: - Properties
     /// An array of the requested objects, in a specific order.
     let data: [DataType]
     /// True if this List is paginated and there is a page beyond the current page.
@@ -21,16 +22,9 @@ struct List<DataType: Codable>: Codable {
     /// An array of human-readable warnings issued when generating this list, as strings. Warnings are non-fatal issues that the API discovered with your input. In general, they indicate that the List will not contain the all of the information you requested. You should fix the warnings and re-submit your request.
     let warnings: [String]?
     
-    /// Enum of deserializer keys.
-    private enum Keys: String, CodingKey {
-        case data
-        case hasMore = "has_more"
-        case nextPage = "next_page"
-        case object
-        case totalCards = "total_cards"
-        case warnings
-    }
     
+    
+    //MARK: - Constructors
     /// Decodes a list object.
     ///
     /// - Parameter decoder: The decoder object.
@@ -45,5 +39,18 @@ struct List<DataType: Codable>: Codable {
         self.nextPage = try container.decodeIfPresent(URL.self, forKey: .nextPage)
         self.totalCards = try container.decodeIfPresent(Int.self, forKey: .totalCards)
         self.warnings = try container.decodeIfPresent([String].self, forKey: .warnings)
+    }
+    
+    
+    
+    //MARK: - Enums
+    /// Enum of deserializer keys.
+    private enum Keys: String, CodingKey {
+        case data
+        case hasMore = "has_more"
+        case nextPage = "next_page"
+        case object
+        case totalCards = "total_cards"
+        case warnings
     }
 }

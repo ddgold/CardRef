@@ -21,6 +21,9 @@
 		CA48CC1222B6A017009C0E59 /* RequestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48CC1122B6A017009C0E59 /* RequestError.swift */; };
 		CA48CC1422B72AEC009C0E59 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48CC1322B72AEC009C0E59 /* Search.swift */; };
 		CA48CC1622B73C31009C0E59 /* SearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48CC1522B73C31009C0E59 /* SearchTests.swift */; };
+		CA48CC1822B74A53009C0E59 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48CC1722B74A53009C0E59 /* SearchViewController.swift */; };
+		CA48CC1A22B88AFB009C0E59 /* LoadingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48CC1922B88AFB009C0E59 /* LoadingTableViewCell.swift */; };
+		CA48CC1D22B8925E009C0E59 /* CardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48CC1C22B8925E009C0E59 /* CardTableViewCell.swift */; };
 		CAC8B41D22B0AF5F0085FDF2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC8B41C22B0AF5F0085FDF2 /* AppDelegate.swift */; };
 		CAC8B42422B0AF610085FDF2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CAC8B42322B0AF610085FDF2 /* Assets.xcassets */; };
 		CAC8B42722B0AF610085FDF2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CAC8B42522B0AF610085FDF2 /* LaunchScreen.storyboard */; };
@@ -54,6 +57,9 @@
 		CA48CC1122B6A017009C0E59 /* RequestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestError.swift; sourceTree = "<group>"; };
 		CA48CC1322B72AEC009C0E59 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		CA48CC1522B73C31009C0E59 /* SearchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTests.swift; sourceTree = "<group>"; };
+		CA48CC1722B74A53009C0E59 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		CA48CC1922B88AFB009C0E59 /* LoadingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingTableViewCell.swift; sourceTree = "<group>"; };
+		CA48CC1C22B8925E009C0E59 /* CardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTableViewCell.swift; sourceTree = "<group>"; };
 		CAC8B41922B0AF5F0085FDF2 /* CardRef.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardRef.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAC8B41C22B0AF5F0085FDF2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CAC8B42322B0AF610085FDF2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -88,10 +94,20 @@
 			isa = PBXGroup;
 			children = (
 				CA48CC0922B4A724009C0E59 /* BookmarksViewController.swift */,
+				CA48CC1722B74A53009C0E59 /* SearchViewController.swift */,
 				CA48CC0B22B4B3C0009C0E59 /* CardViewController.swift */,
 				CA48CC0222B4A0FE009C0E59 /* TabBarController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		CA48CC1B22B88B06009C0E59 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CA48CC1C22B8925E009C0E59 /* CardTableViewCell.swift */,
+				CA48CC1922B88AFB009C0E59 /* LoadingTableViewCell.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		CAC8B41022B0AF5F0085FDF2 = {
@@ -119,6 +135,7 @@
 				CA48CC0422B4A104009C0E59 /* Controllers */,
 				CAC8B44122B0B1140085FDF2 /* Enums */,
 				CAC8B43E22B0AFF60085FDF2 /* Model */,
+				CA48CC1B22B88B06009C0E59 /* Views */,
 				CAC8B42322B0AF610085FDF2 /* Assets.xcassets */,
 				CAC8B42522B0AF610085FDF2 /* LaunchScreen.storyboard */,
 				CAC8B42822B0AF610085FDF2 /* Info.plist */,
@@ -263,15 +280,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				CAC8B44022B0B1090085FDF2 /* Legality.swift in Sources */,
+				CA48CC1A22B88AFB009C0E59 /* LoadingTableViewCell.swift in Sources */,
 				CA48CBF422B33816009C0E59 /* SetType.swift in Sources */,
 				CAC8B43D22B0AF7A0085FDF2 /* Card.swift in Sources */,
 				CA48CC0322B4A0FE009C0E59 /* TabBarController.swift in Sources */,
 				CA48CC0E22B57DC3009C0E59 /* List.swift in Sources */,
 				CA48CBF622B33C82009C0E59 /* Layout.swift in Sources */,
+				CA48CC1D22B8925E009C0E59 /* CardTableViewCell.swift in Sources */,
 				CA48CBFA22B36086009C0E59 /* RelatedType.swift in Sources */,
 				CA48CC0A22B4A724009C0E59 /* BookmarksViewController.swift in Sources */,
 				CA48CBF022B0BE62009C0E59 /* Color.swift in Sources */,
 				CA48CC0C22B4B3C0009C0E59 /* CardViewController.swift in Sources */,
+				CA48CC1822B74A53009C0E59 /* SearchViewController.swift in Sources */,
 				CA48CC1222B6A017009C0E59 /* RequestError.swift in Sources */,
 				CAC8B41D22B0AF5F0085FDF2 /* AppDelegate.swift in Sources */,
 				CA48CC1422B72AEC009C0E59 /* Search.swift in Sources */,

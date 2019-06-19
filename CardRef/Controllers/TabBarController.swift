@@ -15,10 +15,15 @@ class TabBarController: UITabBarController {
 
         var viewControllers = [UIViewController]()
         
-        // Bookmarks ViewController
+        // Bookmarks view controller
         let bookmarksViewController = BookmarksViewController()
         bookmarksViewController.tabBarItem = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 1)
         viewControllers += [UINavigationController(rootViewController: bookmarksViewController)]
+        
+        // Search view controller
+        let searchViewController = SearchViewController()
+        searchViewController.tabBarItem = UITabBarItem(tabBarSystemItem: .search, tag: 1)
+        viewControllers += [UINavigationController(rootViewController: searchViewController)]
         
         self.viewControllers = viewControllers
     }

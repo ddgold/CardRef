@@ -10,6 +10,7 @@ import Foundation
 
 /// Card object.
 struct Card: Codable {
+    //MARK: - Properties
     //MARK: Core
     /// This card’s Arena ID, if any. A large percentage of cards are not available on Arena and do not have this ID.
     let arenaID: Int?
@@ -156,86 +157,9 @@ struct Card: Codable {
     /// This card’s watermark, if any.
     let watermark: String?
     
-    /// Enum of deserializer keys.
-    private enum Keys: String, CodingKey {
-        // Core
-        case arenaID = "arena_id"
-        case id
-        case lang
-        case mtgoID = "mtgo_id"
-        case mtgoFoilID = "mtgo_foil_id"
-        case multiverseIDs = "multiverse_ids"
-        case tcgplayerID = "tcgplayer_id"
-        case object
-        case oracleID = "oracle_id"
-        case printsSearchURL = "prints_search_uri"
-        case rulingsURL = "rulings_uri"
-        case scryfallURL = "scryfall_uri"
-        case url = "uri"
-        
-        // Gameplay
-        case allParts = "all_parts"
-        case cardFaces = "card_faces"
-        case cmc
-        case colors
-        case colorIdentity = "color_identity"
-        case colorIndicator = "color_indicator"
-        case edhrecRank = "edhrec_rank"
-        case foil
-        case handModifier = "hand_modifier"
-        case layout
-        case legalities
-        case lifeModifier = "life_modifier"
-        case loyalty
-        case manaCost = "mana_cost"
-        case name
-        case nonfoil
-        case oracleText = "oracle_text"
-        case oversized
-        case power
-        case reserved
-        case toughness
-        case typeLine = "type_line"
-        
-        // Print
-        case artist
-        case booster
-        case borderColor = "border_color"
-        case cardBackID = "card_back_id"
-        case collectorNumber = "collector_number"
-        case digital
-        case flavorText = "flavor_text"
-        case frameEffect = "frame_effect"
-        case frame
-        case fullArt = "full_art"
-        case games
-        case highresImage = "highres_image"
-        case illustrationID = "illustration_id"
-        case imageURLs = "image_uris"
-        case prices
-        case printedName = "printed_name"
-        case printedText = "printed_text"
-        case printedTypeLine = "printed_type_line"
-        case promo
-        case promoTypes = "promo_types"
-        case purchaseURLs = "purchase_uris"
-        case rarity
-        case relatedURLs = "related_uris"
-        case releasedAt = "released_at"
-        case reprint
-        case scryfallSetURL = "scryfall_set_uri"
-        case setName = "set_name"
-        case setSearchURL = "set_search_uri"
-        case setType = "set_type"
-        case setURL = "set_uri"
-        case set
-        case storySpotlight = "story_spotlight"
-        case textless
-        case variation
-        case variationOf = "variation_of"
-        case watermark
-    }
     
+    
+    //MARK: Constructors
     /// Decodes a card object.
     ///
     /// - Parameter decoder: The decoder object.
@@ -324,10 +248,94 @@ struct Card: Codable {
     
     
     
+    //MARK: Enums
+    /// Enum of deserializer keys.
+    private enum Keys: String, CodingKey {
+        // Core
+        case arenaID = "arena_id"
+        case id
+        case lang
+        case mtgoID = "mtgo_id"
+        case mtgoFoilID = "mtgo_foil_id"
+        case multiverseIDs = "multiverse_ids"
+        case tcgplayerID = "tcgplayer_id"
+        case object
+        case oracleID = "oracle_id"
+        case printsSearchURL = "prints_search_uri"
+        case rulingsURL = "rulings_uri"
+        case scryfallURL = "scryfall_uri"
+        case url = "uri"
+        
+        // Gameplay
+        case allParts = "all_parts"
+        case cardFaces = "card_faces"
+        case cmc
+        case colors
+        case colorIdentity = "color_identity"
+        case colorIndicator = "color_indicator"
+        case edhrecRank = "edhrec_rank"
+        case foil
+        case handModifier = "hand_modifier"
+        case layout
+        case legalities
+        case lifeModifier = "life_modifier"
+        case loyalty
+        case manaCost = "mana_cost"
+        case name
+        case nonfoil
+        case oracleText = "oracle_text"
+        case oversized
+        case power
+        case reserved
+        case toughness
+        case typeLine = "type_line"
+        
+        // Print
+        case artist
+        case booster
+        case borderColor = "border_color"
+        case cardBackID = "card_back_id"
+        case collectorNumber = "collector_number"
+        case digital
+        case flavorText = "flavor_text"
+        case frameEffect = "frame_effect"
+        case frame
+        case fullArt = "full_art"
+        case games
+        case highresImage = "highres_image"
+        case illustrationID = "illustration_id"
+        case imageURLs = "image_uris"
+        case prices
+        case printedName = "printed_name"
+        case printedText = "printed_text"
+        case printedTypeLine = "printed_type_line"
+        case promo
+        case promoTypes = "promo_types"
+        case purchaseURLs = "purchase_uris"
+        case rarity
+        case relatedURLs = "related_uris"
+        case releasedAt = "released_at"
+        case reprint
+        case scryfallSetURL = "scryfall_set_uri"
+        case setName = "set_name"
+        case setSearchURL = "set_search_uri"
+        case setType = "set_type"
+        case setURL = "set_uri"
+        case set
+        case storySpotlight = "story_spotlight"
+        case textless
+        case variation
+        case variationOf = "variation_of"
+        case watermark
+    }
+    
+    
+    
     //MARK: - Card Face
     /// Card face object.
     struct Face: Codable
     {
+        //MARK: Properties
         /// The name of the illustrator of this card face. Newly spoiled cards may not have this field yet.
         let artist: String?
         /// The colors in this face’s color indicator, if any.
@@ -363,28 +371,9 @@ struct Card: Codable {
         /// The watermark on this particulary card face, if any.
         let watermark: String?
         
-        /// Enum of deserializer keys.
-        private enum Keys: String, CodingKey {
-            case artist
-            case colorIndicator = "color_indicator"
-            case colors
-            case flavorText = "flavor_text"
-            case illustrationID = "illustration_id"
-            case imageURLs = "image_uris"
-            case loyalty
-            case manaCost = "mana_cost"
-            case name
-            case object
-            case oracleText = "oracle_text"
-            case power
-            case printedName = "printed_name"
-            case printedText = "printed_text"
-            case printedTypeLine = "printed_type_line"
-            case toughness
-            case typeLine = "type_line"
-            case watermark
-        }
         
+        
+        //MARK: Constructors
         /// Decodes a card face object.
         ///
         /// - Parameter decoder: The decoder object.
@@ -412,6 +401,31 @@ struct Card: Codable {
             self.typeLine = try container.decode(String.self, forKey: .typeLine)
             self.watermark = try container.decodeIfPresent(String.self, forKey: .watermark)
         }
+        
+        
+        
+        //MARK: Enums
+        /// Enum of deserializer keys.
+        private enum Keys: String, CodingKey {
+            case artist
+            case colorIndicator = "color_indicator"
+            case colors
+            case flavorText = "flavor_text"
+            case illustrationID = "illustration_id"
+            case imageURLs = "image_uris"
+            case loyalty
+            case manaCost = "mana_cost"
+            case name
+            case object
+            case oracleText = "oracle_text"
+            case power
+            case printedName = "printed_name"
+            case printedText = "printed_text"
+            case printedTypeLine = "printed_type_line"
+            case toughness
+            case typeLine = "type_line"
+            case watermark
+        }
     }
     
     
@@ -420,6 +434,7 @@ struct Card: Codable {
     /// Related card object.
     struct Related: Codable
     {
+        //MARK: Properties
         /// An unique ID for this card in Scryfall’s database.
         let id: String
         /// A field explaining what role this card plays in this relationship, one of token, meld_part, meld_result, or combo_piece.
@@ -431,16 +446,9 @@ struct Card: Codable {
         /// A URI where you can retrieve a full object describing this card on Scryfall’s API.
         let uri: URL
         
-        /// Enum of deserializer keys.
-        private enum Keys: String, CodingKey {
-            case id
-            case object
-            case component
-            case name
-            case typeLine = "type_line"
-            case uri
-        }
         
+        
+        //MARK: Constructors
         /// Decodes a related card object.
         ///
         /// - Parameter decoder: The decoder object.
@@ -455,6 +463,19 @@ struct Card: Codable {
             self.name = try container.decode(String.self, forKey: .name)
             self.typeLine = try container.decode(String.self, forKey: .typeLine)
             self.uri = try container.decode(URL.self, forKey: .uri)
+        }
+        
+        
+        
+        //MARK: Enums
+        /// Enum of deserializer keys.
+        private enum Keys: String, CodingKey {
+            case id
+            case object
+            case component
+            case name
+            case typeLine = "type_line"
+            case uri
         }
     }
 }

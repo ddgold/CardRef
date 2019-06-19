@@ -8,10 +8,9 @@
 
 import Foundation
 
-
 /// Request error object.
-struct RequestError: Codable
-{
+struct RequestError: Codable {
+    //MARK: - Properties
     /// A computer-friendly string representing the appropriate HTTP status code.
     let code: String
     /// An integer HTTP status code for this error.
@@ -23,16 +22,9 @@ struct RequestError: Codable
     /// If your input also generated non-failure warnings, they will be provided as human-readable strings in this array.
     let warnings: [String]?
     
-    /// Enum of deserializer keys.
-    private enum Keys: String, CodingKey {
-        case code
-        case status
-        case object
-        case details
-        case type
-        case warnings
-    }
     
+    
+    //MARK: - Constructors
     /// Decodes a request error object.
     ///
     /// - Parameter decoder: The decoder object.
@@ -47,6 +39,19 @@ struct RequestError: Codable
         self.details = try container.decode(String.self, forKey: .details)
         self.type = try container.decodeIfPresent(String.self, forKey: .type)
         self.warnings = try container.decodeIfPresent([String].self, forKey: .warnings)
+    }
+    
+    
+    
+    //MARK: - Enums
+    /// Enum of deserializer keys.
+    private enum Keys: String, CodingKey {
+        case code
+        case status
+        case object
+        case details
+        case type
+        case warnings
     }
 }
 
