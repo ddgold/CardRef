@@ -8,26 +8,37 @@
 
 import UIKit
 
+/// Single card view controller
 class CardViewController: UITableViewController {
+    //MARK: - Properties
+    /// The list of cells, always built based on current card.
+    private var cells = [LabelTableViewCell]()
     
-    private var strings = [String]()
-    
+    /// The card.
     var card: Card? {
         didSet
         {
             navigationItem.title = card?.name
-            updateStrings()
+            updateCells()
         }
     }
     
     
+    
+    //MARK: - UIViewController
+    /// Creates a new card view controller, sets plain style.
     init() {
         super.init(style: .plain)
     }
+    
+    /// Decoder init not implemented.
+    ///
+    /// - Parameter aDecoder: The decoder.
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    /// Setup the intial state of the bookmark view controller.
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -35,50 +46,83 @@ class CardViewController: UITableViewController {
         
         tableView.allowsSelection = false
         
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cardLineCell")
+        tableView.register(LabelTableViewCell.self, forCellReuseIdentifier: "cardLineCell")
     }
     
+    
+    
+    //MARK: - UITableViewController
+    /// Fixes the number of sections to 1.
+    ///
+    /// - Parameter tableView: The table view.
+    /// - Returns: Tje number of sections.
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
+    /// Determines the number of items in collection.
+    ///
+    /// - Parameters:
+    ///   - tableView: The table view.
+    ///   - section: The section number, must be 0.
+    /// - Returns: The number of cells in section.
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         assert(section == 0)
         
-        return strings.count
-    }
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        assert(indexPath.row < strings.count)
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cardLineCell", for: indexPath)
-        
-        cell.textLabel?.text = strings[indexPath.row]
-        
-        return cell
+        return cells.count
     }
     
+    /// Gets cells from pre-built list.
+    ///
+    /// - Parameters:
+    ///   - tableView: The table view.
+    ///   - indexPath: The path to cell, section must be 0, and row less then number of cells.
+    /// - Returns: The cell.
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        assert(indexPath.section == 0)
+        assert(indexPath.row < cells.count)
+        
+        return cells[indexPath.row]
+    }
+    
+    
+    
     //MARK: - Private Functions
-    private func updateStrings() {
-        strings = []
+    /// Rebuilds the list of cells when the card is changed
+    private func updateCells() {
+        cells = []
         
         guard let card = self.card else {
             return
         }
         
-        strings.append(card.name)
-        strings.append(card.manaCost ?? "No cost")
-        strings.append(card.typeLine)
+        let nameCell = LabelTableViewCell()
+        nameCell.label.text = card.name
+        cells.append(nameCell)
+        
+        let manaCell = LabelTableViewCell()
+        manaCell.label.text = card.manaCost ?? "No cost"
+        cells.append(manaCell)
+        
+        let typeCell = LabelTableViewCell()
+        typeCell.label.text = card.typeLine
+        cells.append(typeCell)
+        
+        let textCell = LabelTableViewCell()
+        textCell.label.text = card.oracleText ?? "No text"
+        textCell.label.multiLine = true
+        cells.append(textCell)
+        
+        if let loyalty = card.loyalty {
+            let loyaltyCell = LabelTableViewCell()
+            loyaltyCell.label.text = "Loyalty: \(loyalty)"
+            cells.append(loyaltyCell)
+        }
+        
+        if let power = card.power, let toughness = card.toughness {
+            let pAndTCell = LabelTableViewCell()
+            pAndTCell.label.text = "\(power) \\ \(toughness)"
+            cells.append(pAndTCell)
+        }
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

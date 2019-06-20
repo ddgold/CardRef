@@ -12,11 +12,11 @@ import UIKit
 class CardTableViewCell: UITableViewCell {
     //MARK: - Properties
     /// Name label.
-    private var nameLabel = UILabel(frame: CGRect())
+    private var nameLabel = CardLabel()
     /// Type line label.
-    private var typeLabel = UILabel(frame: CGRect())
+    private var typeLabel = CardLabel()
     /// Mana cost label.
-    private var costLabel = UILabel(frame: CGRect())
+    private var costLabel = CardLabel()
     
     /// The card.
     var card: Card! {

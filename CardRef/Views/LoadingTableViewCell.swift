@@ -25,8 +25,8 @@ class LoadingTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         // Setup spinner in middle of cell
-        spinner.translatesAutoresizingMaskIntoConstraints = false
         self.addSubview(spinner)
+        spinner.translatesAutoresizingMaskIntoConstraints = false
         spinner.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         spinner.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         

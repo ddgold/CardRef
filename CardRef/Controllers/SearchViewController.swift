@@ -74,7 +74,7 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         assert(section == 0)
         
-        return cards.count + (result?.hasMore ?? false ? 1 : 0)
+        return cards.count + ((loadingData || (result?.hasMore ?? false)) ? 1 : 0)
     }
     
     /// Dequeues a cell and updates it will new card.
@@ -172,8 +172,8 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
         self.error = nil
         self.cards = []
         
-        tableView.reloadData()
         self.loadingData = true
+        tableView.reloadData()
         
         Datatank.search(search!, resultHandler: resultHandler, errorHandler: errorHandler)
     }
@@ -210,8 +210,8 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
         })
         
         DispatchQueue.main.async(execute: { () -> Void in
-            self.tableView.reloadData()
             self.loadingData = false
+            self.tableView.reloadData()
         })
     }
     
@@ -231,8 +231,8 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
         })
         
         DispatchQueue.main.async(execute: { () -> Void in
-            self.tableView.reloadData()
             self.loadingData = false
+            self.tableView.reloadData()
         })
     }
 

@@ -11,6 +11,9 @@ import UIKit
 /// Bookmarks view controller.
 class BookmarksViewController: UITableViewController {
     //MARK: - Properties
+    /// Whether or not there is an active database call.
+    private var loadingData: Bool = false
+    
     /// The list of bookmarked cards.
     var cards = [Card]()
     
@@ -37,6 +40,7 @@ class BookmarksViewController: UITableViewController {
         tableView.backgroundView?.backgroundColor = .white
         
         tableView.register(CardTableViewCell.self, forCellReuseIdentifier: "bookmarkCell")
+        tableView.register(LoadingTableViewCell.self, forCellReuseIdentifier: "loadingCell")
         
         loadBookmarks()
     }
@@ -61,7 +65,7 @@ class BookmarksViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         assert(section == 0)
         
-        return cards.count
+        return loadingData ? 1 : cards.count
     }
     
     /// Dequeues a cell and updates it will new card.
@@ -72,13 +76,21 @@ class BookmarksViewController: UITableViewController {
     /// - Returns: The updated dequeued cell.
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         assert(indexPath.section == 0)
-        assert(indexPath.row < cards.count)
+        assert(loadingData ? (indexPath.row == 0) : (indexPath.row < cards.count))
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "bookmarkCell", for: indexPath) as? CardTableViewCell else {
-            fatalError("Unexpected cell type for bookmarkCell.")
+        if loadingData {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "loadingCell", for: indexPath) as? LoadingTableViewCell else {
+                fatalError("Unexpected cell type for bookmarkCell.")
+            }
+            return cell
         }
-        cell.card = cards[indexPath.row]
-        return cell
+        else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "bookmarkCell", for: indexPath) as? CardTableViewCell else {
+                fatalError("Unexpected cell type for bookmarkCell.")
+            }
+            cell.card = cards[indexPath.row]
+            return cell
+        }
     }
     
     /// Pushes new card view controller with selected card.
@@ -88,23 +100,38 @@ class BookmarksViewController: UITableViewController {
     ///   - indexPath: The path to cell, section must be 0, and row less then number of cards.
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         assert(indexPath.section == 0)
-        assert(indexPath.row < cards.count)
+        assert(loadingData ? (indexPath.row == 0) : (indexPath.row < cards.count))
         
-        let cardViewController = CardViewController()
-        cardViewController.card = cards[indexPath.row]
-        navigationController?.pushViewController(cardViewController, animated: true)
+        if !loadingData {
+            let cardViewController = CardViewController()
+            cardViewController.card = cards[indexPath.row]
+            navigationController?.pushViewController(cardViewController, animated: true)
+        }
     }
     
     
     //MARK: - Private Functions
     /// Load bookmarked cards from database
     private func loadBookmarks() {
+        self.loadingData = true
+        self.tableView.reloadData()
         Datatank.card("3ee34158-867f-4685-8f2b-af9469b628c3", resultHandler: { (ragingGoblin) in
             Datatank.card("864ad989-19a6-4930-8efc-bbc077a18c32", resultHandler: { (bushiTenderfoot) in
-                DispatchQueue.main.async(execute: { () -> Void in
-                    self.cards.append(ragingGoblin)
-                    self.cards.append(bushiTenderfoot)
-                    self.tableView.reloadData()
+                Datatank.card("c35c63c1-6344-4d8c-8f7d-cd253d12f9ae", resultHandler: { (downDirty) in
+                    Datatank.card("599c3c9f-dfb7-4357-9d9c-9a1a4616b103", resultHandler: { (ashiok) in
+                        DispatchQueue.main.async(execute: { () -> Void in
+                            self.cards.append(ragingGoblin)
+                            self.cards.append(bushiTenderfoot)
+                            self.cards.append(downDirty)
+                            self.cards.append(ashiok)
+                            self.loadingData = false
+                            self.tableView.reloadData()
+                        })
+                    }, errorHandler: { (responseError) in
+                        fatalError("Error loading down/dirty")
+                    })
+                }, errorHandler: { (responseError) in
+                    fatalError("Error loading down/dirty")
                 })
             }, errorHandler: { (responseError) in
                 fatalError("Error loading bushi tenderfoot")
