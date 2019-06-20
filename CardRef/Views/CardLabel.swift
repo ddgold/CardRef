@@ -9,28 +9,25 @@
 import UIKit
 
 class CardLabel: UILabel {
-    /// The labels default style. Text within parentheses will have italic style regardless.
+    //MARK: - Properties
+    /// The label's default style. Text within parentheses will have italic style regardless.
     var style: Style
-    /// The labels text size.
+    /// The label's text size.
     var textSize: CGFloat
-    ///
+    /// Whether or not the text should be highlight the tint color, or just default font color.
     var highlight: Bool
-    ///
+    /// Whether or not the text should span multiple lines, or just one line.
     var multiLine: Bool {
         didSet {
-            debugPrint(multiLine)
             self.numberOfLines = (multiLine ? 0 : 1)
         }
     }
     
     /// The labels text, calls process on setting.
-    override var text: String?
-        {
-        didSet
-        {
-            if let text = text, !text.isEmpty
-            {
-                let processedText = process(text: text, font: font(style: self.style))
+    override var text: String? {
+        didSet {
+            if let text = text, !text.isEmpty {
+                let processedText = process(text: text, font: font())
                 let paragraphStyle = NSMutableParagraphStyle()
                 paragraphStyle.paragraphSpacing = 5
                 processedText.addAttribute(.paragraphStyle, value:paragraphStyle, range:NSMakeRange(0, processedText.length))
@@ -39,6 +36,7 @@ class CardLabel: UILabel {
         }
     }
     
+    /// Static dictionary mapping token strings to icon file names.
     private static let icons = [
         "∞": "∞.png",
         "0": "0.png",
@@ -104,6 +102,10 @@ class CardLabel: UILabel {
         "Z": "Z.png"
     ]
     
+    
+    
+    //MARK: - Constructors
+    /// Creates a card lable with all default properties.
     init() {
         self.style = .normal
         self.textSize = UIFont.systemFontSize
@@ -113,17 +115,28 @@ class CardLabel: UILabel {
         super.init(frame: CGRect())
     }
     
+    /// Decoder init not implemented.
+    ///
+    /// - Parameter aDecoder: The decoder.
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
+    
+    //MARK: - Private Functions
+    /// Process a string, italicizing strings in round brackets, and iconizing tokens in curly brackers.  Calls self recursively.
+    ///
+    /// - Parameters:
+    ///   - text: The string to process.
+    ///   - font: The current active font.
+    /// - Returns: The processed string.
     private func process(text: String, font: UIFont) -> NSMutableAttributedString
     {
         let openIndex = min(text.firstIndex(of: "(") ?? text.endIndex, text.firstIndex(of: "{") ?? text.endIndex)
         
         // No more brackets
-        if openIndex == text.endIndex
-        {
+        if openIndex == text.endIndex {
             return NSMutableAttributedString(string: String(text), attributes: [.font: font])
         }
         
@@ -132,15 +145,13 @@ class CardLabel: UILabel {
         let result = NSMutableAttributedString()
         
         // Prefix
-        if openIndex > text.startIndex
-        {
+        if openIndex > text.startIndex {
             let prefix = text.prefix(through: text.index(before: openIndex))
             result.append(NSMutableAttributedString(string: String(prefix), attributes: [.font: font]))
         }
         
         // Round brackets
-        if (text[openIndex] == "(")
-        {
+        if (text[openIndex] == "(") {
             closeIndex = text.firstIndex(of: ")")!
             let italicFont = self.font(style: .italic)
             let subString = text[text.index(after: openIndex)...text.index(before: closeIndex)]
@@ -149,17 +160,15 @@ class CardLabel: UILabel {
             result.append(NSAttributedString(string: ")", attributes: [.font: italicFont]))
         }
             
-            // Curley brackets
-        else
-        {
+        // Curley brackets
+        else {
             closeIndex = text.firstIndex(of: "}")!
             let token = text[text.index(after: openIndex)...text.index(before: closeIndex)]
             result.append(icon(token: String(token)))
         }
         
         // Suffix
-        if closeIndex < text.endIndex
-        {
+        if closeIndex < text.endIndex {
             let suffix = text.suffix(from: text.index(after: closeIndex))
             result.append(process(text: String(suffix), font: font))
         }
@@ -167,10 +176,12 @@ class CardLabel: UILabel {
         return result
     }
     
-    private func icon(token: String) -> NSAttributedString
-    {
-        if CardLabel.icons.keys.contains(token)
-        {
+    /// Replaces token string with corresponding icon in attribured string format.
+    ///
+    /// - Parameter token: The token string, not including curly brackets.
+    /// - Returns: Attributed string of just the icon.
+    private func icon(token: String) -> NSAttributedString {
+        if CardLabel.icons.keys.contains(token)  {
             let attachment = NSTextAttachment()
             attachment.image = UIImage(named: CardLabel.icons[token]!)
             
@@ -179,16 +190,24 @@ class CardLabel: UILabel {
             
             return NSAttributedString(attachment: attachment)
         }
-        else
-        {
+        else {
             fatalError("Failed to Iconize: Unknown token '\(token)'.")
         }
     }
     
-    private func font(style: Style) -> UIFont
-    {
-        switch style
-        {
+    /// Returns the font with current size and style.
+    ///
+    /// - Returns: The font.
+    private func font() -> UIFont {
+        return font(style: self.style)
+    }
+    
+    /// Returns the font with current size, but overriding style.
+    ///
+    /// - Parameter style: The override style.
+    /// - Returns: The font.
+    private func font(style: Style) -> UIFont {
+        switch style {
         case .normal:
             return UIFont.systemFont(ofSize: textSize)
         case .bold:
@@ -198,8 +217,11 @@ class CardLabel: UILabel {
         }
     }
     
-    enum Style
-    {
+    
+    
+    //MARK: - Enums
+    /// The font style of the label.
+    enum Style {
         case normal
         case bold
         case italic
