@@ -12,7 +12,7 @@ import UIKit
 class CardViewController: UITableViewController {
     //MARK: - Properties
     /// The list of cells, always built based on current card.
-    private var cells = [LabelTableViewCell]()
+    private var cells = [UITableViewCell]()
     
     /// The card.
     var card: Card? {
@@ -96,6 +96,10 @@ class CardViewController: UITableViewController {
             return
         }
         
+        let imageCell = ImageTableViewCell()
+        imageCell.card = card
+        cells.append(imageCell)
+        
         let nameCell = LabelTableViewCell()
         nameCell.label.text = card.name
         cells.append(nameCell)
@@ -108,10 +112,20 @@ class CardViewController: UITableViewController {
         typeCell.label.text = card.typeLine
         cells.append(typeCell)
         
-        let textCell = LabelTableViewCell()
-        textCell.label.text = card.oracleText ?? "No text"
-        textCell.label.multiLine = true
-        cells.append(textCell)
+        if let text = card.oracleText {
+            let textCell = LabelTableViewCell()
+            textCell.label.multiLine = true
+            textCell.label.text = text
+            cells.append(textCell)
+        }
+        
+        if let flavor = card.flavorText {
+            let flavorCell = LabelTableViewCell()
+            flavorCell.label.multiLine = true
+            flavorCell.label.style = .italic
+            flavorCell.label.text = flavor
+            cells.append(flavorCell)
+        }
         
         if let loyalty = card.loyalty {
             let loyaltyCell = LabelTableViewCell()
@@ -121,7 +135,7 @@ class CardViewController: UITableViewController {
         
         if let power = card.power, let toughness = card.toughness {
             let pAndTCell = LabelTableViewCell()
-            pAndTCell.label.text = "\(power) \\ \(toughness)"
+            pAndTCell.label.text = "\(power) / \(toughness)"
             cells.append(pAndTCell)
         }
     }

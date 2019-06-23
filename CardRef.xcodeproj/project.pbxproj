@@ -27,6 +27,7 @@
 		CA48CC1F22B9DEAC009C0E59 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CA48CC1E22B9DEAC009C0E59 /* Assets.xcassets */; };
 		CA48CC2122B9E589009C0E59 /* CardLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48CC2022B9E589009C0E59 /* CardLabel.swift */; };
 		CA48CC2522B9F19B009C0E59 /* LabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48CC2422B9F19B009C0E59 /* LabelTableViewCell.swift */; };
+		CA48CC2722BDF925009C0E59 /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48CC2622BDF924009C0E59 /* ImageTableViewCell.swift */; };
 		CAC8B41D22B0AF5F0085FDF2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC8B41C22B0AF5F0085FDF2 /* AppDelegate.swift */; };
 		CAC8B42722B0AF610085FDF2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CAC8B42522B0AF610085FDF2 /* LaunchScreen.storyboard */; };
 		CAC8B43222B0AF610085FDF2 /* EnumTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC8B43122B0AF610085FDF2 /* EnumTests.swift */; };
@@ -65,6 +66,7 @@
 		CA48CC1E22B9DEAC009C0E59 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CA48CC2022B9E589009C0E59 /* CardLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardLabel.swift; sourceTree = "<group>"; };
 		CA48CC2422B9F19B009C0E59 /* LabelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelTableViewCell.swift; sourceTree = "<group>"; };
+		CA48CC2622BDF924009C0E59 /* ImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTableViewCell.swift; sourceTree = "<group>"; };
 		CAC8B41922B0AF5F0085FDF2 /* CardRef.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardRef.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAC8B41C22B0AF5F0085FDF2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CAC8B42622B0AF610085FDF2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 			children = (
 				CA48CC2022B9E589009C0E59 /* CardLabel.swift */,
 				CA48CC1C22B8925E009C0E59 /* CardTableViewCell.swift */,
+				CA48CC2622BDF924009C0E59 /* ImageTableViewCell.swift */,
 				CA48CC2422B9F19B009C0E59 /* LabelTableViewCell.swift */,
 				CA48CC1922B88AFB009C0E59 /* LoadingTableViewCell.swift */,
 			);
@@ -285,6 +288,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA48CC2722BDF925009C0E59 /* ImageTableViewCell.swift in Sources */,
 				CAC8B44022B0B1090085FDF2 /* Legality.swift in Sources */,
 				CA48CC2122B9E589009C0E59 /* CardLabel.swift in Sources */,
 				CA48CC1A22B88AFB009C0E59 /* LoadingTableViewCell.swift in Sources */,

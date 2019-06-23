@@ -111,7 +111,7 @@ struct Card: Codable {
     /// A unique identifier for the card artwork that remains consistent across reprints. Newly spoiled cards may not have this field yet.
     let illustrationID: String?
     /// An object listing available imagery for this card. See the Card Imagery article for more information.
-    let imageURLs: [String: URL]?
+    let imageURLs: [ImageType: URL]?
     /// An object containing daily price information for this card, including usd, usd_foil, eur, and tix prices, as strings.
     let prices: [String: String?]
     /// The localized name printed on this card, if any.
@@ -123,7 +123,7 @@ struct Card: Codable {
     /// True if this card is a promotional print.
     let promo: Bool
     /// An array of strings describing what categories of promo cards this card falls into.
-    let promoTypes: [String]
+    let promoTypes: [String]?
     /// An object providing URIs to this card’s listing on major marketplaces.
     let purchaseURLs: [String: URL]
     /// This card’s rarity. One of common, uncommon, rare, or mythic.
@@ -221,13 +221,22 @@ struct Card: Codable {
         self.games = try container.decode([String].self, forKey: .games)
         self.highresImage = try container.decode(Bool.self, forKey: .highresImage)
         self.illustrationID = try container.decodeIfPresent(String.self, forKey: .illustrationID)
-        self.imageURLs = try container.decodeIfPresent([String: URL].self, forKey: .imageURLs)
+        if let strings = try container.decodeIfPresent([String: URL].self, forKey: .imageURLs) {
+            var imageTypes = [ImageType: URL]()
+            for (key, value) in strings {
+                imageTypes[ImageType(rawValue: key)!] = value
+            }
+            self.imageURLs = imageTypes
+        }
+        else {
+            self.imageURLs = nil
+        }
         self.prices = try container.decode([String: String?].self, forKey: .prices)
         self.printedName = try container.decodeIfPresent(String.self, forKey: .printedName)
         self.printedText = try container.decodeIfPresent(String.self, forKey: .printedText)
         self.printedTypeLine = try container.decodeIfPresent(String.self, forKey: .printedTypeLine)
         self.promo = try container.decode(Bool.self, forKey: .promo)
-        self.promoTypes = try container.decode([String].self, forKey: .promoTypes)
+        self.promoTypes = try container.decodeIfPresent([String].self, forKey: .promoTypes)
         self.purchaseURLs = try container.decode([String: URL].self, forKey: .purchaseURLs)
         self.rarity = try container.decode(String.self, forKey: .rarity)
         self.relatedURLs = try container.decode([String: URL].self, forKey: .relatedURLs)
@@ -347,7 +356,7 @@ struct Card: Codable {
         /// A unique identifier for the card face artwork that remains consistent across reprints. Newly spoiled cards may not have this field yet.
         let illustrationID: String?
         /// An object providing URIs to imagery for this face, if this is a double-sided card. If this card is not double-sided, then the image_uris property will be part of the parent object instead.
-        let imageURLs: [String: URL]?
+        let imageURLs: [ImageType: URL]?
         /// This face’s loyalty, if any.
         let loyalty: String?
         /// The mana cost for this face. This value will be any empty string "" if the cost is absent. Remember that per the game rules, a missing mana cost and a mana cost of {0} are different values.
@@ -388,7 +397,16 @@ struct Card: Codable {
             self.colors = try container.decodeIfPresent([Color].self, forKey: .colors)
             self.flavorText = try container.decodeIfPresent(String.self, forKey: .flavorText)
             self.illustrationID = try container.decodeIfPresent(String.self, forKey: .illustrationID)
-            self.imageURLs = try container.decodeIfPresent([String: URL].self, forKey: .imageURLs)
+            if let strings = try container.decodeIfPresent([String: URL].self, forKey: .imageURLs) {
+                var imageTypes = [ImageType: URL]()
+                for (key, value) in strings {
+                    imageTypes[ImageType(rawValue: key)!] = value
+                }
+                self.imageURLs = imageTypes
+            }
+            else {
+                self.imageURLs = nil
+            }
             self.loyalty = try container.decodeIfPresent(String.self, forKey: .loyalty)
             self.manaCost = try container.decodeIfPresent(String.self, forKey: .manaCost)
             self.name = try container.decode(String.self, forKey: .name)

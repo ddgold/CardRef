@@ -6,7 +6,7 @@
 //  Copyright © 2019 Doug Goldstein. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 /// A singleton datatank object that processes all loading of, and caching of, data from webservices.
 struct Datatank {
@@ -18,6 +18,8 @@ struct Datatank {
     private static var cards = [URL: Card]()
     /// Cache of search results
     private static var results = [URL: List<Card>]()
+    /// Cache of card images
+    private static var images = [URL: UIImage]()
     
     
     
@@ -31,9 +33,9 @@ struct Datatank {
     /// Load an individual card via webservice or cache.
     ///
     /// - Parameters:
-    ///     - id: The ID of the card to load.
-    ///     - resultHandler: The completion handler for when the request returns a result.
-    ///     - errorHandler: The completion handler for when the request returns an error.
+    ///   - id: The ID of the card to load.
+    ///   - resultHandler: The completion handler for when the request returns a result.
+    ///   - errorHandler: The completion handler for when the request returns an error.
     static func card(_ id: String, resultHandler: @escaping (Card) -> Void, errorHandler: @escaping (RequestError) -> Void) {
         let url = URL(string: "https://api.scryfall.com/cards/\(id)")!
         // Check cache
@@ -50,12 +52,43 @@ struct Datatank {
         }, errorHandler: errorHandler)
     }
     
+    /// Load an image via webservice or cache
+    ///
+    /// - Parameters:
+    ///   - card: The card to load image of.
+    ///   - type: The type of image.
+    ///   - resultHandler: The completion handler for when the request returns a result.
+    ///   - errorHandler: The completion handler for when the request returns an error.
+    static func image(_ card: Card, type: ImageType, resultHandler: @escaping (UIImage) -> Void, errorHandler: @escaping (RequestError) -> Void) {
+        // Select URl from card
+        let url: URL
+        if card.layout == .transform {
+            url = card.cardFaces![0].imageURLs![type]!
+        }
+        else {
+            url = card.imageURLs![type]!
+        }
+        
+        // Check cache
+        if let image = images[url] {
+            resultHandler(image)
+            return
+        }
+        
+        // Else request card image from server, asynchronous
+        request(url, resultHandler: { (image: UIImage) in
+            resultHandler(image)
+            images[url] = image
+        }, errorHandler: errorHandler)
+        
+    }
+    
     /// Load a new search via webservice or cache.
     ///
     /// - Parameters:
-    ///     - search: The search object.
-    ///     - resultHandler: The completion handler for when the request returns a result.
-    ///     - errorHandler: The completion handler for when the request returns an error.
+    ///   - search: The search object.
+    ///   - resultHandler: The completion handler for when the request returns a result.
+    ///   - errorHandler: The completion handler for when the request returns an error.
     static func search(_ search: Search, resultHandler: @escaping (List<Card>) -> Void, errorHandler: @escaping (RequestError) -> Void) {
         // Check cache
         let url = search.url
@@ -78,9 +111,9 @@ struct Datatank {
     /// Load the next page of a search via webservice or cache.
     ///
     /// - Parameters:
-    ///     - previous: The previous result object.
-    ///     - resultHandler: The completion handler for when the request returns a result.
-    ///     - errorHandler: The completion handler for when the request returns an error.
+    ///   - previous: The previous result object.
+    ///   - resultHandler: The completion handler for when the request returns a result.
+    ///   - errorHandler: The completion handler for when the request returns an error.
     static func nextPage(_ previous: List<Card>, resultHandler: @escaping (List<Card>) -> Void, errorHandler: @escaping (RequestError) -> Void) {
         // Check cache
         let url = previous.nextPage!
@@ -105,6 +138,7 @@ struct Datatank {
         debugPrint("Datatank Status:")
         debugPrint("- Cards: \(cards.count)")
         debugPrint("- Results: \(results.count)")
+        debugPrint("- Images: \(images.count)")
     }
     
     
@@ -113,9 +147,9 @@ struct Datatank {
     /// Request the JSON from a URL.
     ///
     /// - Parameters:
-    ///     - url: The URL.
-    ///     - resultHandler: The completion handler for when the request returns a result.
-    ///     - errorHandler: The completion handler for when the request returns an error.
+    ///   - url: The URL.
+    ///   - resultHandler: The completion handler for when the request returns a result.
+    ///   - errorHandler: The completion handler for when the request returns an error.
     private static func request<ObjectType: Codable>(_ url: URL, resultHandler: @escaping (ObjectType) -> Void, errorHandler: @escaping (RequestError) -> Void) {
         URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) -> Void in
             if let error = error {
@@ -134,6 +168,44 @@ struct Datatank {
                 if (response.statusCode == 200) {
                     let object = try decoder.decode(ObjectType.self, from: data)
                     resultHandler(object)
+                }
+                else {
+                    let error = try decoder.decode(RequestError.self, from: data)
+                    errorHandler(error)
+                }
+            }
+            catch {
+                fatalError("Decoder error in request: \(error.localizedDescription)")
+            }
+        }).resume()
+    }
+    
+    /// Request an image from a URL.
+    ///
+    /// - Parameters:
+    ///   - url: The URL.
+    ///   - resultHandler: The completion handler for when the request returns a result.
+    ///   - errorHandler: The completion handler for when the request returns an error.
+    private static func request(_ url: URL, resultHandler: @escaping (UIImage) -> Void, errorHandler: @escaping (RequestError) -> Void) {
+        URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) -> Void in
+            if let error = error {
+                fatalError("URLSession error in request: \(error.localizedDescription)")
+            }
+            
+            guard let data = data else {
+                fatalError("No data in request")
+            }
+            
+            guard let response = response as? HTTPURLResponse else {
+                fatalError("No response in request")
+            }
+            
+            do {
+                if (response.statusCode == 200) {
+                    guard let image = UIImage(data: data) else {
+                        fatalError("Data is not a properly formated image.")
+                    }
+                    resultHandler(image)
                 }
                 else {
                     let error = try decoder.decode(RequestError.self, from: data)

@@ -36,12 +36,7 @@ class LabelTableViewCell: UITableViewCell {
     /// Decoder init not implemented.
     ///
     /// - Parameter aDecoder: The decoder.
-    required init?(coder aDecoder: NSCoder)
-    {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
-    
-    //MARK: - Public Functions
 }
