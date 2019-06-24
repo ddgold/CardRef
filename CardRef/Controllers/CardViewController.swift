@@ -114,47 +114,60 @@ class CardViewController: UITableViewController {
             return
         }
         
-        let imageCell = ImageTableViewCell()
-        imageCell.card = card
-        cells.append(imageCell)
-        
-        let nameCell = LabelTableViewCell()
-        nameCell.label.text = card.name
-        cells.append(nameCell)
-        
-        let manaCell = LabelTableViewCell()
-        manaCell.label.text = card.manaCost ?? "No cost"
-        cells.append(manaCell)
-        
-        let typeCell = LabelTableViewCell()
-        typeCell.label.text = card.typeLine
-        cells.append(typeCell)
-        
-        if let text = card.oracleText {
-            let textCell = LabelTableViewCell()
-            textCell.label.multiLine = true
-            textCell.label.text = text
-            cells.append(textCell)
+        if let faces = card.cardFaces {
+            for face in faces {
+                let nameCell = LabelTableViewCell()
+                nameCell.label.style = .bold
+                nameCell.label.text = "\(face.name)  \(face.manaCost ?? "")"
+                cells.append(nameCell)
+                
+                let typeCell = LabelTableViewCell()
+                typeCell.label.text = face.typeLine
+                cells.append(typeCell)
+                
+                if let text = face.oracleText, !text.isEmpty {
+                    let textCell = LabelTableViewCell()
+                    textCell.label.multiLine = true
+                    textCell.label.text = text
+                    cells.append(textCell)
+                }
+                
+                if let power = face.power, let toughness = face.toughness {
+                    let pAndTCell = LabelTableViewCell()
+                    pAndTCell.label.text = "\(power) / \(toughness)"
+                    cells.append(pAndTCell)
+                }
+            }
         }
-        
-        if let flavor = card.flavorText {
-            let flavorCell = LabelTableViewCell()
-            flavorCell.label.multiLine = true
-            flavorCell.label.style = .italic
-            flavorCell.label.text = flavor
-            cells.append(flavorCell)
-        }
-        
-        if let loyalty = card.loyalty {
-            let loyaltyCell = LabelTableViewCell()
-            loyaltyCell.label.text = "Loyalty: \(loyalty)"
-            cells.append(loyaltyCell)
-        }
-        
-        if let power = card.power, let toughness = card.toughness {
-            let pAndTCell = LabelTableViewCell()
-            pAndTCell.label.text = "\(power) / \(toughness)"
-            cells.append(pAndTCell)
+        else {
+            let nameCell = LabelTableViewCell()
+            nameCell.label.style = .bold
+            nameCell.label.text = "\(card.name)  \(card.manaCost ?? "")"
+            cells.append(nameCell)
+            
+            let typeCell = LabelTableViewCell()
+            typeCell.label.text = card.typeLine
+            cells.append(typeCell)
+            
+            if let text = card.oracleText, !text.isEmpty {
+                let textCell = LabelTableViewCell()
+                textCell.label.multiLine = true
+                textCell.label.text = text
+                cells.append(textCell)
+            }
+            
+            if let power = card.power, let toughness = card.toughness {
+                let powerToughnessCell = LabelTableViewCell()
+                powerToughnessCell.label.text = "\(power) / \(toughness)"
+                cells.append(powerToughnessCell)
+            }
+            else if let handSize = card.handModifier, let startingLife = card.lifeModifier
+            {
+                let handSizeStartingLifeCell = LabelTableViewCell()
+                handSizeStartingLifeCell.label.style = .bold
+                handSizeStartingLifeCell.label.text = "Hand Size: \(handSize)\nStarting Life: \(startingLife)"
+                cells.append(handSizeStartingLifeCell)
+            }
         }
     }
 }
