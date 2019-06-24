@@ -53,6 +53,10 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
         
         tableView.register(CardTableViewCell.self, forCellReuseIdentifier: "searchCell")
         tableView.register(LoadingTableViewCell.self, forCellReuseIdentifier: "loadingCell")
+        
+        // Listen for theme changes
+        Theme.subscribe(self, selector: #selector(updateTheme(_:)))
+        updateTheme(nil)
     }
     
     
@@ -156,6 +160,21 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
     
     
     
+    //MARK: - Public Functions
+    /// Updates the view to the current theme.
+    ///
+    /// - Parameters:
+    ///   - notification: Unused.
+    @objc func updateTheme(_: Notification?)
+    {
+        (self.navigationItem.titleView as! UISearchBar).barStyle = Theme.barStyle
+        self.navigationController?.navigationBar.barStyle = Theme.barStyle
+        self.tabBarController?.tabBar.barStyle = Theme.barStyle
+        self.tableView.backgroundColor = Theme.backgroundColor
+    }
+    
+    
+    
     //MARK: - Private Functions
     /// Runs new search for cards from database . Does nothing if already loading data.
     private func searchForCards()
@@ -193,7 +212,7 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
     /// Handles database results from new search or loading more cards.
     ///
     /// - Parameters:
-    ///     - result: The result object from database.
+    ///   - result: The result object from database.
     private func resultHandler(result: List<Card>) -> Void
     {
         self.result = result
@@ -209,7 +228,7 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
     /// Handles database errors from new search or loading more cards.
     ///
     /// - Parameters:
-    ///     - error: The error object from database.
+    ///   - error: The error object from database.
     private func errorHandler(_ error: RequestError) -> Void
     {
         self.result = nil
@@ -221,5 +240,4 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
             self.tableView.reloadData()
         })
     }
-
 }

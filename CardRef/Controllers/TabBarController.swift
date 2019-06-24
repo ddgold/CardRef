@@ -26,15 +26,24 @@ class TabBarController: UITabBarController {
         viewControllers += [UINavigationController(rootViewController: searchViewController)]
         
         self.viewControllers = viewControllers
+        
+        // Listen for theme changes
+        Theme.subscribe(self, selector: #selector(updateTheme(_:)))
+        updateTheme(nil)
     }
     
-
-    /*
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    
+    //MARK: - Public Functions
+    /// Updates the view to the current theme.
+    ///
+    /// - Parameters:
+    ///   - notification: Unused.
+    @objc func updateTheme(_: Notification?)
+    {
+        self.tabBar.tintColor = Theme.tintColor
+        self.viewControllers?.forEach({ (viewController) in
+            (viewController as! UINavigationController).navigationBar.tintColor = Theme.tintColor
+        })
     }
-    */
-
 }

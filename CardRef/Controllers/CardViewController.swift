@@ -47,6 +47,10 @@ class CardViewController: UITableViewController {
         tableView.allowsSelection = false
         
         tableView.register(LabelTableViewCell.self, forCellReuseIdentifier: "cardLineCell")
+        
+        // Listen for theme changes
+        Theme.subscribe(self, selector: #selector(updateTheme(_:)))
+        updateTheme(nil)
     }
     
     
@@ -83,6 +87,20 @@ class CardViewController: UITableViewController {
         assert(indexPath.row < cells.count)
         
         return cells[indexPath.row]
+    }
+    
+    
+    
+    //MARK: - Public Functions
+    /// Updates the view to the current theme.
+    ///
+    /// - Parameters:
+    ///   - notification: Unused.
+    @objc func updateTheme(_: Notification?)
+    {
+        self.navigationController?.navigationBar.barStyle = Theme.barStyle
+        self.tabBarController?.tabBar.barStyle = Theme.barStyle
+        self.tableView.backgroundColor = Theme.backgroundColor
     }
     
     

@@ -54,6 +54,10 @@ class CardTableViewCell: UITableViewCell {
         costLabel.translatesAutoresizingMaskIntoConstraints = false
         costLabel.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor).isActive = true
         costLabel.centerYAnchor.constraint(equalTo: layoutMarginsGuide.centerYAnchor).isActive = true
+        
+        // Listen for theme changes
+        Theme.subscribe(self, selector: #selector(updateTheme(_:)))
+        updateTheme(nil)
     }
     
     /// Decoder init not implemented.
@@ -62,5 +66,22 @@ class CardTableViewCell: UITableViewCell {
     required init?(coder aDecoder: NSCoder)
     {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    
+    //MARK: - Public Functions
+    /// Updates the view to the current theme.
+    ///
+    /// - Parameters:
+    ///     - notification: Unused.
+    ///
+    @objc func updateTheme(_: Notification?)
+    {
+        backgroundColor = Theme.backgroundColor
+        
+        nameLabel.textColor = Theme.textColor
+        typeLabel.textColor = Theme.textColor
+        costLabel.textColor = Theme.textColor
     }
 }

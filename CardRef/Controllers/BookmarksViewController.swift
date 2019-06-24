@@ -43,6 +43,10 @@ class BookmarksViewController: UITableViewController {
         tableView.register(LoadingTableViewCell.self, forCellReuseIdentifier: "loadingCell")
         
         loadBookmarks()
+        
+        // Listen for theme changes
+        Theme.subscribe(self, selector: #selector(updateTheme(_:)))
+        updateTheme(nil)
     }
     
     
@@ -108,6 +112,21 @@ class BookmarksViewController: UITableViewController {
             navigationController?.pushViewController(cardViewController, animated: true)
         }
     }
+    
+    
+    
+    //MARK: - Public Functions
+    /// Updates the view to the current theme.
+    ///
+    /// - Parameters:
+    ///   - notification: Unused.
+    @objc func updateTheme(_: Notification?)
+    {
+        self.navigationController?.navigationBar.barStyle = Theme.barStyle
+        self.tabBarController?.tabBar.barStyle = Theme.barStyle
+        self.tableView.backgroundColor = Theme.backgroundColor
+    }
+    
     
     
     //MARK: - Private Functions

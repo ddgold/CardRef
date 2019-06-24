@@ -33,6 +33,10 @@ class LoadingTableViewCell: UITableViewCell {
         selectionStyle = .none
         
         spinner.startAnimating()
+        
+        // Listen for theme changes
+        Theme.subscribe(self, selector: #selector(updateTheme(_:)))
+        updateTheme(nil)
     }
     
     /// Decoder init not implemented.
@@ -49,5 +53,21 @@ class LoadingTableViewCell: UITableViewCell {
     /// (Re)starts the spinning animation.
     override func prepareForReuse() {
         spinner.startAnimating()
+    }
+    
+    /// Updates the view to the current theme.
+    ///
+    /// - Parameters:
+    ///   - notification: Unused.
+    @objc func updateTheme(_: Notification?)
+    {
+        backgroundColor = Theme.backgroundColor
+        
+        switch Theme.barStyle {
+        case .default:
+            spinner.style = .gray
+        default:
+            spinner.style = .white
+        }
     }
 }
