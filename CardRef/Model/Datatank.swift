@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import os.log
 
 /// A singleton datatank object that processes all loading of, and caching of, data from webservices.
 struct Datatank {
@@ -41,15 +42,20 @@ struct Datatank {
         // Check cache
         if let card = cards[url]
         {
+            os_log("card cached: %{PUBLIC}@", log: OSLog.datatank, type: .info, url.absoluteString)
             resultHandler(card)
             return
         }
         
         // Else request card from server, asynchronous
         request(url, resultHandler: { (card: Card) in
+            os_log("card downloaded: %{PUBLIC}@", log: OSLog.datatank, type: .info, url.absoluteString)
             resultHandler(card)
             cards[url] = card
-        }, errorHandler: errorHandler)
+        }, errorHandler: { (error: RequestError) in
+            os_log("card download error: %{PUBLIC}@", log: OSLog.datatank, type: .error, url.absoluteString)
+            errorHandler(error)
+        })
     }
     
     /// Load an image via webservice or cache
@@ -71,15 +77,20 @@ struct Datatank {
         
         // Check cache
         if let image = images[url] {
+            os_log("image cached: %{PUBLIC}@", log: OSLog.datatank, type: .info, url.absoluteString)
             resultHandler(image)
             return
         }
         
         // Else request card image from server, asynchronous
         request(url, resultHandler: { (image: UIImage) in
+            os_log("image downloaded: %{PUBLIC}@", log: OSLog.datatank, type: .info, url.absoluteString)
             resultHandler(image)
             images[url] = image
-        }, errorHandler: errorHandler)
+        }, errorHandler: { (error: RequestError) in
+            os_log("image download error: %{PUBLIC}@", log: OSLog.datatank, type: .error, url.absoluteString)
+            errorHandler(error)
+        })
         
     }
     
@@ -94,18 +105,23 @@ struct Datatank {
         let url = search.url
         if let result = results[url]
         {
+            os_log("search cached: %{PUBLIC}@", log: OSLog.datatank, type: .info, url.absoluteString)
             resultHandler(result)
             return
         }
         
         // Else request list of cards from server, asynchronous
         request(url, resultHandler: { (result: List<Card>) in
+            os_log("search downloaded: %{PUBLIC}@", log: OSLog.datatank, type: .info, url.absoluteString)
             resultHandler(result)
             results[url] = result
             for card in result.data {
                 cards[card.url] = card
             }
-        }, errorHandler: errorHandler)
+        }, errorHandler: { (error: RequestError) in
+            os_log("search download error: %{PUBLIC}@", log: OSLog.datatank, type: .error, url.absoluteString)
+            errorHandler(error)
+        })
     }
     
     /// Load the next page of a search via webservice or cache.
@@ -119,18 +135,23 @@ struct Datatank {
         let url = previous.nextPage!
         if let result = results[url]
         {
+            os_log("next page cached: %{PUBLIC}@", log: OSLog.datatank, type: .info, url.absoluteString)
             resultHandler(result)
             return
         }
         
         // Else request list of cards from server, asynchronous
         request(url, resultHandler: { (result: List<Card>) in
+            os_log("next page downloaded: %{PUBLIC}@", log: OSLog.datatank, type: .info, url.absoluteString)
             resultHandler(result)
             results[url] = result
             for card in result.data {
                 cards[card.url] = card
             }
-        }, errorHandler: errorHandler)
+        }, errorHandler: { (error: RequestError) in
+            os_log("next page download error: %{PUBLIC}@", log: OSLog.datatank, type: .error, url.absoluteString)
+            errorHandler(error)
+        })
     }
     
     /// Print the current status of the datatank for debuging
@@ -217,4 +238,13 @@ struct Datatank {
             }
         }).resume()
     }
+}
+
+
+extension OSLog {
+    /// Use bundleIdentifier as subsystem.
+    private static var subsystem = Bundle.main.bundleIdentifier!
+    
+    /// A datatank log.
+    static let datatank = OSLog(subsystem: subsystem, category: "datatank")
 }

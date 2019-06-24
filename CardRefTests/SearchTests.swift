@@ -30,7 +30,7 @@ class SearchTests: XCTestCase {
         
         let search = Search(query: "lord", order: .color, dir: .asc)
         Datatank.search(search, resultHandler: { (result) in
-            XCTAssert(result.data.count == 77)
+            XCTAssert(result.data.count == 80)
             XCTAssert(result.data[0].name == "Konda, Lord of Eiganjo")
             XCTAssert(result.data[0].colors == [.white])
             expectation.fulfill()
@@ -47,7 +47,7 @@ class SearchTests: XCTestCase {
         
         let search = Search(query: "lord", order: .cmc, dir: .desc)
         Datatank.search(search, resultHandler: { (result) in
-            XCTAssert(result.data.count == 77)
+            XCTAssert(result.data.count == 80)
             XCTAssert(result.data[0].name == "Kuro, Pitlord")
             XCTAssert(result.data[0].cmc == 9)
             expectation.fulfill()
@@ -64,7 +64,7 @@ class SearchTests: XCTestCase {
         
         let search = Search(query: "lord", order: .rarity, dir: .auto)
         Datatank.search(search, resultHandler: { (result) in
-            XCTAssert(result.data.count == 77)
+            XCTAssert(result.data.count == 80)
             XCTAssert(result.data[0].name == "Bloodlord of Vaasgoth")
             XCTAssert(result.data[0].rarity == "mythic")
             expectation.fulfill()

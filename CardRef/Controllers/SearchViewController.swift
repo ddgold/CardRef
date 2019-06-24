@@ -166,8 +166,6 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
             return
         }
         
-        debugPrint("searching... \(search!.query)")
-        
         self.result = nil
         self.error = nil
         self.cards = []
@@ -187,8 +185,6 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
             return
         }
         
-        debugPrint("load more data...")
-        
         self.loadingData = true
         
         Datatank.nextPage(result!, resultHandler: resultHandler, errorHandler: errorHandler)
@@ -203,11 +199,6 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
         self.result = result
         self.error =  nil
         self.cards += result.data
-        
-        debugPrint("Result: \(result.warnings?.count ?? 0) warnings")
-        result.warnings?.forEach({ (warning) in
-            debugPrint(warning)
-        })
         
         DispatchQueue.main.async(execute: { () -> Void in
             self.loadingData = false
@@ -224,11 +215,6 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
         self.result = nil
         self.error = error
         self.cards = []
-        
-        debugPrint("ERROR: \(error.warnings?.count ?? 0) warnings")
-        error.warnings?.forEach({ (warning) in
-            debugPrint(warning)
-        })
         
         DispatchQueue.main.async(execute: { () -> Void in
             self.loadingData = false
