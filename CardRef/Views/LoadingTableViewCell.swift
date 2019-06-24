@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoadingTableViewCell: UITableViewCell {
+class LoadingTableViewCell: UITableViewHeaderFooterView {
     //MARK: - Properties
     /// Activity indicator spinner.
     private var spinner = UIActivityIndicatorView(style: .gray)
@@ -19,18 +19,15 @@ class LoadingTableViewCell: UITableViewCell {
     /// Creates a new loading cell, with active spinned in the middle of cell.
     ///
     /// - Parameters:
-    ///   - style: The cell's style.
     ///   - reuseIdentifier: The cell's reuse identifier.
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
         
         // Setup spinner in middle of cell
         self.addSubview(spinner)
         spinner.translatesAutoresizingMaskIntoConstraints = false
         spinner.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         spinner.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        
-        selectionStyle = .none
         
         spinner.startAnimating()
         
@@ -42,8 +39,7 @@ class LoadingTableViewCell: UITableViewCell {
     /// Decoder init not implemented.
     ///
     /// - Parameter aDecoder: The decoder.
-    required init?(coder aDecoder: NSCoder)
-    {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -59,8 +55,7 @@ class LoadingTableViewCell: UITableViewCell {
     ///
     /// - Parameters:
     ///   - notification: Unused.
-    @objc func updateTheme(_: Notification?)
-    {
+    @objc func updateTheme(_: Notification?) {
         backgroundColor = Theme.backgroundColor
         
         switch Theme.barStyle {

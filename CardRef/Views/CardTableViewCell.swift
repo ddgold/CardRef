@@ -63,8 +63,7 @@ class CardTableViewCell: UITableViewCell {
     /// Decoder init not implemented.
     ///
     /// - Parameter aDecoder: The decoder.
-    required init?(coder aDecoder: NSCoder)
-    {
+    required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -76,8 +75,7 @@ class CardTableViewCell: UITableViewCell {
     /// - Parameters:
     ///     - notification: Unused.
     ///
-    @objc func updateTheme(_: Notification?)
-    {
+    @objc func updateTheme(_: Notification?) {
         backgroundColor = Theme.backgroundColor
         
         nameLabel.textColor = Theme.textColor

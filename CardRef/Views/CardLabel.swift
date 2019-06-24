@@ -131,8 +131,7 @@ class CardLabel: UILabel {
     ///   - text: The string to process.
     ///   - font: The current active font.
     /// - Returns: The processed string.
-    private func process(text: String, font: UIFont) -> NSMutableAttributedString
-    {
+    private func process(text: String, font: UIFont) -> NSMutableAttributedString {
         let openIndex = min(text.firstIndex(of: "(") ?? text.endIndex, text.firstIndex(of: "{") ?? text.endIndex)
         
         // No more brackets

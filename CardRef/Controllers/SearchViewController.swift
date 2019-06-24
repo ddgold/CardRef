@@ -29,7 +29,7 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
     //MARK: - UIViewController
     /// Creates a new search view controller, sets plain style.
     init() {
-        super.init(style: .plain)
+        super.init(style: .grouped)
     }
     
     /// Decoder init not implemented.
@@ -52,7 +52,7 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
         tableView.backgroundView?.backgroundColor = .white
         
         tableView.register(CardTableViewCell.self, forCellReuseIdentifier: "searchCell")
-        tableView.register(LoadingTableViewCell.self, forCellReuseIdentifier: "loadingCell")
+        tableView.register(LoadingTableViewCell.self, forHeaderFooterViewReuseIdentifier: "loadingCell")
         
         // Listen for theme changes
         Theme.subscribe(self, selector: #selector(updateTheme(_:)))
@@ -78,7 +78,61 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         assert(section == 0)
         
-        return cards.count + ((loadingData || (result?.hasMore ?? false)) ? 1 : 0)
+        return cards.count
+    }
+    
+    /// Determines the height of the header for a section.
+    ///
+    /// - Parameters:
+    ///   - tableView: The table view.
+    ///   - section: The section number.
+    /// - Returns: 0
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0
+    }
+    
+    /// Returns the height cell for a section.
+    ///
+    /// - Parameters:
+    ///   - tableView: The table view.
+    ///   - section: The section number.
+    /// - Returns: A blank header cell.
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UITableViewHeaderFooterView()
+    }
+    
+    /// Determines the height of the footer for a section.
+    ///
+    /// - Parameters:
+    ///   - tableView: The table view.
+    ///   - section: The section number.
+    /// - Returns: 20
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if (loadingData || (result?.hasMore ?? false)) {
+            return 50
+        }
+        else {
+            return 0
+        }
+    }
+    
+    /// Returns the footer cell for a section.
+    ///
+    /// - Parameters:
+    ///   - tableView: The table view.
+    ///   - section: The section number.
+    /// - Returns: A loading cell, or a blank footer cell.
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if (loadingData || (result?.hasMore ?? false)) {
+            guard let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: "loadingCell") as? LoadingTableViewCell else {
+                fatalError("Unexpected cell type for loadingCell.")
+            }
+            loadMoreCards()
+            return footer
+        }
+        else {
+            return UITableViewHeaderFooterView()
+        }
     }
     
     /// Dequeues a cell and updates it will new card.
@@ -88,21 +142,13 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
     ///   - indexPath: The path to cell, section must be 0, and row less then number of cards.
     /// - Returns: The updated dequeued cell.
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        assert(indexPath.row < cards.count + 1)
-        if (indexPath.item < cards.count) {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "searchCell", for: indexPath) as? CardTableViewCell else {
-                fatalError("Unexpected cell type for seachCell.")
-            }
-            cell.card = cards[indexPath.row]
-            return cell
+        assert(indexPath.row < cards.count)
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "searchCell", for: indexPath) as? CardTableViewCell else {
+            fatalError("Unexpected cell type for seachCell.")
         }
-        else {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "loadingCell", for: indexPath) as? LoadingTableViewCell else {
-                fatalError("Unexpected cell type for loadingCell.")
-            }
-            loadMoreCards()
-            return cell
-        }
+        cell.card = cards[indexPath.row]
+        return cell
     }
     
     /// Pushes new card view controller with selected card.
@@ -110,8 +156,7 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
     /// - Parameters:
     ///   - tableView: The table view.
     ///   - indexPath: The path to cell, section must be 0, and row less then number of cards.
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
-    {
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath.item < cards.count) {
             let cardViewController = CardViewController()
             cardViewController.card = cards[indexPath.row]
@@ -125,24 +170,21 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
     /// Shows cancel button and hides right bar buttons.
     ///
     /// - Parameter searchBar: The search bar.
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar)
-    {
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = true
     }
     
     /// Hides cancel button and shows right bar buttons.
     ///
     /// - Parameter searchBar: The search bar.
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar)
-    {
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = false
     }
     
     /// Reverts search bar text, and ends editing.
     ///
     /// - Parameter searchBar: The search bar.
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar)
-    {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = search?.query ?? nil
         searchBar.endEditing(false)
     }
@@ -150,8 +192,7 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
     /// Runs new search, and ends editing.
     ///
     /// - Parameter searchBar: The search bar.
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar)
-    {
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         search = Search(query: searchBar.text ?? "")
         searchBar.endEditing(false)
         
@@ -165,8 +206,7 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
     ///
     /// - Parameters:
     ///   - notification: Unused.
-    @objc func updateTheme(_: Notification?)
-    {
+    @objc func updateTheme(_: Notification?) {
         (self.navigationItem.titleView as! UISearchBar).barStyle = Theme.barStyle
         self.navigationController?.navigationBar.barStyle = Theme.barStyle
         self.tabBarController?.tabBar.barStyle = Theme.barStyle
@@ -177,11 +217,9 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
     
     //MARK: - Private Functions
     /// Runs new search for cards from database . Does nothing if already loading data.
-    private func searchForCards()
-    {
+    private func searchForCards() {
         // Only allow one outstanding database call at once
-        if loadingData
-        {
+        if loadingData {
             return
         }
         
@@ -196,11 +234,9 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
     }
     
     /// Loads next page of cards of previous search from database. Does nothing if already loading data.
-    private func loadMoreCards()
-    {
+    private func loadMoreCards() {
         // Only allow one outstanding database call at once
-        if loadingData
-        {
+        if loadingData {
             return
         }
         
@@ -213,8 +249,7 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
     ///
     /// - Parameters:
     ///   - result: The result object from database.
-    private func resultHandler(result: List<Card>) -> Void
-    {
+    private func resultHandler(result: List<Card>) -> Void {
         self.result = result
         self.error =  nil
         self.cards += result.data
@@ -229,8 +264,7 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
     ///
     /// - Parameters:
     ///   - error: The error object from database.
-    private func errorHandler(_ error: RequestError) -> Void
-    {
+    private func errorHandler(_ error: RequestError) -> Void {
         self.result = nil
         self.error = error
         self.cards = []

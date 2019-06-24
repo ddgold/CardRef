@@ -39,8 +39,7 @@ class TabBarController: UITabBarController {
     ///
     /// - Parameters:
     ///   - notification: Unused.
-    @objc func updateTheme(_: Notification?)
-    {
+    @objc func updateTheme(_: Notification?) {
         self.tabBar.tintColor = Theme.tintColor
         self.viewControllers?.forEach({ (viewController) in
             (viewController as! UINavigationController).navigationBar.tintColor = Theme.tintColor

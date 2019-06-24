@@ -22,7 +22,7 @@ class BookmarksViewController: UITableViewController {
     //MARK: - UIViewController
     /// Creates a new bookmarks view controller, sets plain style.
     init() {
-        super.init(style: .plain)
+        super.init(style: .grouped)
     }
     
     /// Decoder init not implemented.
@@ -40,7 +40,7 @@ class BookmarksViewController: UITableViewController {
         tableView.backgroundView?.backgroundColor = .white
         
         tableView.register(CardTableViewCell.self, forCellReuseIdentifier: "bookmarkCell")
-        tableView.register(LoadingTableViewCell.self, forCellReuseIdentifier: "loadingCell")
+        tableView.register(LoadingTableViewCell.self, forHeaderFooterViewReuseIdentifier: "loadingCell")
         
         loadBookmarks()
         
@@ -69,7 +69,60 @@ class BookmarksViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         assert(section == 0)
         
-        return loadingData ? 1 : cards.count
+        return cards.count
+    }
+    
+    /// Determines the height of the header for a section.
+    ///
+    /// - Parameters:
+    ///   - tableView: The table view.
+    ///   - section: The section number.
+    /// - Returns: 0
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0
+    }
+    
+    /// Returns the height cell for a section.
+    ///
+    /// - Parameters:
+    ///   - tableView: The table view.
+    ///   - section: The section number.
+    /// - Returns: A blank header cell.
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UITableViewHeaderFooterView()
+    }
+    
+    /// Determines the height of the footer for a section.
+    ///
+    /// - Parameters:
+    ///   - tableView: The table view.
+    ///   - section: The section number.
+    /// - Returns: 20
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        if loadingData {
+            return 50
+        }
+        else {
+            return 0
+        }
+    }
+    
+    /// Returns the footer cell for a section.
+    ///
+    /// - Parameters:
+    ///   - tableView: The table view.
+    ///   - section: The section number.
+    /// - Returns: A loading cell, or a blank footer cell.
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        if loadingData {
+            guard let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: "loadingCell") as? LoadingTableViewCell else {
+                fatalError("Unexpected cell type for loadingCell.")
+            }
+            return footer
+        }
+        else {
+            return UITableViewHeaderFooterView()
+        }
     }
     
     /// Dequeues a cell and updates it will new card.
@@ -80,21 +133,13 @@ class BookmarksViewController: UITableViewController {
     /// - Returns: The updated dequeued cell.
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         assert(indexPath.section == 0)
-        assert(loadingData ? (indexPath.row == 0) : (indexPath.row < cards.count))
+        assert(indexPath.row < cards.count)
         
-        if loadingData {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "loadingCell", for: indexPath) as? LoadingTableViewCell else {
-                fatalError("Unexpected cell type for bookmarkCell.")
-            }
-            return cell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "bookmarkCell", for: indexPath) as? CardTableViewCell else {
+            fatalError("Unexpected cell type for bookmarkCell.")
         }
-        else {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "bookmarkCell", for: indexPath) as? CardTableViewCell else {
-                fatalError("Unexpected cell type for bookmarkCell.")
-            }
-            cell.card = cards[indexPath.row]
-            return cell
-        }
+        cell.card = cards[indexPath.row]
+        return cell
     }
     
     /// Pushes new card view controller with selected card.
@@ -120,8 +165,7 @@ class BookmarksViewController: UITableViewController {
     ///
     /// - Parameters:
     ///   - notification: Unused.
-    @objc func updateTheme(_: Notification?)
-    {
+    @objc func updateTheme(_: Notification?) {
         self.navigationController?.navigationBar.barStyle = Theme.barStyle
         self.tabBarController?.tabBar.barStyle = Theme.barStyle
         self.tableView.backgroundColor = Theme.backgroundColor

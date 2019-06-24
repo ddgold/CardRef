@@ -52,8 +52,7 @@ class LabelTableViewCell: UITableViewCell {
     /// - Parameters:
     ///     - notification: Unused.
     ///
-    @objc func updateTheme(_: Notification?)
-    {
+    @objc func updateTheme(_: Notification?) {
         backgroundColor = Theme.backgroundColor
         
         label.textColor = Theme.textColor

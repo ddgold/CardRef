@@ -16,8 +16,7 @@ class CardViewController: UITableViewController {
     
     /// The card.
     var card: Card? {
-        didSet
-        {
+        didSet {
             navigationItem.title = card?.name
             updateCells()
         }
@@ -91,7 +90,7 @@ class CardViewController: UITableViewController {
     /// - Parameters:
     ///   - tableView: The table view.
     ///   - section: The section number.
-    /// - Returns: A blank header view.
+    /// - Returns: A blank header cell.
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return UITableViewHeaderFooterView()
     }
@@ -111,7 +110,7 @@ class CardViewController: UITableViewController {
     /// - Parameters:
     ///   - tableView: The table view.
     ///   - section: The section number.
-    /// - Returns: A blank footer view.
+    /// - Returns: A blank footer cell.
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         return UITableViewHeaderFooterView()
     }
@@ -136,8 +135,7 @@ class CardViewController: UITableViewController {
     ///
     /// - Parameters:
     ///   - notification: Unused.
-    @objc func updateTheme(_: Notification?)
-    {
+    @objc func updateTheme(_: Notification?) {
         self.navigationController?.navigationBar.barStyle = Theme.barStyle
         self.tabBarController?.tabBar.barStyle = Theme.barStyle
         self.tableView.backgroundColor = Theme.backgroundColor
