@@ -56,7 +56,8 @@ class LoadingTableViewCell: UITableViewHeaderFooterView {
     /// - Parameters:
     ///   - notification: Unused.
     @objc func updateTheme(_: Notification?) {
-        backgroundColor = Theme.backgroundColor
+        backgroundView = UIView()
+        backgroundView!.backgroundColor = Theme.backgroundColor
         
         switch Theme.barStyle {
         case .default:
