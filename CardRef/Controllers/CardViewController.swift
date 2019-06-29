@@ -12,7 +12,10 @@ import UIKit
 class CardViewController: UITableViewController {
     //MARK: - Properties
     /// The list of cells, always built based on current card.
-    private var cells = [[UITableViewCell]]()
+    private var sections = [(title: String?, cells: [UITableViewCell])]()
+    
+    /// Whether or not rulings are still downloading.
+    private var loadingRulings = false
     
     /// The card.
     var card: Card? {
@@ -41,8 +44,6 @@ class CardViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.backgroundView?.backgroundColor = .white
-        
         tableView.allowsSelection = false
         
         tableView.register(LabelTableViewCell.self, forCellReuseIdentifier: "cardLineCell")
@@ -60,7 +61,7 @@ class CardViewController: UITableViewController {
     /// - Parameter tableView: The table view.
     /// - Returns: The number of sections.
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return cells.count
+        return sections.count
     }
     
     /// Determines the number of items in collection.
@@ -70,9 +71,9 @@ class CardViewController: UITableViewController {
     ///   - section: The section number.
     /// - Returns: The number of cells in section.
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        assert(section < cells.count)
+        assert(section < sections.count)
         
-        return cells[section].count
+        return sections[section].cells.count
     }
     
     /// Determines the height of the header for a section.
@@ -82,7 +83,7 @@ class CardViewController: UITableViewController {
     ///   - section: The section number.
     /// - Returns: 0
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0
+        return 20
     }
     
     /// Returns the height cell for a section.
@@ -92,7 +93,17 @@ class CardViewController: UITableViewController {
     ///   - section: The section number.
     /// - Returns: A blank header cell.
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return UITableViewHeaderFooterView()
+        return nil
+    }
+    
+    /// Returns the section's title.
+    ///
+    /// - Parameters:
+    ///   - tableView: The table view.
+    ///   - section: The section number.
+    /// - Returns: The section's title, if there is one.
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return sections[section].title
     }
     
     /// Determines the height of the footer for a section.
@@ -102,7 +113,12 @@ class CardViewController: UITableViewController {
     ///   - section: The section number.
     /// - Returns: 20
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 20
+        if loadingRulings && (section == sections.count - 1) {
+            return 50
+        }
+        else {
+            return 20
+        }
     }
     
     /// Returns the footer cell for a section.
@@ -112,7 +128,12 @@ class CardViewController: UITableViewController {
     ///   - section: The section number.
     /// - Returns: A blank footer cell.
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        return UITableViewHeaderFooterView()
+        if loadingRulings && (section == sections.count - 1) {
+            return LoadingTableViewCell()
+        }
+        else {
+            return nil
+        }
     }
     
     /// Gets cells from pre-built list.
@@ -122,10 +143,10 @@ class CardViewController: UITableViewController {
     ///   - indexPath: The path to cell, section must be 0, and row less then number of cells.
     /// - Returns: The cell.
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        assert(indexPath.section < cells.count)
-        assert(indexPath.row < cells[indexPath.section].count)
+        assert(indexPath.section < sections.count)
+        assert(indexPath.row < sections[indexPath.section].cells.count)
         
-        return cells[indexPath.section][indexPath.row]
+        return sections[indexPath.section].cells[indexPath.row]
     }
     
     
@@ -146,30 +167,29 @@ class CardViewController: UITableViewController {
     //MARK: - Private Functions
     /// Rebuilds the list of cells when the card is changed
     private func updateCells() {
-        cells = []
+        sections = []
         
         guard let card = self.card else {
             return
         }
         
+        var cells = [UITableViewCell]()
         if let faces = card.cardFaces {
             for face in faces {
-                var section = [UITableViewCell]()
-                
                 let nameCell = LabelTableViewCell()
                 nameCell.label.style = .bold
                 nameCell.label.text = "\(face.name)  \(face.manaCost ?? "")"
-                section.append(nameCell)
+                cells.append(nameCell)
                 
                 let typeCell = LabelTableViewCell()
                 typeCell.label.text = face.typeLine
-                section.append(typeCell)
+                cells.append(typeCell)
                 
                 if let text = face.oracleText, !text.isEmpty {
                     let textCell = LabelTableViewCell()
                     textCell.label.multiLine = true
                     textCell.label.text = text
-                    section.append(textCell)
+                    cells.append(textCell)
                 }
                 
                 if let flavor = face.flavorText, !flavor.isEmpty {
@@ -177,42 +197,39 @@ class CardViewController: UITableViewController {
                     flavorCell.label.multiLine = true
                     flavorCell.label.style = .italic
                     flavorCell.label.text = flavor
-                    section.append(flavorCell)
+                    cells.append(flavorCell)
                 }
                 else if let flavor = card.flavorText, !flavor.isEmpty {
                     let flavorCell = LabelTableViewCell()
                     flavorCell.label.multiLine = true
                     flavorCell.label.style = .italic
                     flavorCell.label.text = flavor
-                    section.append(flavorCell)
+                    cells.append(flavorCell)
                 }
                 
                 if let power = face.power, let toughness = face.toughness {
                     let pAndTCell = LabelTableViewCell()
                     pAndTCell.label.text = "\(power) / \(toughness)"
-                    section.append(pAndTCell)
+                    cells.append(pAndTCell)
                 }
-                
-                cells.append(section)
             }
         }
         else {
-            var section = [UITableViewCell]()
             
             let nameCell = LabelTableViewCell()
             nameCell.label.style = .bold
             nameCell.label.text = "\(card.name)  \(card.manaCost ?? "")"
-            section.append(nameCell)
+            cells.append(nameCell)
             
             let typeCell = LabelTableViewCell()
             typeCell.label.text = card.typeLine
-            section.append(typeCell)
+            cells.append(typeCell)
             
             if let text = card.oracleText, !text.isEmpty {
                 let textCell = LabelTableViewCell()
                 textCell.label.multiLine = true
                 textCell.label.text = text
-                section.append(textCell)
+                cells.append(textCell)
             }
             
             if let flavor = card.flavorText, !flavor.isEmpty {
@@ -220,23 +237,70 @@ class CardViewController: UITableViewController {
                 flavorCell.label.multiLine = true
                 flavorCell.label.style = .italic
                 flavorCell.label.text = flavor
-                section.append(flavorCell)
+                cells.append(flavorCell)
             }
             
             if let power = card.power, let toughness = card.toughness {
                 let powerToughnessCell = LabelTableViewCell()
                 powerToughnessCell.label.text = "\(power) / \(toughness)"
-                section.append(powerToughnessCell)
+                cells.append(powerToughnessCell)
             }
             else if let handSize = card.handModifier, let startingLife = card.lifeModifier
             {
                 let handSizeStartingLifeCell = LabelTableViewCell()
                 handSizeStartingLifeCell.label.style = .bold
                 handSizeStartingLifeCell.label.text = "Hand Size: \(handSize)\nStarting Life: \(startingLife)"
-                section.append(handSizeStartingLifeCell)
+                cells.append(handSizeStartingLifeCell)
+            }
+        }
+        
+        sections.append((title: nil, cells: cells))
+        loadRulings()
+    }
+    
+    /// Load any rulings for this card. Does nothing if already loading rulings.
+    private func loadRulings() {
+        // Only allow one outstanding database call at once
+        if loadingRulings {
+            return
+        }
+        
+        self.loadingRulings = true
+        
+        Datatank.rulings(card!, resultHandler: resultHandler, errorHandler: errorHandler)
+    }
+    
+    /// Handles database results from loading rulings.
+    ///
+    /// - Parameters:
+    ///   - result: The result object from database.
+    private func resultHandler(result: List<Ruling>) -> Void {
+        DispatchQueue.main.async(execute: { () -> Void in
+            if result.data.count > 0 {
+                var cells = [UITableViewCell]()
+                
+                for ruling in result.data {
+                    let rulingCell = RulingTableViewCell()
+                    rulingCell.ruling = ruling
+                    cells.append(rulingCell)
+                }
+                
+                self.sections.append((title: "Rulings", cells: cells))
             }
             
-            cells.append(section)
-        }
+            self.loadingRulings = false
+            self.tableView.reloadData()
+        })
+    }
+    
+    /// Handles database errors from loading ruling.
+    ///
+    /// - Parameters:
+    ///   - error: The error object from database.
+    private func errorHandler(_ error: RequestError) -> Void {
+        DispatchQueue.main.async(execute: { () -> Void in
+            self.loadingRulings = false
+            self.tableView.reloadData()
+        })
     }
 }

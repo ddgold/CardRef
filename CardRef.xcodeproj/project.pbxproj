@@ -29,6 +29,8 @@
 		CA48CC2522B9F19B009C0E59 /* LabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48CC2422B9F19B009C0E59 /* LabelTableViewCell.swift */; };
 		CA48CC2722BDF925009C0E59 /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48CC2622BDF924009C0E59 /* ImageTableViewCell.swift */; };
 		CA48CC2922C04BD6009C0E59 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48CC2822C04BD6009C0E59 /* Theme.swift */; };
+		CA48CC2B22C079B4009C0E59 /* Ruling.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48CC2A22C079B4009C0E59 /* Ruling.swift */; };
+		CA88C52D22C5D79C00C307B7 /* RulingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA88C52C22C5D79C00C307B7 /* RulingTableViewCell.swift */; };
 		CAC8B41D22B0AF5F0085FDF2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC8B41C22B0AF5F0085FDF2 /* AppDelegate.swift */; };
 		CAC8B42722B0AF610085FDF2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CAC8B42522B0AF610085FDF2 /* LaunchScreen.storyboard */; };
 		CAC8B43222B0AF610085FDF2 /* EnumTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC8B43122B0AF610085FDF2 /* EnumTests.swift */; };
@@ -69,6 +71,8 @@
 		CA48CC2422B9F19B009C0E59 /* LabelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelTableViewCell.swift; sourceTree = "<group>"; };
 		CA48CC2622BDF924009C0E59 /* ImageTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageTableViewCell.swift; sourceTree = "<group>"; };
 		CA48CC2822C04BD6009C0E59 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		CA48CC2A22C079B4009C0E59 /* Ruling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ruling.swift; sourceTree = "<group>"; };
+		CA88C52C22C5D79C00C307B7 /* RulingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulingTableViewCell.swift; sourceTree = "<group>"; };
 		CAC8B41922B0AF5F0085FDF2 /* CardRef.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardRef.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAC8B41C22B0AF5F0085FDF2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CAC8B42622B0AF610085FDF2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -102,8 +106,8 @@
 			isa = PBXGroup;
 			children = (
 				CA48CC0922B4A724009C0E59 /* BookmarksViewController.swift */,
-				CA48CC1722B74A53009C0E59 /* SearchViewController.swift */,
 				CA48CC0B22B4B3C0009C0E59 /* CardViewController.swift */,
+				CA48CC1722B74A53009C0E59 /* SearchViewController.swift */,
 				CA48CC0222B4A0FE009C0E59 /* TabBarController.swift */,
 			);
 			path = Controllers;
@@ -117,6 +121,7 @@
 				CA48CC2622BDF924009C0E59 /* ImageTableViewCell.swift */,
 				CA48CC2422B9F19B009C0E59 /* LabelTableViewCell.swift */,
 				CA48CC1922B88AFB009C0E59 /* LoadingTableViewCell.swift */,
+				CA88C52C22C5D79C00C307B7 /* RulingTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -173,6 +178,7 @@
 				CA48CBFB22B48F48009C0E59 /* Datatank.swift */,
 				CA48CC0D22B57DC3009C0E59 /* List.swift */,
 				CA48CC1122B6A017009C0E59 /* RequestError.swift */,
+				CA48CC2A22C079B4009C0E59 /* Ruling.swift */,
 				CA48CC1322B72AEC009C0E59 /* Search.swift */,
 			);
 			path = Model;
@@ -291,6 +297,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA88C52D22C5D79C00C307B7 /* RulingTableViewCell.swift in Sources */,
+				CA48CC2B22C079B4009C0E59 /* Ruling.swift in Sources */,
 				CA48CC2722BDF925009C0E59 /* ImageTableViewCell.swift in Sources */,
 				CAC8B44022B0B1090085FDF2 /* Legality.swift in Sources */,
 				CA48CC2122B9E589009C0E59 /* CardLabel.swift in Sources */,

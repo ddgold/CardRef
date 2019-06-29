@@ -15,12 +15,14 @@ struct Datatank {
     /// The JSON decoder.
     private static let decoder = JSONDecoder()
     
-    /// Cache of individual cards
+    /// Cache of individual cards.
     private static var cards = [URL: Card]()
-    /// Cache of search results
+    /// Cache of search results.
     private static var results = [URL: List<Card>]()
-    /// Cache of card images
+    /// Cache of card images.
     private static var images = [URL: UIImage]()
+    /// Cache of rulings.
+    private static var rulings = [URL: List<Ruling>]()
     
     
     
@@ -58,10 +60,10 @@ struct Datatank {
         })
     }
     
-    /// Load an image via webservice or cache
+    /// Load an image of a card via webservice or cache
     ///
     /// - Parameters:
-    ///   - card: The card to load image of.
+    ///   - card: The card.
     ///   - type: The type of image.
     ///   - resultHandler: The completion handler for when the request returns a result.
     ///   - errorHandler: The completion handler for when the request returns an error.
@@ -94,7 +96,35 @@ struct Datatank {
         
     }
     
-    /// Load a new search via webservice or cache.
+    /// Load rulings for a card via webservice or cache.
+    ///
+    /// - Parameters:
+    ///   - card: The card.
+    ///   - resultHandler: The completion handler for when the request returns a result.
+    ///   - errorHandler: The completion handler for when the request returns an error.
+    static func rulings(_ card: Card, resultHandler: @escaping (List<Ruling>) -> Void, errorHandler: @escaping (RequestError) -> Void) {
+        // Select URl from card
+        let url = card.rulingsURL
+        
+        // Check cache
+        if let rulings = rulings[url] {
+            os_log("rulings cached: %{PUBLIC}@", log: OSLog.datatank, type: .info, url.absoluteString)
+            resultHandler(rulings)
+            return
+        }
+        
+        // Else request rulings from server, asynchronous
+        request(url, resultHandler: { (rulings: List<Ruling>) in
+            os_log("rulings downloaded: %{PUBLIC}@", log: OSLog.datatank, type: .info, url.absoluteString)
+            resultHandler(rulings)
+            self.rulings[url] = rulings
+        }, errorHandler: { (error: RequestError) in
+            os_log("rulings download error: %{PUBLIC}@", log: OSLog.datatank, type: .error, url.absoluteString)
+            errorHandler(error)
+        })
+    }
+    
+    /// Load first page of a search via webservice or cache.
     ///
     /// - Parameters:
     ///   - search: The search object.
@@ -124,13 +154,13 @@ struct Datatank {
         })
     }
     
-    /// Load the next page of a search via webservice or cache.
+    /// Load next page of a search via webservice or cache.
     ///
     /// - Parameters:
     ///   - previous: The previous result object.
     ///   - resultHandler: The completion handler for when the request returns a result.
     ///   - errorHandler: The completion handler for when the request returns an error.
-    static func nextPage(_ previous: List<Card>, resultHandler: @escaping (List<Card>) -> Void, errorHandler: @escaping (RequestError) -> Void) {
+    static func search(_ previous: List<Card>, resultHandler: @escaping (List<Card>) -> Void, errorHandler: @escaping (RequestError) -> Void) {
         // Check cache
         let url = previous.nextPage!
         if let result = results[url]

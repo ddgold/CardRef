@@ -22,7 +22,7 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
     private var loadingData: Bool = false
     
     /// The list of cards loaded for current search.
-    var cards = [Card]()
+    private var cards = [Card]()
     
     
     
@@ -48,8 +48,6 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
         searchBar.autocapitalizationType = .none
         searchBar.delegate = self
         navigationItem.titleView = searchBar
-        
-        tableView.backgroundView?.backgroundColor = .white
         
         tableView.register(CardTableViewCell.self, forCellReuseIdentifier: "searchCell")
         tableView.register(LoadingTableViewCell.self, forHeaderFooterViewReuseIdentifier: "loadingCell")
@@ -98,7 +96,7 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
     ///   - section: The section number.
     /// - Returns: A blank header cell.
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return UITableViewHeaderFooterView()
+        return nil
     }
     
     /// Determines the height of the footer for a section.
@@ -131,7 +129,7 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
             return footer
         }
         else {
-            return UITableViewHeaderFooterView()
+            return nil
         }
     }
     
@@ -242,7 +240,7 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
         
         self.loadingData = true
         
-        Datatank.nextPage(result!, resultHandler: resultHandler, errorHandler: errorHandler)
+        Datatank.search(result!, resultHandler: resultHandler, errorHandler: errorHandler)
     }
     
     /// Handles database results from new search or loading more cards.

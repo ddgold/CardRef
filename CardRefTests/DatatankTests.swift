@@ -73,14 +73,14 @@ class DatatankTests: XCTestCase {
             XCTAssert(result.data.count == 175)
             XCTAssert(result.hasMore == true)
             XCTAssert(result.nextPage == URL(string: "https://api.scryfall.com/cards/search?format=json&include_extras=false&include_multilingual=false&order=name&page=2&q=goblin&unique=cards")!)
-            XCTAssert(result.totalCards == 195)
+            XCTAssert(result.totalCards == 197)
             XCTAssert(result.warnings == nil)
             
-            Datatank.nextPage(result, resultHandler: { (result) in
-                XCTAssert(result.data.count == 20)
+            Datatank.search(result, resultHandler: { (result) in
+                XCTAssert(result.data.count == 22)
                 XCTAssert(result.hasMore == false)
                 XCTAssert(result.nextPage == nil)
-                XCTAssert(result.totalCards == 195)
+                XCTAssert(result.totalCards == 197)
                 XCTAssert(result.warnings == nil)
                 
                 expectation.fulfill()
@@ -108,6 +108,36 @@ class DatatankTests: XCTestCase {
             XCTAssert(result.warnings == nil)
             
             expectation.fulfill()
+        }, errorHandler: { (requestError) in
+            XCTFail()
+            expectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: 5, handler: nil)
+    }
+    
+    //MARK: - Rulings
+    func testDownDirty() {
+        let expectation = self.expectation(description: "Download rules for card 'Down // Dirty'")
+        
+        let id = "c35c63c1-6344-4d8c-8f7d-cd253d12f9ae"
+        Datatank.card(id, resultHandler: { (downDirty) in
+            XCTAssert(downDirty.name == "Down // Dirty")
+            XCTAssert(downDirty.id == id)
+            
+            Datatank.rulings(downDirty, resultHandler: { (rulings) in
+                XCTAssert(rulings.data.count == 10)
+                XCTAssert(rulings.hasMore == false)
+                let ruling = rulings.data[0]
+                XCTAssert(ruling.oracleId == "eba21e3b-e2b2-4e0b-82e3-f0849943fd89")
+                XCTAssert(ruling.source == "wotc")
+                XCTAssert(ruling.publishedAt == "2013-04-15")
+                
+                expectation.fulfill()
+            }, errorHandler: { (requestError) in
+                XCTFail()
+                expectation.fulfill()
+            })
         }, errorHandler: { (requestError) in
             XCTFail()
             expectation.fulfill()

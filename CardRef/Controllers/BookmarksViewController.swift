@@ -37,7 +37,6 @@ class BookmarksViewController: UITableViewController {
         super.viewDidLoad()
         
         navigationItem.title = "Bookmarks"
-        tableView.backgroundView?.backgroundColor = .white
         
         tableView.register(CardTableViewCell.self, forCellReuseIdentifier: "bookmarkCell")
         tableView.register(LoadingTableViewCell.self, forHeaderFooterViewReuseIdentifier: "loadingCell")
@@ -89,7 +88,7 @@ class BookmarksViewController: UITableViewController {
     ///   - section: The section number.
     /// - Returns: A blank header cell.
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return UITableViewHeaderFooterView()
+        return nil
     }
     
     /// Determines the height of the footer for a section.
@@ -121,7 +120,7 @@ class BookmarksViewController: UITableViewController {
             return footer
         }
         else {
-            return UITableViewHeaderFooterView()
+            return nil
         }
     }
     
