@@ -8,8 +8,7 @@
 
 import Foundation
 
-enum Legality: String, Codable
-{
+enum Legality: String, Codable {
     case legal = "legal"
     case notLegal = "not_legal"
     case restricted = "restricted"

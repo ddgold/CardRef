@@ -8,8 +8,7 @@
 
 import Foundation
 
-enum ImageType: String, Codable, Hashable
-{
+enum ImageType: String, Codable, Hashable {
     case png = "png"
     case borderCrop = "border_crop"
     case artCrop = "art_crop"

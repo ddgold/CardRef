@@ -8,8 +8,7 @@
 
 import Foundation
 
-enum SetType: String, Codable
-{
+enum SetType: String, Codable {
     case core = "core"
     case expansion = "expansion"
     case masters = "masters"

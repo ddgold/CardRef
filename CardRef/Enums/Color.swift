@@ -8,8 +8,7 @@
 
 import Foundation
 
-enum Color: String, Codable
-{
+enum Color: String, Codable {
     case white = "W"
     case blue = "U"
     case black = "B"

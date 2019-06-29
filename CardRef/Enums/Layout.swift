@@ -8,8 +8,7 @@
 
 import Foundation
 
-enum Layout: String, Codable
-{
+enum Layout: String, Codable {
     case normal = "normal"
     case split = "split"
     case flip = "flip"

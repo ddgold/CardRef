@@ -8,8 +8,7 @@
 
 import Foundation
 
-enum RelatedType: String, Codable
-{
+enum RelatedType: String, Codable {
     case token = "token"
     case meldPart = "meld_part"
     case meldResult = "meld_result"
