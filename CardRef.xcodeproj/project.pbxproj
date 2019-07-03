@@ -31,6 +31,7 @@
 		CA48CC2922C04BD6009C0E59 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48CC2822C04BD6009C0E59 /* Theme.swift */; };
 		CA48CC2B22C079B4009C0E59 /* Ruling.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48CC2A22C079B4009C0E59 /* Ruling.swift */; };
 		CA88C52D22C5D79C00C307B7 /* RulingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA88C52C22C5D79C00C307B7 /* RulingTableViewCell.swift */; };
+		CA88C53122C7CFE100C307B7 /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA88C53022C7CFE100C307B7 /* FilterViewController.swift */; };
 		CAC8B41D22B0AF5F0085FDF2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC8B41C22B0AF5F0085FDF2 /* AppDelegate.swift */; };
 		CAC8B42722B0AF610085FDF2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CAC8B42522B0AF610085FDF2 /* LaunchScreen.storyboard */; };
 		CAC8B43222B0AF610085FDF2 /* EnumTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC8B43122B0AF610085FDF2 /* EnumTests.swift */; };
@@ -73,6 +74,7 @@
 		CA48CC2822C04BD6009C0E59 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
 		CA48CC2A22C079B4009C0E59 /* Ruling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ruling.swift; sourceTree = "<group>"; };
 		CA88C52C22C5D79C00C307B7 /* RulingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulingTableViewCell.swift; sourceTree = "<group>"; };
+		CA88C53022C7CFE100C307B7 /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		CAC8B41922B0AF5F0085FDF2 /* CardRef.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardRef.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAC8B41C22B0AF5F0085FDF2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CAC8B42622B0AF610085FDF2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 				CA48CC0922B4A724009C0E59 /* BookmarksViewController.swift */,
 				CA48CC0B22B4B3C0009C0E59 /* CardViewController.swift */,
 				CA48CC1722B74A53009C0E59 /* SearchViewController.swift */,
+				CA88C53022C7CFE100C307B7 /* FilterViewController.swift */,
 				CA48CC0222B4A0FE009C0E59 /* TabBarController.swift */,
 			);
 			path = Controllers;
@@ -316,6 +319,7 @@
 				CA48CC0C22B4B3C0009C0E59 /* CardViewController.swift in Sources */,
 				CA48CC2922C04BD6009C0E59 /* Theme.swift in Sources */,
 				CA48CC1822B74A53009C0E59 /* SearchViewController.swift in Sources */,
+				CA88C53122C7CFE100C307B7 /* FilterViewController.swift in Sources */,
 				CA48CC1222B6A017009C0E59 /* RequestError.swift in Sources */,
 				CAC8B41D22B0AF5F0085FDF2 /* AppDelegate.swift in Sources */,
 				CA48CC1422B72AEC009C0E59 /* Search.swift in Sources */,

@@ -24,6 +24,11 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
     /// The list of cards loaded for current search.
     private var cards = [Card]()
     
+    /// The partially opaque view covering background when filters are shown.
+    private var shieldView = UIView()
+    /// The filter view navigation controller.
+    private var filterNavController = UINavigationController()
+    
     
     
     //MARK: - UIViewController
@@ -39,7 +44,7 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
         fatalError("init(coder:) has not been implemented")
     }
     
-    /// Setup the intial state of the bookmark view controller.
+    /// Setup the intial state of the search view controller.
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -52,10 +57,44 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
         tableView.register(CardTableViewCell.self, forCellReuseIdentifier: "searchCell")
         tableView.register(LoadingTableViewCell.self, forHeaderFooterViewReuseIdentifier: "loadingCell")
         
+        // Listen for keyboard open/close
+        NotificationCenter.default.addObserver(self, selector: #selector(updateKeyboardFrame), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        
+        // Add shield view to cover whole table view
+        shieldView.backgroundColor = UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 0.5)
+        
+        view.addSubview(shieldView)
+        shieldView.translatesAutoresizingMaskIntoConstraints = false
+        shieldView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        shieldView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        shieldView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        shieldView.heightAnchor.constraint(equalTo:  view.heightAnchor).isActive = true
+        
+        // Add filter controller, with rounded corners
+        let filterViewController = FilterViewController()
+        filterNavController.addChild(filterViewController)
+        
+        addChild(filterNavController)
+        filterNavController.didMove(toParent: self)
+        
+        filterNavController.view.layer.cornerRadius = 15
+        filterNavController.view.clipsToBounds = true
+
+        // Add filter view
+        view.addSubview(filterNavController.view)
+        filterNavController.view.translatesAutoresizingMaskIntoConstraints = false
+        filterNavController.view.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
+        filterNavController.view.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, constant: -30).isActive = true
+        filterNavController.view.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor).isActive = true
+        filterNavController.view.heightAnchor.constraint(equalTo:  view.safeAreaLayoutGuide.heightAnchor, constant: -30).isActive = true
+        
+        hideFilters()
+        
         // Listen for theme changes
         Theme.subscribe(self, selector: #selector(updateTheme(_:)))
         updateTheme(nil)
     }
+    
     
     
     //MARK: - UITableViewController
@@ -170,6 +209,7 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
     /// - Parameter searchBar: The search bar.
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = true
+        showFilters()
     }
     
     /// Hides cancel button and shows right bar buttons.
@@ -177,13 +217,14 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
     /// - Parameter searchBar: The search bar.
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.showsCancelButton = false
+        hideFilters()
     }
     
     /// Reverts search bar text, and ends editing.
     ///
     /// - Parameter searchBar: The search bar.
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.text = search?.query ?? nil
+        searchBar.text = search?.query ?? ""
         searchBar.endEditing(false)
     }
     
@@ -191,7 +232,12 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
     ///
     /// - Parameter searchBar: The search bar.
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        search = Search(query: searchBar.text ?? "")
+        if let query = searchBar.text {
+            search = Search(query: query)
+        }
+        else {
+            search = nil
+        }
         searchBar.endEditing(false)
         
         searchForCards()
@@ -199,21 +245,50 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
     
     
     
-    //MARK: - Public Functions
+    //MARK: - Private Functions
     /// Updates the view to the current theme.
     ///
     /// - Parameters:
     ///   - notification: Unused.
-    @objc func updateTheme(_: Notification?) {
+    @objc private func updateTheme(_: Notification?) {
         (self.navigationItem.titleView as! UISearchBar).barStyle = Theme.barStyle
         self.navigationController?.navigationBar.barStyle = Theme.barStyle
         self.tabBarController?.tabBar.barStyle = Theme.barStyle
         self.tableView.backgroundColor = Theme.backgroundColor
     }
     
+    /// Fired when the keyboard opens or closeds, updates safe area insets's bottom.
+    ///
+    /// - Parameter notification: Used to get keyboard details from UIResponder in userInfo.
+    @objc private func updateKeyboardFrame(_ notification: Notification) {
+        guard let userInfo = notification.userInfo, let keyboardFrame = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+            return
+        }
+        
+        let duration: TimeInterval = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as! TimeInterval
+        let animationCurve = UIView.AnimationOptions(rawValue: userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as! UInt)
+        let intersection = view.safeAreaLayoutGuide.layoutFrame.intersection(view.convert(keyboardFrame, from: nil))
+        
+        UIView.animate(withDuration: duration, delay: 0, options: animationCurve, animations: {
+            self.additionalSafeAreaInsets.bottom = intersection.height
+            self.view.layoutIfNeeded()
+        }, completion: nil)
+    }
     
+    /// Show filter view controller, hiding search view.
+    private func showFilters() {
+        tableView.isScrollEnabled = false
+        shieldView.isHidden = false
+        filterNavController.view.isHidden = false
+    }
     
-    //MARK: - Private Functions
+    /// Hide filter view controller, showing search view.
+    private func hideFilters() {
+        tableView.isScrollEnabled = true
+        shieldView.isHidden = true
+        filterNavController.view.isHidden = true
+    }
+    
     /// Runs new search for cards from database . Does nothing if already loading data.
     private func searchForCards() {
         // Only allow one outstanding database call at once
@@ -225,10 +300,12 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
         self.error = nil
         self.cards = []
         
-        self.loadingData = true
-        tableView.reloadData()
+        if let search = self.search {
+            self.loadingData = true
+            Datatank.search(search, resultHandler: resultHandler, errorHandler: errorHandler)
+        }
         
-        Datatank.search(search!, resultHandler: resultHandler, errorHandler: errorHandler)
+        tableView.reloadData()
     }
     
     /// Loads next page of cards of previous search from database. Does nothing if already loading data.
