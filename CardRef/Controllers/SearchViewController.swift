@@ -32,7 +32,7 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
     
     
     //MARK: - UIViewController
-    /// Creates a new search view controller, sets plain style.
+    /// Creates a new search view controller, sets grouped style.
     init() {
         super.init(style: .grouped)
     }
