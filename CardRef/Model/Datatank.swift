@@ -42,8 +42,7 @@ struct Datatank {
     static func card(_ id: String, resultHandler: @escaping (Card) -> Void, errorHandler: @escaping (RequestError) -> Void) {
         let url = URL(string: "https://api.scryfall.com/cards/\(id)")!
         // Check cache
-        if let card = cards[url]
-        {
+        if let card = cards[url] {
             os_log("card cached: %{PUBLIC}@", log: OSLog.datatank, type: .info, url.absoluteString)
             resultHandler(card)
             return
@@ -133,8 +132,7 @@ struct Datatank {
     static func search(_ search: Search, resultHandler: @escaping (List<Card>) -> Void, errorHandler: @escaping (RequestError) -> Void) {
         // Check cache
         let url = search.url
-        if let result = results[url]
-        {
+        if let result = results[url] {
             os_log("search cached: %{PUBLIC}@", log: OSLog.datatank, type: .info, url.absoluteString)
             resultHandler(result)
             return
@@ -163,8 +161,7 @@ struct Datatank {
     static func search(_ previous: List<Card>, resultHandler: @escaping (List<Card>) -> Void, errorHandler: @escaping (RequestError) -> Void) {
         // Check cache
         let url = previous.nextPage!
-        if let result = results[url]
-        {
+        if let result = results[url] {
             os_log("next page cached: %{PUBLIC}@", log: OSLog.datatank, type: .info, url.absoluteString)
             resultHandler(result)
             return
