@@ -71,7 +71,7 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
         shieldView.heightAnchor.constraint(equalTo:  view.heightAnchor).isActive = true
         
         // Add filter controller, with rounded corners
-        let filterViewController = FilterViewController()
+        let filterViewController = FiltersViewController()
         filterNavController.addChild(filterViewController)
         
         addChild(filterNavController)

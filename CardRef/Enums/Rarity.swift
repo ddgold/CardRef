@@ -1,31 +1,30 @@
 //
-//  Color.swift
+//  Rarity.swift
 //  CardRef
 //
-//  Created by Doug Goldstein on 6/12/19.
+//  Created by Doug Goldstein on 6/13/19.
 //  Copyright © 2019 Doug Goldstein. All rights reserved.
 //
 
 import Foundation
 
-enum Color: String, Codable {
+enum Rarity: String, Codable {
     /// List of colors.
-    static let options = ["White", "Blue", "Black", "Red", "Green"]
+    static let options = ["Common", "Uncommon", "Rare", "Mythic Rare"]
     
-    case white = "W"
-    case blue = "U"
-    case black = "B"
-    case red = "R"
-    case green = "G"
+    case common
+    case uncommon
+    case rare
+    case mythic
     
     init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
         let raw = try container.decode(String.self)
-        if let color = Color(rawValue: raw) {
-            self = color
+        if let rarity = Rarity(rawValue: raw) {
+            self = rarity
         }
         else {
-            throw DecodingError.dataCorruptedError(in: container, debugDescription: "Invalid color value: '\(raw)'")
+            throw DecodingError.dataCorruptedError(in: container, debugDescription: "Invalid rarity value: '\(raw)'")
         }
     }
     

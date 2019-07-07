@@ -127,7 +127,7 @@ struct Card: Codable {
     /// An object providing URIs to this card’s listing on major marketplaces.
     let purchaseURLs: [String: URL]
     /// This card’s rarity. One of common, uncommon, rare, or mythic.
-    let rarity: String
+    let rarity: Rarity
     /// An object providing URIs to this card’s listing on other Magic: The Gathering online resources.
     let relatedURLs: [String: URL]
     /// The date this card was first released.
@@ -238,7 +238,7 @@ struct Card: Codable {
         self.promo = try container.decode(Bool.self, forKey: .promo)
         self.promoTypes = try container.decodeIfPresent([String].self, forKey: .promoTypes)
         self.purchaseURLs = try container.decode([String: URL].self, forKey: .purchaseURLs)
-        self.rarity = try container.decode(String.self, forKey: .rarity)
+        self.rarity = try container.decode(Rarity.self, forKey: .rarity)
         self.relatedURLs = try container.decode([String: URL].self, forKey: .relatedURLs)
         self.releasedAt = try container.decode(String.self, forKey: .releasedAt)
         self.reprint = try container.decode(Bool.self, forKey: .reprint)

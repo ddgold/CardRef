@@ -101,10 +101,10 @@ class DatatankTests: XCTestCase {
         
         let search = Search(query: "foot")
         Datatank.search(search, resultHandler: { (result) in
-            XCTAssert(result.data.count == 25)
+            XCTAssert(result.data.count == 26)
             XCTAssert(result.hasMore == false)
             XCTAssert(result.nextPage == nil)
-            XCTAssert(result.totalCards == 25)
+            XCTAssert(result.totalCards == 26)
             XCTAssert(result.warnings == nil)
             
             expectation.fulfill()

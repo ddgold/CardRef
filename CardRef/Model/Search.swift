@@ -23,7 +23,7 @@ struct Search {
     /// The URL for this search.
     var url: URL {
         let escaped = query.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
-        return URL(string: "https://api.scryfall.com/cards/search?dir=\(direction.rawValue)&format=json&include_extras=false&include_multilingual=false&order=\(order.rawValue)&page=2&q=\(escaped)&unique=\(unique.rawValue)")!
+        return URL(string: "https://api.scryfall.com/cards/search?dir=\(direction.rawValue)&format=json&include_extras=false&include_multilingual=false&order=\(order.rawValue)&page=1&q=\(escaped)&unique=\(unique.rawValue)")!
     }
     
     
@@ -48,6 +48,9 @@ struct Search {
     //MARK: - Enums
     /// Enum of search order options.
     enum Order: String {
+        /// List of search order options.
+        static var options = ["Colors", "Converted Mana Cost", "Name", "Price, Euros", "Price, US Dollars", "Price, Tickets", "Release Date", "Rarity", "Set"]
+        
         /// Sort cards by name, A → Z
         case name
         /// Sort cards by their set and collector number: AAA/#1 → ZZZ/#999
@@ -78,6 +81,9 @@ struct Search {
     
     /// Enum of search direction options.
     enum Direction: String {
+        /// List of search direction options.
+        static var options = ["Automatic", "Ascending", "Decsending"]
+        
         /// Automatically choose the most inuitive direction to sort
         case auto
         /// Sort ascending, lowest to heighest
@@ -88,6 +94,9 @@ struct Search {
     
     /// Enum of search de-duplicating methods.
     enum Unique: String {
+        /// List of search de-duplicating method options.
+        static var options = ["All prints", "Cards", "Unique Art"]
+        
         /// Removes duplicate gameplay objects (cards that share a name and have the same functionality). For example, if your search matches more than one print of Pacifism, only one copy of Pacifism will be returned.
         case cards
         /// Returns only one copy of each unique artwork for matching cards. For example, if your search matches more than one print of Pacifism, one card with each different illustration for Pacifism will be returned, but any cards that duplicate artwork already in the results will be omitted.

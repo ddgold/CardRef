@@ -251,6 +251,44 @@ class EnumTests: XCTestCase {
     }
     
     
+    // MARK: - Rarity
+    func testDecodeRarity() throws {
+        let common = try decoder.decode([Rarity].self, from: "[\"common\"]".data(using: .utf8)!)
+        XCTAssert(common == [.common])
+        
+        let uncommon = try decoder.decode([Rarity].self, from: "[\"uncommon\"]".data(using: .utf8)!)
+        XCTAssert(uncommon == [.uncommon])
+        
+        let rare = try decoder.decode([Rarity].self, from: "[\"rare\"]".data(using: .utf8)!)
+        XCTAssert(rare == [.rare])
+        
+        let mythic = try decoder.decode([Rarity].self, from: "[\"mythic\"]".data(using: .utf8)!)
+        XCTAssert(mythic == [.mythic])
+        
+        do {
+            _ = try decoder.decode([Rarity].self, from: "[\"failure\"]".data(using: .utf8)!)
+            XCTFail()
+        }
+        catch DecodingError.dataCorrupted(let context) {
+            XCTAssert(context.debugDescription == "Invalid rarity value: 'failure'")
+        }
+    }
+    
+    func testEncodeRarity() throws {
+        let common = String(data: try encoder.encode([Rarity.common]), encoding: .utf8)!
+        XCTAssert(common == "[\"common\"]")
+        
+        let uncommon = String(data: try encoder.encode([Rarity.uncommon]), encoding: .utf8)!
+        XCTAssert(uncommon == "[\"uncommon\"]")
+        
+        let rare = String(data: try encoder.encode([Rarity.rare]), encoding: .utf8)!
+        XCTAssert(rare == "[\"rare\"]")
+        
+        let mythic = String(data: try encoder.encode([Rarity.mythic]), encoding: .utf8)!
+        XCTAssert(mythic == "[\"mythic\"]")
+    }
+    
+    
     // MARK: - Related Type
     func testDecodeRelatedType() throws {
         let token = try decoder.decode([RelatedType].self, from: "[\"token\"]".data(using: .utf8)!)
