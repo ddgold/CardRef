@@ -16,6 +16,7 @@ enum Layout: String, Codable {
     case meld = "meld"
     case leveler = "leveler"
     case saga = "saga"
+    case adventure = "adventure"
     case planar = "planar"
     case scheme = "scheme"
     case vanguard = "vanguard"
@@ -24,6 +25,8 @@ enum Layout: String, Codable {
     case emblem = "emblem"
     case augment = "augment"
     case host = "host"
+    case artSeries = "art_series"
+    case doubleSided = "double_sided"
     
     init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()

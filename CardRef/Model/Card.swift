@@ -99,9 +99,9 @@ struct Card: Codable {
     /// The flavor text, if any.
     let flavorText: String?
     /// This card’s frame effect, if any.
-    let frameEffect: String?
+    let frameEffects: [FrameEffect]?
     /// This card’s frame layout.
-    let frame: String
+    let frame: FrameType
     /// True if this card’s artwork is larger than normal.
     let fullArt: Bool
     /// A list of games that this card print is available in, paper, arena, and/or mtgo.
@@ -215,8 +215,8 @@ struct Card: Codable {
         self.collectorNumber = try container.decode(String.self, forKey: .collectorNumber)
         self.digital = try container.decode(Bool.self, forKey: .digital)
         self.flavorText = try container.decodeIfPresent(String.self, forKey: .flavorText)
-        self.frameEffect = try container.decodeIfPresent(String.self, forKey: .frameEffect)
-        self.frame = try container.decode(String.self, forKey: .frame)
+        self.frameEffects = try container.decodeIfPresent([FrameEffect].self, forKey: .frameEffects)
+        self.frame = try container.decode(FrameType.self, forKey: .frame)
         self.fullArt = try container.decode(Bool.self, forKey: .fullArt)
         self.games = try container.decode([String].self, forKey: .games)
         self.highresImage = try container.decode(Bool.self, forKey: .highresImage)
@@ -307,7 +307,7 @@ struct Card: Codable {
         case collectorNumber = "collector_number"
         case digital
         case flavorText = "flavor_text"
-        case frameEffect = "frame_effect"
+        case frameEffects = "frame_effects"
         case frame
         case fullArt = "full_art"
         case games
