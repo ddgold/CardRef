@@ -62,10 +62,10 @@ struct Datatank {
     /// Load multiple cards by ID via webservice or cache.
     ///
     /// - Parameters:
-    ///   - id: The ID of the card to load.
-    ///   - resultHandler: The completion handler for when the request returns a result.
-    ///   - errorHandler: The completion handler for when the request returns an error.
-    static func cards(_ ids: [String], resultHandler: @escaping ([Card]) -> Void, errorHandler: @escaping (RequestError) -> Void) {
+    ///   - ids: The array of IDs of the cards to load.
+    ///   - completionHandler: The completion handler for when all the request have returned either a result or error.
+    ///   - errorHandler: The completion handler for when a request returns an error.  This will be called for each error, so may be called multiple times.
+    static func cards(_ ids: [String], completionHandler: @escaping ([Card]) -> Void, errorHandler: @escaping (RequestError) -> Void) {
         var outstanding = ids.count
         var cards = [Card]()
         for id in ids {
@@ -74,14 +74,14 @@ struct Datatank {
                 cards.append(card)
                 
                 if outstanding == 0 {
-                    resultHandler(cards)
+                    completionHandler(cards)
                 }
             }, errorHandler: { (error: RequestError) in
                 outstanding -= 1
                 errorHandler(error)
                 
                 if outstanding == 0 {
-                    resultHandler(cards)
+                    completionHandler(cards)
                 }
             })
         }

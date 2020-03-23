@@ -185,7 +185,7 @@ class BookmarksViewController: UITableViewController {
                    "93b44747-9eb8-449b-a698-36a7a3045134", // Murder
                    "599c3c9f-dfb7-4357-9d9c-9a1a4616b103"] // Ashiok
         
-        Datatank.cards(ids, resultHandler: { (cards) in
+        Datatank.cards(ids, completionHandler: { (cards) in
             DispatchQueue.main.async(execute: { () -> Void in
                 self.cards = cards
                 self.loadingData = false
