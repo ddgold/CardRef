@@ -17,6 +17,8 @@ struct Datatank {
     
     /// Cache of individual cards.
     private static var cards = [URL: Card]()
+    /// Cache of catalog values.
+    private static var catalogs = [URL: Catalog]()
     /// Cache of search results.
     private static var results = [URL: List<Card>]()
     /// Cache of card images.
@@ -41,6 +43,7 @@ struct Datatank {
     ///   - errorHandler: The completion handler for when the request returns an error.
     static func card(_ id: String, resultHandler: @escaping (Card) -> Void, errorHandler: @escaping (RequestError) -> Void) {
         let url = URL(string: "https://api.scryfall.com/cards/\(id)")!
+        
         // Check cache
         if let card = cards[url] {
             os_log("card cached: %{PUBLIC}@", log: OSLog.datatank, type: .info, url.absoluteString)
@@ -68,6 +71,7 @@ struct Datatank {
     static func cards(_ ids: [String], completionHandler: @escaping ([Card]) -> Void, errorHandler: @escaping (RequestError) -> Void) {
         var outstanding = ids.count
         var cards = [Card]()
+        
         for id in ids {
             card(id, resultHandler: { (card: Card) in
                 outstanding -= 1
@@ -85,6 +89,34 @@ struct Datatank {
                 }
             })
         }
+    }
+    
+    /// Load a catalog via webservice or cache.
+    ///
+    /// - Parameters:
+    ///   - name: The catalog's name.
+    ///   - resultHandler: The completion handler for when the request returns a result.
+    ///   - errorHandler: The completion handler for when the request returns an error.
+    static func catalog(_ name: Catalog.Name, resultHandler: @escaping (Catalog) -> Void, errorHandler: @escaping (RequestError) -> Void) {
+        // Select URl from card
+        let url = URL(string: "https://api.scryfall.com/catalog/\(name.rawValue)")!
+        
+        // Check cache
+        if let catalog = catalogs[url] {
+            os_log("catalog cached: %{PUBLIC}@", log: OSLog.datatank, type: .info, url.absoluteString)
+            resultHandler(catalog)
+            return
+        }
+        
+        // Else request rulings from server, asynchronous
+        request(url, resultHandler: { (catalog: Catalog) in
+            os_log("catalog downloaded: %{PUBLIC}@", log: OSLog.datatank, type: .info, url.absoluteString)
+            resultHandler(catalog)
+            self.catalogs[url] = catalog
+        }, errorHandler: { (error: RequestError) in
+            os_log("catalog download error: %{PUBLIC}@", log: OSLog.datatank, type: .error, url.absoluteString)
+            errorHandler(error)
+        })
     }
     
     /// Load an image of a card via webservice or cache

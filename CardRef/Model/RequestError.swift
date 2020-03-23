@@ -43,6 +43,14 @@ struct RequestError: Codable {
     
     
     
+    //MARK: - Public Functions
+    /// Helper function for turning request error into a fatal error.
+    func fatal() {
+        fatalError("\(code) [\(status)]: \(details)")
+    }
+    
+    
+    
     //MARK: - Enums
     /// Enum of deserializer keys.
     private enum Keys: String, CodingKey {

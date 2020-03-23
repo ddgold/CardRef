@@ -192,7 +192,7 @@ class BookmarksViewController: UITableViewController {
                 self.tableView.reloadData()
             })
         }, errorHandler: { (responseError) in
-            fatalError(responseError.details)
+            responseError.fatal()
         })
     }
 }

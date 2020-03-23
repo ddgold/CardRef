@@ -32,6 +32,7 @@
 		CA48CC2B22C079B4009C0E59 /* Ruling.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA48CC2A22C079B4009C0E59 /* Ruling.swift */; };
 		CA79FA7024286498007EE4FA /* FrameEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA79FA6F24286498007EE4FA /* FrameEffect.swift */; };
 		CA79FA72242868F9007EE4FA /* FrameType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA79FA71242868F9007EE4FA /* FrameType.swift */; };
+		CA79FA7424287040007EE4FA /* Catalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA79FA7324287040007EE4FA /* Catalog.swift */; };
 		CA88C52D22C5D79C00C307B7 /* RulingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA88C52C22C5D79C00C307B7 /* RulingTableViewCell.swift */; };
 		CA88C53122C7CFE100C307B7 /* FiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA88C53022C7CFE100C307B7 /* FiltersViewController.swift */; };
 		CA88C54622CEB72F00C307B7 /* Rarity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA88C54522CEB72F00C307B7 /* Rarity.swift */; };
@@ -80,6 +81,7 @@
 		CA48CC2A22C079B4009C0E59 /* Ruling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ruling.swift; sourceTree = "<group>"; };
 		CA79FA6F24286498007EE4FA /* FrameEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameEffect.swift; sourceTree = "<group>"; };
 		CA79FA71242868F9007EE4FA /* FrameType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameType.swift; sourceTree = "<group>"; };
+		CA79FA7324287040007EE4FA /* Catalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Catalog.swift; sourceTree = "<group>"; };
 		CA88C52C22C5D79C00C307B7 /* RulingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulingTableViewCell.swift; sourceTree = "<group>"; };
 		CA88C53022C7CFE100C307B7 /* FiltersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersViewController.swift; sourceTree = "<group>"; };
 		CA88C54522CEB72F00C307B7 /* Rarity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rarity.swift; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 			isa = PBXGroup;
 			children = (
 				CAC8B43C22B0AF7A0085FDF2 /* Card.swift */,
+				CA79FA7324287040007EE4FA /* Catalog.swift */,
 				CA48CBFB22B48F48009C0E59 /* Datatank.swift */,
 				CA48CC0D22B57DC3009C0E59 /* List.swift */,
 				CA48CC1122B6A017009C0E59 /* RequestError.swift */,
@@ -330,6 +333,7 @@
 				CA48CC0E22B57DC3009C0E59 /* List.swift in Sources */,
 				CA88C54922D2856C00C307B7 /* StatFilterViewController.swift in Sources */,
 				CA48CBF622B33C82009C0E59 /* Layout.swift in Sources */,
+				CA79FA7424287040007EE4FA /* Catalog.swift in Sources */,
 				CA88C54622CEB72F00C307B7 /* Rarity.swift in Sources */,
 				CA48CC1D22B8925E009C0E59 /* CardTableViewCell.swift in Sources */,
 				CA48CBFA22B36086009C0E59 /* RelatedType.swift in Sources */,

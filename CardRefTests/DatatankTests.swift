@@ -64,6 +64,45 @@ class DatatankTests: XCTestCase {
         waitForExpectations(timeout: 5, handler: nil)
     }
     
+    //MARK: - Catalog
+    func testLandTypes() {
+        let expectation = self.expectation(description: "Download land types catalog")
+        
+        Datatank.catalog(.landTypes, resultHandler: { (landTypes) in
+            XCTAssert(landTypes.uri == URL(string: "https://api.scryfall.com/catalog/land-types")!)
+            XCTAssert(landTypes.totalValues == 13)
+            XCTAssert(landTypes.data[0] == "Desert")
+            XCTAssert(landTypes.data[4] == "Lair")
+            XCTAssert(landTypes.data[6] == "Mine")
+            XCTAssert(landTypes.data[9] == "Power-Plant")
+            expectation.fulfill()
+        }, errorHandler: { (requestError) in
+            XCTFail()
+            expectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: 5, handler: nil)
+    }
+    
+    func testPowers() {
+        let expectation = self.expectation(description: "Download land types catalog")
+        
+        Datatank.catalog(.powers, resultHandler: { (powers) in
+            XCTAssert(powers.uri == URL(string: "https://api.scryfall.com/catalog/powers")!)
+            XCTAssert(powers.totalValues == 34)
+            XCTAssert(powers.data[1] == "?")
+            XCTAssert(powers.data[4] == "*")
+            XCTAssert(powers.data[11] == "1.5")
+            XCTAssert(powers.data[20] == "+4")
+            expectation.fulfill()
+        }, errorHandler: { (requestError) in
+            XCTFail()
+            expectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: 5, handler: nil)
+    }
+    
     //MARK: - Search
     func testSearchGoblin() {
         let expectation = self.expectation(description: "Search database for 'goblin'")
@@ -101,10 +140,10 @@ class DatatankTests: XCTestCase {
         
         let search = Search(query: "foot")
         Datatank.search(search, resultHandler: { (result) in
-            XCTAssert(result.data.count == 26)
+            XCTAssert(result.data.count == 27)
             XCTAssert(result.hasMore == false)
             XCTAssert(result.nextPage == nil)
-            XCTAssert(result.totalCards == 26)
+            XCTAssert(result.totalCards == 27)
             XCTAssert(result.warnings == nil)
             
             expectation.fulfill()
