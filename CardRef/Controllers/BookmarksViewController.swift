@@ -177,29 +177,22 @@ class BookmarksViewController: UITableViewController {
     private func loadBookmarks() {
         self.loadingData = true
         self.tableView.reloadData()
-        Datatank.card("3ee34158-867f-4685-8f2b-af9469b628c3", resultHandler: { (ragingGoblin) in
-            Datatank.card("864ad989-19a6-4930-8efc-bbc077a18c32", resultHandler: { (bushiTenderfoot) in
-                Datatank.card("c35c63c1-6344-4d8c-8f7d-cd253d12f9ae", resultHandler: { (downDirty) in
-                    Datatank.card("599c3c9f-dfb7-4357-9d9c-9a1a4616b103", resultHandler: { (ashiok) in
-                        DispatchQueue.main.async(execute: { () -> Void in
-                            self.cards.append(ragingGoblin)
-                            self.cards.append(bushiTenderfoot)
-                            self.cards.append(downDirty)
-                            self.cards.append(ashiok)
-                            self.loadingData = false
-                            self.tableView.reloadData()
-                        })
-                    }, errorHandler: { (responseError) in
-                        fatalError("Error loading down/dirty")
-                    })
-                }, errorHandler: { (responseError) in
-                    fatalError("Error loading down/dirty")
-                })
-            }, errorHandler: { (responseError) in
-                fatalError("Error loading bushi tenderfoot")
+        
+        let ids = ["3ee34158-867f-4685-8f2b-af9469b628c3", // Raging Goblin
+                   "864ad989-19a6-4930-8efc-bbc077a18c32", // Bushi Tenderfoot
+                   "c35c63c1-6344-4d8c-8f7d-cd253d12f9ae", // Down // Dirty
+                   "09fd2d9c-1793-4beb-a3fb-7a869f660cd4", // Bonecrusher
+                   "93b44747-9eb8-449b-a698-36a7a3045134", // Murder
+                   "599c3c9f-dfb7-4357-9d9c-9a1a4616b103"] // Ashiok
+        
+        Datatank.cards(ids, resultHandler: { (cards) in
+            DispatchQueue.main.async(execute: { () -> Void in
+                self.cards = cards
+                self.loadingData = false
+                self.tableView.reloadData()
             })
         }, errorHandler: { (responseError) in
-            fatalError("Error loading raging goblin")
+            fatalError(responseError.details)
         })
     }
 }

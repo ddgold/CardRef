@@ -59,6 +59,34 @@ struct Datatank {
         })
     }
     
+    /// Load multiple cards by ID via webservice or cache.
+    ///
+    /// - Parameters:
+    ///   - id: The ID of the card to load.
+    ///   - resultHandler: The completion handler for when the request returns a result.
+    ///   - errorHandler: The completion handler for when the request returns an error.
+    static func cards(_ ids: [String], resultHandler: @escaping ([Card]) -> Void, errorHandler: @escaping (RequestError) -> Void) {
+        var outstanding = ids.count
+        var cards = [Card]()
+        for id in ids {
+            card(id, resultHandler: { (card: Card) in
+                outstanding -= 1
+                cards.append(card)
+                
+                if outstanding == 0 {
+                    resultHandler(cards)
+                }
+            }, errorHandler: { (error: RequestError) in
+                outstanding -= 1
+                errorHandler(error)
+                
+                if outstanding == 0 {
+                    resultHandler(cards)
+                }
+            })
+        }
+    }
+    
     /// Load an image of a card via webservice or cache
     ///
     /// - Parameters:
