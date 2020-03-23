@@ -108,6 +108,154 @@ class EnumTests: XCTestCase {
     }
     
     
+    // MARK: - Frame Effect
+    func testDecodeFrameEffect() throws {
+        let legendary = try decoder.decode([FrameEffect].self, from: "[\"legendary\"]".data(using: .utf8)!)
+        XCTAssert(legendary == [.legendary])
+        
+        let miracle = try decoder.decode([FrameEffect].self, from: "[\"miracle\"]".data(using: .utf8)!)
+        XCTAssert(miracle == [.miracle])
+        
+        let nyxtouched = try decoder.decode([FrameEffect].self, from: "[\"nyxtouched\"]".data(using: .utf8)!)
+        XCTAssert(nyxtouched == [.nyxtouched])
+        
+        let draft = try decoder.decode([FrameEffect].self, from: "[\"draft\"]".data(using: .utf8)!)
+        XCTAssert(draft == [.draft])
+        
+        let devoid = try decoder.decode([FrameEffect].self, from: "[\"devoid\"]".data(using: .utf8)!)
+        XCTAssert(devoid == [.devoid])
+        
+        let tombstone = try decoder.decode([FrameEffect].self, from: "[\"tombstone\"]".data(using: .utf8)!)
+        XCTAssert(tombstone == [.tombstone])
+        
+        let colorshifted = try decoder.decode([FrameEffect].self, from: "[\"colorshifted\"]".data(using: .utf8)!)
+        XCTAssert(colorshifted == [.colorshifted])
+        
+        let inverted = try decoder.decode([FrameEffect].self, from: "[\"inverted\"]".data(using: .utf8)!)
+        XCTAssert(inverted == [.inverted])
+        
+        let sunmoondfc = try decoder.decode([FrameEffect].self, from: "[\"sunmoondfc\"]".data(using: .utf8)!)
+        XCTAssert(sunmoondfc == [.sunmoondfc])
+        
+        let compasslanddfc = try decoder.decode([FrameEffect].self, from: "[\"compasslanddfc\"]".data(using: .utf8)!)
+        XCTAssert(compasslanddfc == [.compasslanddfc])
+        
+        let originpwdfc = try decoder.decode([FrameEffect].self, from: "[\"originpwdfc\"]".data(using: .utf8)!)
+        XCTAssert(originpwdfc == [.originpwdfc])
+        
+        let mooneldrazidfc = try decoder.decode([FrameEffect].self, from: "[\"mooneldrazidfc\"]".data(using: .utf8)!)
+        XCTAssert(mooneldrazidfc == [.mooneldrazidfc])
+        
+        let moonreversemoondfc = try decoder.decode([FrameEffect].self, from: "[\"moonreversemoondfc\"]".data(using: .utf8)!)
+        XCTAssert(moonreversemoondfc == [.moonreversemoondfc])
+        
+        let showcase = try decoder.decode([FrameEffect].self, from: "[\"showcase\"]".data(using: .utf8)!)
+        XCTAssert(showcase == [.showcase])
+        
+        let extendedart = try decoder.decode([FrameEffect].self, from: "[\"extendedart\"]".data(using: .utf8)!)
+        XCTAssert(extendedart == [.extendedart])
+
+        do {
+            _ = try decoder.decode([FrameEffect].self, from: "[\"failure\"]".data(using: .utf8)!)
+            XCTFail()
+        }
+        catch DecodingError.dataCorrupted(let context) {
+            XCTAssert(context.debugDescription == "Invalid frame effect value: 'failure'")
+        }
+    }
+    
+    func testEncodeFrameEffect() throws {
+        let legendary = String(data: try encoder.encode([FrameEffect.legendary]), encoding: .utf8)!
+        XCTAssert(legendary == "[\"legendary\"]")
+        
+        let miracle = String(data: try encoder.encode([FrameEffect.miracle]), encoding: .utf8)!
+        XCTAssert(miracle == "[\"miracle\"]")
+        
+        let nyxtouched = String(data: try encoder.encode([FrameEffect.nyxtouched]), encoding: .utf8)!
+        XCTAssert(nyxtouched == "[\"nyxtouched\"]")
+        
+        let draft = String(data: try encoder.encode([FrameEffect.draft]), encoding: .utf8)!
+        XCTAssert(draft == "[\"draft\"]")
+        
+        let devoid = String(data: try encoder.encode([FrameEffect.devoid]), encoding: .utf8)!
+        XCTAssert(devoid == "[\"devoid\"]")
+        
+        let tombstone = String(data: try encoder.encode([FrameEffect.tombstone]), encoding: .utf8)!
+        XCTAssert(tombstone == "[\"tombstone\"]")
+        
+        let colorshifted = String(data: try encoder.encode([FrameEffect.colorshifted]), encoding: .utf8)!
+        XCTAssert(colorshifted == "[\"colorshifted\"]")
+        
+        let inverted = String(data: try encoder.encode([FrameEffect.inverted]), encoding: .utf8)!
+        XCTAssert(inverted == "[\"inverted\"]")
+        
+        let sunmoondfc = String(data: try encoder.encode([FrameEffect.sunmoondfc]), encoding: .utf8)!
+        XCTAssert(sunmoondfc == "[\"sunmoondfc\"]")
+        
+        let compasslanddfc = String(data: try encoder.encode([FrameEffect.compasslanddfc]), encoding: .utf8)!
+        XCTAssert(compasslanddfc == "[\"compasslanddfc\"]")
+        
+        let originpwdfc = String(data: try encoder.encode([FrameEffect.originpwdfc]), encoding: .utf8)!
+        XCTAssert(originpwdfc == "[\"originpwdfc\"]")
+        
+        let mooneldrazidfc = String(data: try encoder.encode([FrameEffect.mooneldrazidfc]), encoding: .utf8)!
+        XCTAssert(mooneldrazidfc == "[\"mooneldrazidfc\"]")
+        
+        let moonreversemoondfc = String(data: try encoder.encode([FrameEffect.moonreversemoondfc]), encoding: .utf8)!
+        XCTAssert(moonreversemoondfc == "[\"moonreversemoondfc\"]")
+        
+        let showcase = String(data: try encoder.encode([FrameEffect.showcase]), encoding: .utf8)!
+        XCTAssert(showcase == "[\"showcase\"]")
+        
+        let extendedart = String(data: try encoder.encode([FrameEffect.extendedart]), encoding: .utf8)!
+        XCTAssert(extendedart == "[\"extendedart\"]")
+    }
+    
+    
+    // MARK: - Frame Type
+    func testDecodeFrameType() throws {
+        let y1993 = try decoder.decode([FrameType].self, from: "[\"1993\"]".data(using: .utf8)!)
+        XCTAssert(y1993 == [.y1993])
+        
+        let y1997 = try decoder.decode([FrameType].self, from: "[\"1997\"]".data(using: .utf8)!)
+        XCTAssert(y1997 == [.y1997])
+        
+        let y2003 = try decoder.decode([FrameType].self, from: "[\"2003\"]".data(using: .utf8)!)
+        XCTAssert(y2003 == [.y2003])
+        
+        let y2015 = try decoder.decode([FrameType].self, from: "[\"2015\"]".data(using: .utf8)!)
+        XCTAssert(y2015 == [.y2015])
+        
+        let future = try decoder.decode([FrameType].self, from: "[\"future\"]".data(using: .utf8)!)
+        XCTAssert(future == [.future])
+        
+        do {
+            _ = try decoder.decode([FrameType].self, from: "[\"failure\"]".data(using: .utf8)!)
+            XCTFail()
+        }
+        catch DecodingError.dataCorrupted(let context) {
+            XCTAssert(context.debugDescription == "Invalid frame type value: 'failure'")
+        }
+    }
+    
+    func testEncodeFrameType() throws {
+        let y1993 = String(data: try encoder.encode([FrameType.y1993]), encoding: .utf8)!
+        XCTAssert(y1993 == "[\"1993\"]")
+        
+        let y1997 = String(data: try encoder.encode([FrameType.y1997]), encoding: .utf8)!
+        XCTAssert(y1997 == "[\"1997\"]")
+        
+        let y2003 = String(data: try encoder.encode([FrameType.y2003]), encoding: .utf8)!
+        XCTAssert(y2003 == "[\"2003\"]")
+        
+        let y2015 = String(data: try encoder.encode([FrameType.y2015]), encoding: .utf8)!
+        XCTAssert(y2015 == "[\"2015\"]")
+        
+        let future = String(data: try encoder.encode([FrameType.future]), encoding: .utf8)!
+        XCTAssert(future == "[\"future\"]")
+    }
+    
+    
     // MARK: - Layout
     func testDecodeLayout() throws {
         let normal = try decoder.decode([Layout].self, from: "[\"normal\"]".data(using: .utf8)!)
@@ -130,6 +278,9 @@ class EnumTests: XCTestCase {
         
         let saga = try decoder.decode([Layout].self, from: "[\"saga\"]".data(using: .utf8)!)
         XCTAssert(saga == [.saga])
+        
+        let adventure = try decoder.decode([Layout].self, from: "[\"adventure\"]".data(using: .utf8)!)
+        XCTAssert(adventure == [.adventure])
         
         let planar = try decoder.decode([Layout].self, from: "[\"planar\"]".data(using: .utf8)!)
         XCTAssert(planar == [.planar])
@@ -155,6 +306,12 @@ class EnumTests: XCTestCase {
         let host = try decoder.decode([Layout].self, from: "[\"host\"]".data(using: .utf8)!)
         XCTAssert(host == [.host])
         
+        let artSeries = try decoder.decode([Layout].self, from: "[\"art_series\"]".data(using: .utf8)!)
+        XCTAssert(artSeries == [.artSeries])
+        
+        let doubleSided = try decoder.decode([Layout].self, from: "[\"double_sided\"]".data(using: .utf8)!)
+        XCTAssert(doubleSided == [.doubleSided])
+
         do {
             _ = try decoder.decode([Layout].self, from: "[\"failure\"]".data(using: .utf8)!)
             XCTFail()
@@ -187,6 +344,9 @@ class EnumTests: XCTestCase {
         let saga = String(data: try encoder.encode([Layout.saga]), encoding: .utf8)!
         XCTAssert(saga == "[\"saga\"]")
         
+        let adventure = String(data: try encoder.encode([Layout.adventure]), encoding: .utf8)!
+        XCTAssert(adventure == "[\"adventure\"]")
+        
         let planar = String(data: try encoder.encode([Layout.planar]), encoding: .utf8)!
         XCTAssert(planar == "[\"planar\"]")
         
@@ -210,6 +370,12 @@ class EnumTests: XCTestCase {
         
         let host = String(data: try encoder.encode([Layout.host]), encoding: .utf8)!
         XCTAssert(host == "[\"host\"]")
+        
+        let artSeries = String(data: try encoder.encode([Layout.artSeries]), encoding: .utf8)!
+        XCTAssert(artSeries == "[\"art_series\"]")
+        
+        let doubleSided = String(data: try encoder.encode([Layout.doubleSided]), encoding: .utf8)!
+        XCTAssert(doubleSided == "[\"double_sided\"]")
     }
     
     

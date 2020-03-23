@@ -9,10 +9,10 @@
 import Foundation
 
 enum FrameType: String, Codable {
-    case ninetyThree = "1993"
-    case ninetySeven = "1997"
-    case ohThree = "2003"
-    case ohFive = "2015"
+    case y1993 = "1993"
+    case y1997 = "1997"
+    case y2003 = "2003"
+    case y2015 = "2015"
     case future = "future"
     
     init(from decoder: Decoder) throws {
