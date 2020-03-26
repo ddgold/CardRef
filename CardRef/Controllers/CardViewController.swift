@@ -176,9 +176,9 @@ class CardViewController: UITableViewController {
         var cells = [UITableViewCell]()
         if let faces = card.cardFaces {
             for face in faces {
-                let imageCell = ImageTableViewCell()
-                imageCell.card = card
-                cells.append(imageCell)
+//                let imageCell = ImageTableViewCell()
+//                imageCell.card = card
+//                cells.append(imageCell)
                 
                 let nameCell = LabelTableViewCell()
                 nameCell.label.style = .bold
@@ -219,9 +219,9 @@ class CardViewController: UITableViewController {
             }
         }
         else {
-            let imageCell = ImageTableViewCell()
-            imageCell.card = card
-            cells.append(imageCell)
+//            let imageCell = ImageTableViewCell()
+//            imageCell.card = card
+//            cells.append(imageCell)
             
             let nameCell = LabelTableViewCell()
             nameCell.label.style = .bold
