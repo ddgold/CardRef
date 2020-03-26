@@ -19,10 +19,10 @@ struct Datatank {
     private static var cards = [URL: Card]()
     /// Cache of catalog values.
     private static var catalogs = [URL: Catalog]()
-    /// Cache of search results.
-    private static var results = [URL: List<Card>]()
     /// Cache of card images.
     private static var images = [URL: UIImage]()
+    /// Cache of search results.
+    private static var results = [URL: List<Card>]()
     /// Cache of rulings.
     private static var rulings = [URL: List<Ruling>]()
     
@@ -242,11 +242,8 @@ struct Datatank {
     }
     
     /// Print the current status of the datatank for debuging
-    static func debugStatus() {
-        debugPrint("Datatank Status:")
-        debugPrint("- Cards: \(cards.count)")
-        debugPrint("- Results: \(results.count)")
-        debugPrint("- Images: \(images.count)")
+    static func debugStatus() -> String {
+        return "Datatank Status:\n- Cards: \(cards.count)\n- Catalogs: \(catalogs.count)\n- Images: \(images.count)\n- Results: \(results.count)\n- Rulings: \(rulings.count)"
     }
     
     

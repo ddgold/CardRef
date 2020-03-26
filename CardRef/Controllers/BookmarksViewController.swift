@@ -190,6 +190,7 @@ class BookmarksViewController: UITableViewController {
                 self.cards = cards
                 self.loadingData = false
                 self.tableView.reloadData()
+                print(Datatank.debugStatus())
             })
         }, errorHandler: { (responseError) in
             responseError.fatal()
