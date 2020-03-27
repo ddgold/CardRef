@@ -12,6 +12,18 @@ import XCTest
 class DatatankTests: XCTestCase {
     
     //MARK: - Cards
+    func testDebugCards() {
+        let cards = Datatank.cards("DebugCards")
+        
+        XCTAssert(cards.count == 1)
+        
+        let ragingGoblin = cards[0]
+        XCTAssert(ragingGoblin.name == "Raging Goblin")
+        XCTAssert(ragingGoblin.cmc == 1)
+        XCTAssert(ragingGoblin.colors == [.red])
+        
+    }
+    
     func testRagingGoblin() {
         let expectation = self.expectation(description: "Download Raging Goblin card")
         

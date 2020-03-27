@@ -33,10 +33,9 @@
 		CA79FA7024286498007EE4FA /* FrameEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA79FA6F24286498007EE4FA /* FrameEffect.swift */; };
 		CA79FA72242868F9007EE4FA /* FrameType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA79FA71242868F9007EE4FA /* FrameType.swift */; };
 		CA79FA7424287040007EE4FA /* Catalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA79FA7324287040007EE4FA /* Catalog.swift */; };
+		CA79FA7E242D9F7E007EE4FA /* DebugCards.json in Resources */ = {isa = PBXBuildFile; fileRef = CA79FA7D242D9F7E007EE4FA /* DebugCards.json */; };
 		CA88C52D22C5D79C00C307B7 /* RulingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA88C52C22C5D79C00C307B7 /* RulingTableViewCell.swift */; };
-		CA88C53122C7CFE100C307B7 /* FiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA88C53022C7CFE100C307B7 /* FiltersViewController.swift */; };
 		CA88C54622CEB72F00C307B7 /* Rarity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA88C54522CEB72F00C307B7 /* Rarity.swift */; };
-		CA88C54922D2856C00C307B7 /* StatFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA88C54722D2856C00C307B7 /* StatFilterViewController.swift */; };
 		CA88C54A22D2856C00C307B7 /* SelectFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA88C54822D2856C00C307B7 /* SelectFilterViewController.swift */; };
 		CAC8B41D22B0AF5F0085FDF2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC8B41C22B0AF5F0085FDF2 /* AppDelegate.swift */; };
 		CAC8B42722B0AF610085FDF2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CAC8B42522B0AF610085FDF2 /* LaunchScreen.storyboard */; };
@@ -82,10 +81,9 @@
 		CA79FA6F24286498007EE4FA /* FrameEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameEffect.swift; sourceTree = "<group>"; };
 		CA79FA71242868F9007EE4FA /* FrameType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameType.swift; sourceTree = "<group>"; };
 		CA79FA7324287040007EE4FA /* Catalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Catalog.swift; sourceTree = "<group>"; };
+		CA79FA7D242D9F7E007EE4FA /* DebugCards.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DebugCards.json; sourceTree = "<group>"; };
 		CA88C52C22C5D79C00C307B7 /* RulingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulingTableViewCell.swift; sourceTree = "<group>"; };
-		CA88C53022C7CFE100C307B7 /* FiltersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FiltersViewController.swift; sourceTree = "<group>"; };
 		CA88C54522CEB72F00C307B7 /* Rarity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rarity.swift; sourceTree = "<group>"; };
-		CA88C54722D2856C00C307B7 /* StatFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatFilterViewController.swift; sourceTree = "<group>"; };
 		CA88C54822D2856C00C307B7 /* SelectFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectFilterViewController.swift; sourceTree = "<group>"; };
 		CAC8B41922B0AF5F0085FDF2 /* CardRef.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardRef.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAC8B41C22B0AF5F0085FDF2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -121,8 +119,6 @@
 			children = (
 				CA48CC0922B4A724009C0E59 /* BookmarksViewController.swift */,
 				CA48CC0B22B4B3C0009C0E59 /* CardViewController.swift */,
-				CA88C53022C7CFE100C307B7 /* FiltersViewController.swift */,
-				CA88C54722D2856C00C307B7 /* StatFilterViewController.swift */,
 				CA48CC1722B74A53009C0E59 /* SearchViewController.swift */,
 				CA88C54822D2856C00C307B7 /* SelectFilterViewController.swift */,
 				CA48CC0222B4A0FE009C0E59 /* TabBarController.swift */,
@@ -166,6 +162,7 @@
 			children = (
 				CAC8B41C22B0AF5F0085FDF2 /* AppDelegate.swift */,
 				CA48CC2822C04BD6009C0E59 /* Theme.swift */,
+				CA79FA7D242D9F7E007EE4FA /* DebugCards.json */,
 				CA48CC0422B4A104009C0E59 /* Controllers */,
 				CAC8B44122B0B1140085FDF2 /* Enums */,
 				CAC8B43E22B0AFF60085FDF2 /* Model */,
@@ -299,6 +296,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CA79FA7E242D9F7E007EE4FA /* DebugCards.json in Resources */,
 				CA48CC1F22B9DEAC009C0E59 /* Assets.xcassets in Resources */,
 				CAC8B42722B0AF610085FDF2 /* LaunchScreen.storyboard in Resources */,
 			);
@@ -331,7 +329,6 @@
 				CA48CC0322B4A0FE009C0E59 /* TabBarController.swift in Sources */,
 				CA48CC2522B9F19B009C0E59 /* LabelTableViewCell.swift in Sources */,
 				CA48CC0E22B57DC3009C0E59 /* List.swift in Sources */,
-				CA88C54922D2856C00C307B7 /* StatFilterViewController.swift in Sources */,
 				CA48CBF622B33C82009C0E59 /* Layout.swift in Sources */,
 				CA79FA7424287040007EE4FA /* Catalog.swift in Sources */,
 				CA88C54622CEB72F00C307B7 /* Rarity.swift in Sources */,
@@ -343,7 +340,6 @@
 				CA48CC2922C04BD6009C0E59 /* Theme.swift in Sources */,
 				CA48CC1822B74A53009C0E59 /* SearchViewController.swift in Sources */,
 				CA79FA7024286498007EE4FA /* FrameEffect.swift in Sources */,
-				CA88C53122C7CFE100C307B7 /* FiltersViewController.swift in Sources */,
 				CA48CC1222B6A017009C0E59 /* RequestError.swift in Sources */,
 				CAC8B41D22B0AF5F0085FDF2 /* AppDelegate.swift in Sources */,
 				CA48CC1422B72AEC009C0E59 /* Search.swift in Sources */,
@@ -435,7 +431,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -490,7 +486,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -507,6 +503,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DAPF2S46N8;
 				INFOPLIST_FILE = CardRef/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -525,6 +522,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DAPF2S46N8;
 				INFOPLIST_FILE = CardRef/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -16,7 +16,7 @@ struct Datatank {
     private static let decoder = JSONDecoder()
     
     /// Cache of individual cards.
-    private static var cards = [URL: Card]()
+    private static var cards = [String: Card]()
     /// Cache of catalog values.
     private static var catalogs = [URL: Catalog]()
     /// Cache of card images.
@@ -42,22 +42,21 @@ struct Datatank {
     ///   - resultHandler: The completion handler for when the request returns a result.
     ///   - errorHandler: The completion handler for when the request returns an error.
     static func card(_ id: String, resultHandler: @escaping (Card) -> Void, errorHandler: @escaping (RequestError) -> Void) {
-        let url = URL(string: "https://api.scryfall.com/cards/\(id)")!
-        
         // Check cache
-        if let card = cards[url] {
-            os_log("card cached: %{PUBLIC}@", log: OSLog.datatank, type: .info, url.absoluteString)
+        if let card = cards[id] {
+            os_log("card cached: %{PUBLIC}@", log: OSLog.datatank, type: .info, id)
             resultHandler(card)
             return
         }
         
         // Else request card from server, asynchronous
+        let url = URL(string: "https://api.scryfall.com/cards/\(id)")!
         request(url, resultHandler: { (card: Card) in
-            os_log("card downloaded: %{PUBLIC}@", log: OSLog.datatank, type: .info, url.absoluteString)
+            os_log("card downloaded: %{PUBLIC}@", log: OSLog.datatank, type: .info, id)
             resultHandler(card)
-            cards[url] = card
+            cards[id] = card
         }, errorHandler: { (error: RequestError) in
-            os_log("card download error: %{PUBLIC}@", log: OSLog.datatank, type: .error, url.absoluteString)
+            os_log("card download error: %{PUBLIC}@", log: OSLog.datatank, type: .error, id)
             errorHandler(error)
         })
     }
@@ -89,6 +88,19 @@ struct Datatank {
                 }
             })
         }
+    }
+    
+    /// Load multiple cards from a .JSON file.
+    ///
+    /// - Parameter filename: The name of the .JSON file.
+    /// - Returns: An array of cards decoded from file.
+    static func cards(_ filename: String) -> [Card] {
+        let cards: [Card] = load(filename)
+        for card in cards {
+            os_log("card loaded: %{PUBLIC}@", log: OSLog.datatank, type: .info, card.id)
+            self.cards[card.id] = card
+        }
+        return cards
     }
     
     /// Load a catalog via webservice or cache.
@@ -204,7 +216,7 @@ struct Datatank {
             resultHandler(result)
             results[url] = result
             for card in result.data {
-                cards[card.url] = card
+                cards[card.id] = card
             }
         }, errorHandler: { (error: RequestError) in
             os_log("search download error: %{PUBLIC}@", log: OSLog.datatank, type: .error, url.absoluteString)
@@ -233,7 +245,7 @@ struct Datatank {
             resultHandler(result)
             results[url] = result
             for card in result.data {
-                cards[card.url] = card
+                cards[card.id] = card
             }
         }, errorHandler: { (error: RequestError) in
             os_log("next page download error: %{PUBLIC}@", log: OSLog.datatank, type: .error, url.absoluteString)
@@ -249,24 +261,24 @@ struct Datatank {
     
     
     //MARK: - Private Functions
-    /// Request the JSON from a URL.
+    /// Request JSON from a URL.
     ///
     /// - Parameters:
     ///   - url: The URL.
     ///   - resultHandler: The completion handler for when the request returns a result.
     ///   - errorHandler: The completion handler for when the request returns an error.
-    private static func request<ObjectType: Codable>(_ url: URL, resultHandler: @escaping (ObjectType) -> Void, errorHandler: @escaping (RequestError) -> Void) {
+    private static func request<ObjectType: Decodable>(_ url: URL, resultHandler: @escaping (ObjectType) -> Void, errorHandler: @escaping (RequestError) -> Void) {
         URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) -> Void in
             if let error = error {
-                fatalError("URLSession error in request: \(error.localizedDescription)")
+                fatalError("URLSession error in request: \(url) - \(error.localizedDescription)")
             }
             
             guard let data = data else {
-                fatalError("No data in request")
+                fatalError("No data in request: \(url)")
             }
             
             guard let response = response as? HTTPURLResponse else {
-                fatalError("No response in request")
+                fatalError("No response in request: \(url)")
             }
             
             do {
@@ -280,12 +292,12 @@ struct Datatank {
                 }
             }
             catch {
-                fatalError("Decoder error in request: \(error.localizedDescription)")
+                fatalError("Decoder error in request: \(url) - \(error.localizedDescription)")
             }
         }).resume()
     }
     
-    /// Request an image from a URL.
+    /// Load an image from a URL.
     ///
     /// - Parameters:
     ///   - url: The URL.
@@ -294,21 +306,21 @@ struct Datatank {
     private static func request(_ url: URL, resultHandler: @escaping (UIImage) -> Void, errorHandler: @escaping (RequestError) -> Void) {
         URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) -> Void in
             if let error = error {
-                fatalError("URLSession error in request: \(error.localizedDescription)")
+                fatalError("URLSession error in request: \(url) - \(error.localizedDescription)")
             }
             
             guard let data = data else {
-                fatalError("No data in request")
+                fatalError("No data in request: \(url)")
             }
             
             guard let response = response as? HTTPURLResponse else {
-                fatalError("No response in request")
+                fatalError("No response in request: \(url)")
             }
             
             do {
                 if (response.statusCode == 200) {
                     guard let image = UIImage(data: data) else {
-                        fatalError("Data is not a properly formated image.")
+                        fatalError("Data is not a properly formated image: \(url)")
                     }
                     resultHandler(image)
                 }
@@ -318,9 +330,34 @@ struct Datatank {
                 }
             }
             catch {
-                fatalError("Decoder error in request: \(error.localizedDescription)")
+                fatalError("Decoder error in request: \(url) - \(error.localizedDescription)")
             }
         }).resume()
+    }
+    
+    /// Load an object from a .JSON file.
+    ///
+    /// - Parameters:
+    ///   - url: The name of the .JSON file.
+    /// - Returns: The decoded JSON object.
+    private static func load<ObjectType: Decodable>(_ filename: String) -> ObjectType {
+        let data: Data
+        
+        guard let file = Bundle.main.url(forResource: filename, withExtension: ".json") else {
+            fatalError("File not found in load: \(filename)")
+        }
+        
+        do {
+            data = try Data(contentsOf: file)
+        } catch {
+            fatalError("Data error in load: \(filename) - \(error)")
+        }
+        
+        do {
+            return try JSONDecoder().decode(ObjectType.self, from: data)
+        } catch {
+            fatalError("Invalid JSON in load: \(filename) - \(ObjectType.self) - \(error)")
+        }
     }
 }
 

@@ -101,7 +101,7 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
     /// Fixes the number of sections to 1.
     ///
     /// - Parameter tableView: The table view.
-    /// - Returns: Tje number of sections.
+    /// - Returns: The number of sections.
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }

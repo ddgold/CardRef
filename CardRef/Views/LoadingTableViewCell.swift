@@ -11,7 +11,7 @@ import UIKit
 class LoadingTableViewCell: UITableViewHeaderFooterView {
     //MARK: - Properties
     /// Activity indicator spinner.
-    private var spinner = UIActivityIndicatorView(style: .gray)
+    private var spinner = UIActivityIndicatorView(style: .medium)
     
     
     
@@ -58,12 +58,5 @@ class LoadingTableViewCell: UITableViewHeaderFooterView {
     @objc func updateTheme(_: Notification?) {
         backgroundView = UIView()
         backgroundView!.backgroundColor = Theme.backgroundColor
-        
-        switch Theme.barStyle {
-        case .default:
-            spinner.style = .gray
-        default:
-            spinner.style = .white
-        }
     }
 }

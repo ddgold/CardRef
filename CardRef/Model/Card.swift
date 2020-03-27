@@ -113,7 +113,7 @@ struct Card: Codable {
     /// An object listing available imagery for this card. See the Card Imagery article for more information.
     let imageURLs: [ImageType: URL]?
     /// An object containing daily price information for this card, including usd, usd_foil, eur, and tix prices, as strings.
-    let prices: [String: String?]
+    let prices: [String: String?]?
     /// The localized name printed on this card, if any.
     let printedName: String?
     /// The localized text printed on this card, if any.
@@ -125,7 +125,7 @@ struct Card: Codable {
     /// An array of strings describing what categories of promo cards this card falls into.
     let promoTypes: [String]?
     /// An object providing URIs to this card’s listing on major marketplaces.
-    let purchaseURLs: [String: URL]
+    let purchaseURLs: [String: URL]?
     /// This card’s rarity. One of common, uncommon, rare, or mythic.
     let rarity: Rarity
     /// An object providing URIs to this card’s listing on other Magic: The Gathering online resources.
@@ -231,13 +231,13 @@ struct Card: Codable {
         else {
             self.imageURLs = nil
         }
-        self.prices = try container.decode([String: String?].self, forKey: .prices)
+        self.prices = try container.decodeIfPresent([String: String?].self, forKey: .prices)
         self.printedName = try container.decodeIfPresent(String.self, forKey: .printedName)
         self.printedText = try container.decodeIfPresent(String.self, forKey: .printedText)
         self.printedTypeLine = try container.decodeIfPresent(String.self, forKey: .printedTypeLine)
         self.promo = try container.decode(Bool.self, forKey: .promo)
         self.promoTypes = try container.decodeIfPresent([String].self, forKey: .promoTypes)
-        self.purchaseURLs = try container.decode([String: URL].self, forKey: .purchaseURLs)
+        self.purchaseURLs = try container.decodeIfPresent([String: URL].self, forKey: .purchaseURLs)
         self.rarity = try container.decode(Rarity.self, forKey: .rarity)
         self.relatedURLs = try container.decode([String: URL].self, forKey: .relatedURLs)
         self.releasedAt = try container.decode(String.self, forKey: .releasedAt)
