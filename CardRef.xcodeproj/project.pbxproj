@@ -34,6 +34,8 @@
 		CA79FA72242868F9007EE4FA /* FrameType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA79FA71242868F9007EE4FA /* FrameType.swift */; };
 		CA79FA7424287040007EE4FA /* Catalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA79FA7324287040007EE4FA /* Catalog.swift */; };
 		CA79FA7E242D9F7E007EE4FA /* DebugCards.json in Resources */ = {isa = PBXBuildFile; fileRef = CA79FA7D242D9F7E007EE4FA /* DebugCards.json */; };
+		CA79FA81242DA9D5007EE4FA /* StatFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA79FA7F242DA9D5007EE4FA /* StatFilterViewController.swift */; };
+		CA79FA82242DA9D5007EE4FA /* FiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA79FA80242DA9D5007EE4FA /* FiltersViewController.swift */; };
 		CA88C52D22C5D79C00C307B7 /* RulingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA88C52C22C5D79C00C307B7 /* RulingTableViewCell.swift */; };
 		CA88C54622CEB72F00C307B7 /* Rarity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA88C54522CEB72F00C307B7 /* Rarity.swift */; };
 		CA88C54A22D2856C00C307B7 /* SelectFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA88C54822D2856C00C307B7 /* SelectFilterViewController.swift */; };
@@ -82,6 +84,8 @@
 		CA79FA71242868F9007EE4FA /* FrameType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameType.swift; sourceTree = "<group>"; };
 		CA79FA7324287040007EE4FA /* Catalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Catalog.swift; sourceTree = "<group>"; };
 		CA79FA7D242D9F7E007EE4FA /* DebugCards.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DebugCards.json; sourceTree = "<group>"; };
+		CA79FA7F242DA9D5007EE4FA /* StatFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatFilterViewController.swift; sourceTree = "<group>"; };
+		CA79FA80242DA9D5007EE4FA /* FiltersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltersViewController.swift; sourceTree = "<group>"; };
 		CA88C52C22C5D79C00C307B7 /* RulingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RulingTableViewCell.swift; sourceTree = "<group>"; };
 		CA88C54522CEB72F00C307B7 /* Rarity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rarity.swift; sourceTree = "<group>"; };
 		CA88C54822D2856C00C307B7 /* SelectFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectFilterViewController.swift; sourceTree = "<group>"; };
@@ -117,6 +121,8 @@
 		CA48CC0422B4A104009C0E59 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				CA79FA80242DA9D5007EE4FA /* FiltersViewController.swift */,
+				CA79FA7F242DA9D5007EE4FA /* StatFilterViewController.swift */,
 				CA48CC0922B4A724009C0E59 /* BookmarksViewController.swift */,
 				CA48CC0B22B4B3C0009C0E59 /* CardViewController.swift */,
 				CA48CC1722B74A53009C0E59 /* SearchViewController.swift */,
@@ -324,6 +330,8 @@
 				CA48CC2122B9E589009C0E59 /* CardLabel.swift in Sources */,
 				CA48CC1A22B88AFB009C0E59 /* LoadingTableViewCell.swift in Sources */,
 				CA48CBF422B33816009C0E59 /* SetType.swift in Sources */,
+				CA79FA82242DA9D5007EE4FA /* FiltersViewController.swift in Sources */,
+				CA79FA81242DA9D5007EE4FA /* StatFilterViewController.swift in Sources */,
 				CAC8B43D22B0AF7A0085FDF2 /* Card.swift in Sources */,
 				CA79FA72242868F9007EE4FA /* FrameType.swift in Sources */,
 				CA48CC0322B4A0FE009C0E59 /* TabBarController.swift in Sources */,
