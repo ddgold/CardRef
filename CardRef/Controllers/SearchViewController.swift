@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 /// Search view controller.
 class SearchViewController: UITableViewController, UISearchBarDelegate {
@@ -195,8 +196,7 @@ class SearchViewController: UITableViewController, UISearchBarDelegate {
     ///   - indexPath: The path to cell, section must be 0, and row less then number of cards.
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath.item < cards.count) {
-            let cardViewController = CardViewController()
-            cardViewController.card = cards[indexPath.row]
+            let cardViewController = UIHostingController(rootView: CardView(card: cards[indexPath.row]))
             navigationController?.pushViewController(cardViewController, animated: true)
         }
     }

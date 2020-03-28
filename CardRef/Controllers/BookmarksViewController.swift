@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftUI
 
 /// Bookmarks view controller.
 class BookmarksViewController: UITableViewController {
@@ -151,8 +152,7 @@ class BookmarksViewController: UITableViewController {
         assert(loadingData ? (indexPath.row == 0) : (indexPath.row < cards.count))
         
         if !loadingData {
-            let cardViewController = CardViewController()
-            cardViewController.card = cards[indexPath.row]
+            let cardViewController = UIHostingController(rootView: CardView(card: cards[indexPath.row]))
             navigationController?.pushViewController(cardViewController, animated: true)
         }
     }

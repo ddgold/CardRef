@@ -66,9 +66,9 @@ class ImageTableViewCell: UITableViewCell {
     ///
     /// - Parameters:
     ///   - image: The image object.
-    private func resultHandler(image: UIImage) -> Void {
+    private func resultHandler(image: CGImage) -> Void {
         DispatchQueue.main.async(execute: { () -> Void in
-            self.cardImage.image = image
+            self.cardImage.image = UIImage(cgImage: image)
         })
     }
     

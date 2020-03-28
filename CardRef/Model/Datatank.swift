@@ -6,7 +6,9 @@
 //  Copyright © 2019 Doug Goldstein. All rights reserved.
 //
 
-import UIKit
+import Foundation
+import CoreGraphics
+import ImageIO
 import os.log
 
 /// A singleton datatank object that processes all loading of, and caching of, data from webservices.
@@ -20,7 +22,7 @@ struct Datatank {
     /// Cache of catalog values.
     private static var catalogs = [URL: Catalog]()
     /// Cache of card images.
-    private static var images = [URL: UIImage]()
+    private static var images = [URL: CGImage]()
     /// Cache of search results.
     private static var results = [URL: List<Card>]()
     /// Cache of rulings.
@@ -138,7 +140,7 @@ struct Datatank {
     ///   - type: The type of image.
     ///   - resultHandler: The completion handler for when the request returns a result.
     ///   - errorHandler: The completion handler for when the request returns an error.
-    static func image(_ card: Card, type: ImageType, resultHandler: @escaping (UIImage) -> Void, errorHandler: @escaping (RequestError) -> Void) {
+    static func image(_ card: Card, type: ImageType, resultHandler: @escaping (CGImage) -> Void, errorHandler: @escaping (RequestError) -> Void) {
         // Select URl from card
         let url: URL
         if card.layout == .transform {
@@ -156,7 +158,7 @@ struct Datatank {
         }
         
         // Else request card image from server, asynchronous
-        request(url, resultHandler: { (image: UIImage) in
+        request(url, resultHandler: { (image: CGImage) in
             os_log("image downloaded: %{PUBLIC}@", log: OSLog.datatank, type: .info, url.absoluteString)
             resultHandler(image)
             images[url] = image
@@ -303,7 +305,7 @@ struct Datatank {
     ///   - url: The URL.
     ///   - resultHandler: The completion handler for when the request returns a result.
     ///   - errorHandler: The completion handler for when the request returns an error.
-    private static func request(_ url: URL, resultHandler: @escaping (UIImage) -> Void, errorHandler: @escaping (RequestError) -> Void) {
+    private static func request(_ url: URL, resultHandler: @escaping (CGImage) -> Void, errorHandler: @escaping (RequestError) -> Void) {
         URLSession.shared.dataTask(with: url, completionHandler: { (data, response, error) -> Void in
             if let error = error {
                 fatalError("URLSession error in request: \(url) - \(error.localizedDescription)")
@@ -319,8 +321,11 @@ struct Datatank {
             
             do {
                 if (response.statusCode == 200) {
-                    guard let image = UIImage(data: data) else {
-                        fatalError("Data is not a properly formated image: \(url)")
+                    guard
+                        let imageSource = CGImageSourceCreateWithData(data as CFData, nil),
+                        let image = CGImageSourceCreateImageAtIndex(imageSource, 0, nil)
+                    else {
+                        fatalError("Improperly formated image data in request: \(url)")
                     }
                     resultHandler(image)
                 }
@@ -358,6 +363,33 @@ struct Datatank {
         } catch {
             fatalError("Invalid JSON in load: \(filename) - \(ObjectType.self) - \(error)")
         }
+    }
+    
+    /// Load an image from a .png file.
+    ///
+    /// - Parameters:
+    ///   - url: The name of the .png file.
+    /// - Returns: The image.
+    private static func load(_ filename: String) -> CGImage {
+        let data: Data
+        
+        guard let file = Bundle.main.url(forResource: filename, withExtension: ".png") else {
+            fatalError("File not found in load: \(filename)")
+        }
+        
+        do {
+            data = try Data(contentsOf: file)
+        } catch {
+            fatalError("Data error in load: \(filename) - \(error)")
+        }
+        guard
+            let imageSource = CGImageSourceCreateWithData(data as CFData, nil),
+            let image = CGImageSourceCreateImageAtIndex(imageSource, 0, nil)
+        else {
+            fatalError("Improperly formated image data in load: \(filename)")
+        }
+        
+        return image
     }
 }
 
