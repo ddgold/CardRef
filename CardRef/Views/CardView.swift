@@ -13,7 +13,8 @@ struct CardView: View {
     
     var body: some View {
         VStack {
-            Text(card.name)
+            CardImage(card: card)
+                .navigationBarTitle(Text(self.card.name))
         }
     }
 }

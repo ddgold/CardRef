@@ -32,12 +32,13 @@
 		CA79FA72242868F9007EE4FA /* FrameType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA79FA71242868F9007EE4FA /* FrameType.swift */; };
 		CA79FA7424287040007EE4FA /* Catalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA79FA7324287040007EE4FA /* Catalog.swift */; };
 		CA79FA7E242D9F7E007EE4FA /* DebugCards.json in Resources */ = {isa = PBXBuildFile; fileRef = CA79FA7D242D9F7E007EE4FA /* DebugCards.json */; };
-		CA79FA81242DA9D5007EE4FA /* StatFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA79FA7F242DA9D5007EE4FA /* StatFilterViewController.swift */; };
 		CA79FA82242DA9D5007EE4FA /* FiltersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA79FA80242DA9D5007EE4FA /* FiltersViewController.swift */; };
 		CA79FA84242DAA2B007EE4FA /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA79FA83242DAA2B007EE4FA /* CardView.swift */; };
 		CA79FA88242DB85A007EE4FA /* cardBack.png in Resources */ = {isa = PBXBuildFile; fileRef = CA79FA87242DB85A007EE4FA /* cardBack.png */; };
+		CA79FA90242F1C82007EE4FA /* CardImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA79FA8F242F1C82007EE4FA /* CardImage.swift */; };
+		CA79FA93242F2D41007EE4FA /* SelectFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA79FA91242F2D41007EE4FA /* SelectFilterViewController.swift */; };
+		CA79FA94242F2D41007EE4FA /* StatFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA79FA92242F2D41007EE4FA /* StatFilterViewController.swift */; };
 		CA88C54622CEB72F00C307B7 /* Rarity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA88C54522CEB72F00C307B7 /* Rarity.swift */; };
-		CA88C54A22D2856C00C307B7 /* SelectFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA88C54822D2856C00C307B7 /* SelectFilterViewController.swift */; };
 		CAC8B41D22B0AF5F0085FDF2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC8B41C22B0AF5F0085FDF2 /* AppDelegate.swift */; };
 		CAC8B42722B0AF610085FDF2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CAC8B42522B0AF610085FDF2 /* LaunchScreen.storyboard */; };
 		CAC8B43222B0AF610085FDF2 /* EnumTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAC8B43122B0AF610085FDF2 /* EnumTests.swift */; };
@@ -81,12 +82,13 @@
 		CA79FA71242868F9007EE4FA /* FrameType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameType.swift; sourceTree = "<group>"; };
 		CA79FA7324287040007EE4FA /* Catalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Catalog.swift; sourceTree = "<group>"; };
 		CA79FA7D242D9F7E007EE4FA /* DebugCards.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DebugCards.json; sourceTree = "<group>"; };
-		CA79FA7F242DA9D5007EE4FA /* StatFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatFilterViewController.swift; sourceTree = "<group>"; };
 		CA79FA80242DA9D5007EE4FA /* FiltersViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiltersViewController.swift; sourceTree = "<group>"; };
 		CA79FA83242DAA2B007EE4FA /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		CA79FA87242DB85A007EE4FA /* cardBack.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cardBack.png; sourceTree = "<group>"; };
+		CA79FA8F242F1C82007EE4FA /* CardImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardImage.swift; sourceTree = "<group>"; };
+		CA79FA91242F2D41007EE4FA /* SelectFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectFilterViewController.swift; sourceTree = "<group>"; };
+		CA79FA92242F2D41007EE4FA /* StatFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatFilterViewController.swift; sourceTree = "<group>"; };
 		CA88C54522CEB72F00C307B7 /* Rarity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rarity.swift; sourceTree = "<group>"; };
-		CA88C54822D2856C00C307B7 /* SelectFilterViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectFilterViewController.swift; sourceTree = "<group>"; };
 		CAC8B41922B0AF5F0085FDF2 /* CardRef.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardRef.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CAC8B41C22B0AF5F0085FDF2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CAC8B42622B0AF610085FDF2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -119,11 +121,11 @@
 		CA48CC0422B4A104009C0E59 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				CA79FA91242F2D41007EE4FA /* SelectFilterViewController.swift */,
+				CA79FA92242F2D41007EE4FA /* StatFilterViewController.swift */,
 				CA79FA80242DA9D5007EE4FA /* FiltersViewController.swift */,
-				CA79FA7F242DA9D5007EE4FA /* StatFilterViewController.swift */,
 				CA48CC0922B4A724009C0E59 /* BookmarksViewController.swift */,
 				CA48CC1722B74A53009C0E59 /* SearchViewController.swift */,
-				CA88C54822D2856C00C307B7 /* SelectFilterViewController.swift */,
 				CA48CC0222B4A0FE009C0E59 /* TabBarController.swift */,
 			);
 			path = Controllers;
@@ -137,6 +139,7 @@
 				CA48CC1C22B8925E009C0E59 /* CardTableViewCell.swift */,
 				CA48CC2622BDF924009C0E59 /* ImageTableViewCell.swift */,
 				CA48CC1922B88AFB009C0E59 /* LoadingTableViewCell.swift */,
+				CA79FA8F242F1C82007EE4FA /* CardImage.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -320,7 +323,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CA88C54A22D2856C00C307B7 /* SelectFilterViewController.swift in Sources */,
 				CA48CC2B22C079B4009C0E59 /* Ruling.swift in Sources */,
 				CA48CC2722BDF925009C0E59 /* ImageTableViewCell.swift in Sources */,
 				CAC8B44022B0B1090085FDF2 /* Legality.swift in Sources */,
@@ -328,7 +330,7 @@
 				CA48CC1A22B88AFB009C0E59 /* LoadingTableViewCell.swift in Sources */,
 				CA48CBF422B33816009C0E59 /* SetType.swift in Sources */,
 				CA79FA82242DA9D5007EE4FA /* FiltersViewController.swift in Sources */,
-				CA79FA81242DA9D5007EE4FA /* StatFilterViewController.swift in Sources */,
+				CA79FA90242F1C82007EE4FA /* CardImage.swift in Sources */,
 				CAC8B43D22B0AF7A0085FDF2 /* Card.swift in Sources */,
 				CA79FA72242868F9007EE4FA /* FrameType.swift in Sources */,
 				CA48CC0322B4A0FE009C0E59 /* TabBarController.swift in Sources */,
@@ -346,8 +348,10 @@
 				CA48CC1222B6A017009C0E59 /* RequestError.swift in Sources */,
 				CAC8B41D22B0AF5F0085FDF2 /* AppDelegate.swift in Sources */,
 				CA48CC1422B72AEC009C0E59 /* Search.swift in Sources */,
+				CA79FA94242F2D41007EE4FA /* StatFilterViewController.swift in Sources */,
 				CA48CBF822B33EDF009C0E59 /* ImageType.swift in Sources */,
 				CA79FA84242DAA2B007EE4FA /* CardView.swift in Sources */,
+				CA79FA93242F2D41007EE4FA /* SelectFilterViewController.swift in Sources */,
 				CA48CBFC22B48F48009C0E59 /* Datatank.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

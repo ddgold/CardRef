@@ -169,6 +169,15 @@ struct Datatank {
         
     }
     
+    /// Load an image from a .png file.
+    ///
+    /// - Parameter filename: The name of the .png file.
+    /// - Returns: The image.
+    static func image(_ filename: String) -> CGImage {
+        os_log("image loaded: %{PUBLIC}@", log: OSLog.datatank, type: .info, "\(filename).png")
+        return load(filename)
+    }
+    
     /// Load rulings for a card via webservice or cache.
     ///
     /// - Parameters:
